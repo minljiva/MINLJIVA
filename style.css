@@ -1,0 +1,599 @@
+/* ============================================================
+   MINLJIVA — feuille de style principale
+   ============================================================
+   
+   PALETTE — modifier ici pour changer toutes les couleurs
+   ------------------------------------------------------------ */
+:root {
+  --vert:        #1D9E75;
+  --vert-clair:  #E1F5EE;
+  --vert-fonce:  #085041;
+
+  --violet:      #7F77DD;
+  --violet-clair:#EEEDFE;
+  --violet-fonce:#3C3489;
+
+  --orange:      #EF9F27;
+  --orange-clair:#FAEEDA;
+  --orange-fonce:#633806;
+
+  --fond:        #f9f8f5;
+  --blanc:       #ffffff;
+  --bordure:     #e8e7e3;
+  --bordure2:    #ccc;
+  --texte:       #1a1a18;
+  --texte-doux:  #5f5e5a;
+  --texte-pale:  #888;
+  --fond-bloc:   #f4f3ef;
+  --fond-hover:  #efefec;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--fond);
+  color: var(--texte);
+  padding: 2rem 1rem;
+  max-width: 780px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--texte-doux);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--vert);
+}
+
+/* ============================================================
+   POLICE CUSTOM
+   ============================================================ */
+@font-face {
+  font-family: 'Halimun';
+  src: url('fonts/Halimun.ttf') format('truetype');
+}
+
+/* ============================================================
+   HEADER — logo + navigation
+   ============================================================ */
+.site-header {
+  margin-bottom: 2rem;
+}
+
+.site-header img {
+  display: block;
+  max-width: 260px;
+  margin: 0 auto 0.75rem;
+}
+
+.nav {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 13px;
+  color: var(--texte-doux);
+  line-height: 2;
+}
+
+.nav a {
+  color: var(--texte-doux);
+  text-decoration: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.nav a:hover,
+.nav a.actif {
+  color: var(--vert);
+  font-weight: 500;
+}
+
+/* ============================================================
+   TITRES
+   ============================================================ */
+h1 {
+  font-size: 33px;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  font-family: 'Halimun', sans-serif;
+  text-align: center;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--texte);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--texte-doux);
+  margin-bottom: 1.5rem;
+  padding-left: 33px;
+}
+
+/* ============================================================
+   COMPOSANTS COMMUNS
+   ============================================================ */
+
+/* Boîte blanche avec bordure */
+.box {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Bloc coloré discret (info, astuce) */
+.tip {
+  font-size: 12px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: var(--fond-bloc);
+  border-left: 3px solid var(--vert);
+  border-radius: 0 8px 8px 0;
+  color: var(--texte-doux);
+}
+
+/* Avertissement */
+.warn {
+  font-size: 12px;
+  background: var(--orange-clair);
+  color: var(--orange-fonce);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 1rem;
+}
+
+/* Note (accent vert) */
+.note {
+  font-size: 12px;
+  color: var(--texte-doux);
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-left: 3px solid var(--vert);
+  border-radius: 0 8px 8px 0;
+  background: var(--fond-bloc);
+}
+
+/* Mariage / accord (accent violet) */
+.mariage {
+  font-size: 12px;
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: #EEEDFE18;
+  border-left: 3px solid var(--violet);
+  border-radius: 0 8px 8px 0;
+  color: var(--texte-doux);
+}
+
+/* Info pot / culture (accent orange) */
+.pot-info {
+  font-size: 12px;
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: #FAEEDA44;
+  border-left: 3px solid var(--orange);
+  border-radius: 0 8px 8px 0;
+  color: var(--texte-doux);
+}
+
+/* ============================================================
+   ONGLETS (tabs)
+   ============================================================ */
+.tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--bordure2);
+  background: transparent;
+  color: var(--texte-doux);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tab:hover {
+  border-color: #999;
+  color: var(--texte);
+}
+
+.tab.active {
+  background: var(--fond-hover);
+  color: var(--texte);
+  border-color: #999;
+  font-weight: 500;
+}
+
+/* ============================================================
+   FILTRES (boutons de filtre)
+   ============================================================ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.filter-btn {
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--bordure2);
+  background: transparent;
+  color: var(--texte-doux);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn.active {
+  background: var(--fond-hover);
+  color: var(--texte);
+  border-color: #999;
+  font-weight: 500;
+}
+
+/* ============================================================
+   CARTES HERBORISTE
+   ============================================================ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.plant-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--texte);
+}
+
+.plant-latin {
+  font-size: 12px;
+  color: var(--texte-doux);
+  margin-bottom: 6px;
+}
+
+.desc {
+  font-size: 13px;
+  color: var(--texte-doux);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.badge-med   { background: var(--vert-clair);   color: var(--vert-fonce); }
+.badge-cul   { background: var(--orange-clair); color: var(--orange-fonce); }
+.badge-orn   { background: #FBEAF0;             color: #72243E; }
+.badge-fruit { background: #EAF3DE;             color: #27500A; }
+.badge-arom  { background: var(--orange-clair); color: var(--orange-fonce); }
+.badge-imm   { background: var(--violet-clair); color: var(--violet-fonce); }
+.badge-ete   { background: #FBEAF0;             color: #72243E; }
+.badge-adapt { background: #EAF3DE;             color: #27500A; }
+.badge-mel   { background: var(--fond-hover);   color: #444441; }
+
+/* ============================================================
+   TAGS (petits labels)
+   ============================================================ */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.tag {
+  font-size: 11px;
+  background: var(--fond-bloc);
+  color: var(--texte-doux);
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid var(--bordure);
+}
+
+/* ============================================================
+   RECETTES (TISANES + CUISINE)
+   ============================================================ */
+.recipe {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 12px;
+}
+
+.recipe-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.recipe-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.recipe-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--texte);
+  margin: 0 0 2px;
+}
+
+.recipe-sub {
+  font-size: 12px;
+  color: var(--texte-doux);
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .row { grid-template-columns: 1fr; }
+}
+
+.block {
+  background: var(--fond-bloc);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.block-label {
+  font-size: 11px;
+  color: var(--texte-pale);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 4px;
+}
+
+.block-val {
+  font-size: 13px;
+  color: var(--texte);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   ÉTAPES (how-to)
+   ============================================================ */
+.how-box {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.step:last-child { margin-bottom: 0; }
+
+.step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--vert-clair);
+  color: var(--vert-fonce);
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.step-text {
+  font-size: 13px;
+  color: var(--texte-doux);
+  line-height: 1.6;
+}
+
+.step-text strong {
+  color: var(--texte);
+  font-weight: 500;
+}
+
+/* ============================================================
+   GRILLE MOMENTS (par moment de la journée)
+   ============================================================ */
+.moment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+/* ============================================================
+   PAGE AVENIR — expositions & filtres spéciaux
+   ============================================================ */
+.filter-label {
+  font-size: 11px;
+  color: var(--texte-pale);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 4px;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.expo-btn.active-est   { background: #E6F1FB; color: #0C447C; border-color: #378ADD; }
+.expo-btn.active-ouest { background: var(--orange-clair); color: var(--orange-fonce); border-color: var(--orange); }
+.expo-btn.active-ombre { background: #EAF3DE; color: #27500A; border-color: #639922; }
+.expo-btn.active-all   { background: var(--fond-hover); color: var(--texte); border-color: #999; }
+
+.expo-tag { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; }
+.expo-est   { background: #E6F1FB; color: #0C447C; }
+.expo-ouest { background: var(--orange-clair); color: var(--orange-fonce); }
+.expo-ombre { background: #EAF3DE; color: #27500A; }
+.expo-both  { background: var(--fond-hover); color: #444441; }
+
+.count-bar { font-size: 12px; color: var(--texte-pale); margin-bottom: 1rem; }
+.card.prio { border: 2px solid var(--vert); }
+.prio-label {
+  font-size: 11px;
+  background: var(--vert-clair);
+  color: var(--vert-fonce);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--texte-pale);
+  font-size: 14px;
+}
+
+/* ============================================================
+   INDEX — liens liste
+   ============================================================ */
+.lien1 {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 2px 0;
+}
+
+/* ============================================================
+   PAGE CODING — cheat sheet
+   ============================================================ */
+.code-section {
+  margin-bottom: 1.5rem;
+}
+
+.code-section-title {
+  font-size: 11px;
+  color: var(--texte-pale);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+  padding-left: 2px;
+}
+
+.code-card {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 8px;
+}
+
+.code-card-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texte);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.code-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.code-dot-vert   { background: var(--vert); }
+.code-dot-violet { background: var(--violet); }
+.code-dot-orange { background: var(--orange); }
+
+.code-desc {
+  font-size: 13px;
+  color: var(--texte-doux);
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.code-block {
+  background: #1a1a18;
+  color: #e8e7e3;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin-top: 6px;
+}
+
+.code-block .kw  { color: var(--violet-clair); } /* mots-clés */
+.code-block .str { color: #a8e6cf; }              /* strings */
+.code-block .com { color: #666; font-style: italic; } /* commentaires */
+.code-block .num { color: var(--orange-clair); }  /* nombres */
+.code-block .tag { color: #f8c291; border: none; background: none; padding: 0; border-radius: 0; font-size: 12px; } /* balises HTML */
+.code-block .atr { color: var(--vert-clair); }    /* attributs */
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 600px) {
+  body { padding: 1rem 0.75rem; }
+  .grid { grid-template-columns: 1fr; }
+  .moment-grid { grid-template-columns: 1fr; }
+}
