@@ -15,7 +15,7 @@
       <a href="index.html">INDEX</a> /
       <a href="HERBORISTE.html">HERBORISTE</a> /
       <a href="TISANES.html">TISANES</a> /
-      <a href="RECETTE.html">RECETTES</a> /
+      <a href="RECETTE.html">RECETTES</a> /<a href="CODING.html">Coding — Minljiva</a>
       <a href="AVENIR.html">L'AVENIR</a> /
       <a href="CODING.html" class="actif">CODING</a>
     </nav>
@@ -24,395 +24,467 @@
   <h1>Coding</h1>
   <p class="subtitle">Ce que j'apprends — notes et références personnelles</p>
 
-  <!-- ONGLETS -->
-  <div class="tabs">
-    <button class="tab active" onclick="show('html', this)">HTML</button>
-    <button class="tab" onclick="show('css', this)">CSS</button>
-    <button class="tab" onclick="show('js', this)">JavaScript</button>
-    <button class="tab" onclick="show('astuces', this)">Astuces</button>
-    <button class="tab" onclick="show('github', this)">GitHub</button>
+  <div class="filter-bar">
+    <span class="filter-label">Par sujet</span>
+    <button class="filter-btn active" onclick="filterCat('all', this)">Tout</button>
+    <button class="filter-btn" onclick="filterCat('html', this)">HTML</button>
+    <button class="filter-btn" onclick="filterCat('css', this)">CSS</button>
+    <button class="filter-btn" onclick="filterCat('js', this)">JavaScript</button>
+    <button class="filter-btn" onclick="filterCat('github', this)">GitHub</button>
+
+    <span class="filter-label">Par type</span>
+    <button class="filter-btn active-all active" onclick="filterType('all', this)">Tous types</button>
+    <button class="filter-btn" onclick="filterType('base', this)">Base</button>
+    <button class="filter-btn" onclick="filterType('astuce', this)">Astuce</button>
+    <button class="filter-btn" onclick="filterType('erreur', this)">Erreur fréquente</button>
+    <button class="filter-btn" onclick="filterType('routine', this)">Routine</button>
   </div>
 
-  <!-- ====== HTML ====== -->
-  <div id="html">
+  <div class="count-bar" id="count"></div>
+  <div class="grid" id="grid"></div>
 
-    <div class="code-section">
-      <div class="code-section-title">Structure de base</div>
+  <script>
+  const notes = [
 
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Squelette HTML</div>
-        <div class="code-desc">La structure minimale de toute page web. À coller en tout début de fichier .html.</div>
-        <div class="code-block"><span class="tag">&lt;!DOCTYPE html&gt;</span>
-<span class="tag">&lt;html</span> <span class="atr">lang</span>=<span class="str">"fr"</span><span class="tag">&gt;</span>
-<span class="tag">&lt;head&gt;</span>
-  <span class="tag">&lt;meta</span> <span class="atr">charset</span>=<span class="str">"UTF-8"</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;meta</span> <span class="atr">name</span>=<span class="str">"viewport"</span> <span class="atr">content</span>=<span class="str">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;link</span> <span class="atr">rel</span>=<span class="str">"stylesheet"</span> <span class="atr">href</span>=<span class="str">"style.css"</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;title&gt;</span>Titre de la page<span class="tag">&lt;/title&gt;</span>
-<span class="tag">&lt;/head&gt;</span>
-<span class="tag">&lt;body&gt;</span>
-  <span class="com">&lt;!-- Ton contenu ici --&gt;</span>
-<span class="tag">&lt;/body&gt;</span>
-<span class="tag">&lt;/html&gt;</span></div>
-        <div class="note">⚠️ Ne jamais mettre <code>style.css</code> deux fois dans le head — une seule fois suffit !</div>
-      </div>
+    /* ======== HTML ======== */
+    {
+      cat: "html", type: "base",
+      badge: "HTML", badgeClass: "badge-cul",
+      title: "Squelette HTML",
+      desc: "La structure minimale de toute page web. À coller en tout début de fichier .html.",
+      code: `&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+  &lt;title&gt;Titre de la page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Ton contenu ici --&gt;
+&lt;/body&gt;
+&lt;/html&gt;`,
+      tip: "Ne jamais mettre style.css deux fois dans le head — une seule ligne suffit !"
+    },
+    {
+      cat: "html", type: "base",
+      badge: "HTML", badgeClass: "badge-cul",
+      title: "Commentaires HTML",
+      desc: "Les commentaires ne s'affichent pas dans le navigateur. Utiles pour s'organiser.",
+      code: `&lt;!-- Ceci est un commentaire --&gt;
 
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Commentaires HTML</div>
-        <div class="code-desc">Les commentaires ne s'affichent pas dans le navigateur. Utiles pour s'organiser.</div>
-        <div class="code-block"><span class="com">&lt;!-- Ceci est un commentaire --&gt;</span>
+&lt;!-- ====== DÉBUT DU MENU ====== --&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;!-- ====== FIN DU MENU ====== --&gt;`,
+      tip: null
+    },
+    {
+      cat: "html", type: "base",
+      badge: "HTML", badgeClass: "badge-cul",
+      title: "Titres et paragraphes",
+      desc: "Les titres vont de h1 (plus grand) à h6 (plus petit). Un seul h1 par page.",
+      code: `&lt;h1&gt;Titre principal&lt;/h1&gt;
+&lt;h2&gt;Sous-titre&lt;/h2&gt;
+&lt;h3&gt;Sous-sous-titre&lt;/h3&gt;
+&lt;p&gt;Un paragraphe de texte.&lt;/p&gt;`,
+      tip: null
+    },
+    {
+      cat: "html", type: "base",
+      badge: "HTML", badgeClass: "badge-cul",
+      title: "Liens et images",
+      desc: "Les liens (a) pointent vers une URL ou un fichier. Les images (img) n'ont pas de balise fermante.",
+      code: `&lt;!-- Lien --&gt;
+&lt;a href="TISANES.html"&gt;Voir les tisanes&lt;/a&gt;
 
-<span class="com">&lt;!-- ====== DÉBUT DU MENU ====== --&gt;</span>
-<span class="tag">&lt;nav&gt;</span>...<span class="tag">&lt;/nav&gt;</span>
-<span class="com">&lt;!-- ====== FIN DU MENU ====== --&gt;</span></div>
-      </div>
-    </div>
+&lt;!-- Image --&gt;
+&lt;img src="Minljiva.png" alt="Logo Minljiva"&gt;`,
+      tip: "Le alt décrit l'image pour l'accessibilité — toujours le remplir."
+    },
+    {
+      cat: "html", type: "base",
+      badge: "HTML", badgeClass: "badge-cul",
+      title: "Div et classes",
+      desc: "Les div sont des boîtes invisibles pour grouper le contenu. La class relie une balise à un style CSS.",
+      code: `&lt;div class="box"&gt;
+  &lt;div class="card"&gt;
+    &lt;p&gt;Contenu de la carte&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`,
+      tip: "Plusieurs éléments peuvent partager la même class — c'est comme ça qu'on réutilise un style."
+    },
+    {
+      cat: "html", type: "erreur",
+      badge: "HTML", badgeClass: "badge-cul",
+      title: "Oublier de fermer une balise",
+      desc: "Chaque balise ouvrante doit avoir sa balise fermante. Une div non fermée peut casser toute la mise en page.",
+      code: `&lt;!-- ❌ Incorrect --&gt;
+&lt;div class="card"&gt;
+  &lt;p&gt;Texte
 
-    <div class="code-section">
-      <div class="code-section-title">Balises courantes</div>
+&lt;!-- ✅ Correct --&gt;
+&lt;div class="card"&gt;
+  &lt;p&gt;Texte&lt;/p&gt;
+&lt;/div&gt;`,
+      tip: "BBEdit colore les balises orphelines — repérer les zones sans couleur de fermeture."
+    },
 
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Titres et paragraphes</div>
-        <div class="code-desc">Les titres vont de h1 (plus grand) à h6 (plus petit). Un seul h1 par page.</div>
-        <div class="code-block"><span class="tag">&lt;h1&gt;</span>Titre principal<span class="tag">&lt;/h1&gt;</span>
-<span class="tag">&lt;h2&gt;</span>Sous-titre<span class="tag">&lt;/h2&gt;</span>
-<span class="tag">&lt;h3&gt;</span>Sous-sous-titre<span class="tag">&lt;/h3&gt;</span>
-<span class="tag">&lt;p&gt;</span>Un paragraphe de texte.<span class="tag">&lt;/p&gt;</span></div>
-      </div>
+    /* ======== CSS ======== */
+    {
+      cat: "css", type: "base",
+      badge: "CSS", badgeClass: "badge-med",
+      title: "Comment ça marche",
+      desc: "CSS = sélecteur + propriétés entre accolades. Le sélecteur cible qui on style, les propriétés disent comment.",
+      code: `/* sélecteur { propriété: valeur; } */
 
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Liens et images</div>
-        <div class="code-desc">Les liens (<code>a</code>) pointent vers une URL ou un fichier. Les images (<code>img</code>) n'ont pas de balise fermante.</div>
-        <div class="code-block"><span class="com">&lt;!-- Lien --&gt;</span>
-<span class="tag">&lt;a</span> <span class="atr">href</span>=<span class="str">"TISANES.html"</span><span class="tag">&gt;</span>Voir les tisanes<span class="tag">&lt;/a&gt;</span>
-
-<span class="com">&lt;!-- Image --&gt;</span>
-<span class="tag">&lt;img</span> <span class="atr">src</span>=<span class="str">"Minljiva.png"</span> <span class="atr">alt</span>=<span class="str">"Logo Minljiva"</span><span class="tag">&gt;</span></div>
-        <div class="note">Le <code>alt</code> décrit l'image pour l'accessibilité — toujours le remplir.</div>
-      </div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Div et organisation</div>
-        <div class="code-desc">Les <code>div</code> sont des boîtes invisibles qui servent à grouper et organiser le contenu.</div>
-        <div class="code-block"><span class="tag">&lt;div</span> <span class="atr">class</span>=<span class="str">"box"</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;div</span> <span class="atr">class</span>=<span class="str">"card"</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;p&gt;</span>Contenu de la carte<span class="tag">&lt;/p&gt;</span>
-  <span class="tag">&lt;/div&gt;</span>
-<span class="tag">&lt;/div&gt;</span></div>
-        <div class="tip">💡 La <code>class</code> relie la balise à un style CSS. Plusieurs éléments peuvent partager la même class.</div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ====== CSS ====== -->
-  <div id="css" style="display:none">
-
-    <div class="code-section">
-      <div class="code-section-title">Bases du CSS</div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Comment ça marche</div>
-        <div class="code-desc">CSS = sélecteur + propriétés entre accolades. Le sélecteur pointe qui on style, les propriétés disent comment.</div>
-        <div class="code-block"><span class="com">/* sélecteur { propriété: valeur; } */</span>
-
-<span class="kw">h1</span> {
-  <span class="atr">font-size</span>: <span class="num">22px</span>;
-  <span class="atr">color</span>: <span class="str">#1a1a18</span>;
+h1 {
+  font-size: 22px;
+  color: #1a1a18;
 }
 
-<span class="kw">.card</span> {                  <span class="com">/* classe = point devant */</span>
-  <span class="atr">background</span>: <span class="str">white</span>;
-  <span class="atr">border-radius</span>: <span class="num">12px</span>;
-}</div>
-      </div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Variables CSS (custom properties)</div>
-        <div class="code-desc">On définit des variables dans <code>:root</code> et on les réutilise partout. Changer une variable = changer tout le site.</div>
-        <div class="code-block"><span class="kw">:root</span> {
-  <span class="atr">--vert</span>: <span class="str">#1D9E75</span>;
-  <span class="atr">--fond</span>: <span class="str">#f9f8f5</span>;
+.card {           /* classe = point devant */
+  background: white;
+  border-radius: 12px;
+}`,
+      tip: null
+    },
+    {
+      cat: "css", type: "astuce",
+      badge: "CSS", badgeClass: "badge-med",
+      title: "Variables CSS",
+      desc: "On définit des variables dans :root et on les réutilise partout. Changer une variable = changer tout le site.",
+      code: `:root {
+  --vert:   #1D9E75;
+  --violet: #7F77DD;
+  --orange: #EF9F27;
+  --fond:   #f9f8f5;
 }
 
-<span class="kw">.nav</span> {
-  <span class="atr">background</span>: <span class="kw">var</span>(<span class="str">--fond</span>);
-  <span class="atr">color</span>: <span class="kw">var</span>(<span class="str">--vert</span>);
-}</div>
-        <div class="tip">💡 C'est exactement comme ça que fonctionne le style.css de ce projet — modifier les 3 couleurs en haut change tout !</div>
-      </div>
+.nav {
+  background: var(--fond);
+  color: var(--vert);
+}`,
+      tip: "C'est exactement comme ça que fonctionne le style.css de ce projet — les 3 couleurs en haut changent tout !"
+    },
+    {
+      cat: "css", type: "base",
+      badge: "CSS", badgeClass: "badge-med",
+      title: "Box model",
+      desc: "Chaque élément HTML est une boîte. Padding = espace intérieur. Margin = espace extérieur. Border = le bord.",
+      code: `.box {
+  padding: 1rem;         /* espace intérieur */
+  margin: 1rem 0;        /* espace extérieur */
+  border: 1px solid #ccc;/* bordure */
+  border-radius: 12px;   /* coins arrondis */
+}`,
+      tip: null
+    },
+    {
+      cat: "css", type: "base",
+      badge: "CSS", badgeClass: "badge-med",
+      title: "Flexbox",
+      desc: "Flexbox permet d'aligner des éléments côte à côte ou de les centrer facilement.",
+      code: `.nav {
+  display: flex;
+  gap: 12px;             /* espace entre éléments */
+  align-items: center;   /* centrer verticalement */
+  flex-wrap: wrap;       /* passer à la ligne si besoin */
+}`,
+      tip: null
+    },
+    {
+      cat: "css", type: "base",
+      badge: "CSS", badgeClass: "badge-med",
+      title: "Grid",
+      desc: "CSS Grid crée des mises en page en colonnes automatiquement.",
+      code: `.grid {
+  display: grid;
+  /* colonnes auto, min 300px chacune */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
+}`,
+      tip: "C'est ce qui fait que les cartes HERBORISTE s'adaptent automatiquement à la taille de l'écran."
+    },
+    {
+      cat: "css", type: "erreur",
+      badge: "CSS", badgeClass: "badge-med",
+      title: "Styles inline à éviter",
+      desc: "Mettre du style directement dans le HTML avec style=\"...\" rend le code difficile à maintenir.",
+      code: `&lt;!-- ❌ À éviter --&gt;
+&lt;p style="color: red; font-size: 14px;"&gt;Texte&lt;/p&gt;
 
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Box model — l'espace autour d'un élément</div>
-        <div class="code-desc">Chaque élément HTML est une boîte. Padding = espace intérieur. Margin = espace extérieur. Border = le bord.</div>
-        <div class="code-block"><span class="kw">.box</span> {
-  <span class="atr">padding</span>: <span class="num">1rem</span>;          <span class="com">/* espace intérieur */</span>
-  <span class="atr">margin</span>: <span class="num">1rem 0</span>;       <span class="com">/* espace extérieur (haut/bas) */</span>
-  <span class="atr">border</span>: <span class="num">1px</span> solid <span class="str">#ccc</span>;<span class="com">/* bordure */</span>
-  <span class="atr">border-radius</span>: <span class="num">12px</span>;  <span class="com">/* coins arrondis */</span>
-}</div>
-      </div>
+&lt;!-- ✅ Mieux : dans style.css --&gt;
+.texte-note {
+  color: red;
+  font-size: 14px;
+}`,
+      tip: "Tout dans style.css = un seul endroit à modifier pour changer l'apparence de tout le site."
+    },
 
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Flexbox — aligner des éléments</div>
-        <div class="code-desc">Flexbox permet d'aligner facilement des éléments côte à côte ou de les centrer.</div>
-        <div class="code-block"><span class="kw">.nav</span> {
-  <span class="atr">display</span>: <span class="kw">flex</span>;
-  <span class="atr">gap</span>: <span class="num">12px</span>;             <span class="com">/* espace entre éléments */</span>
-  <span class="atr">align-items</span>: <span class="kw">center</span>; <span class="com">/* centrer verticalement */</span>
-  <span class="atr">flex-wrap</span>: <span class="kw">wrap</span>;      <span class="com">/* passer à la ligne si besoin */</span>
-}</div>
-      </div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Grid — créer une grille</div>
-        <div class="code-desc">CSS Grid crée des mises en page en colonnes automatiquement.</div>
-        <div class="code-block"><span class="kw">.grid</span> {
-  <span class="atr">display</span>: <span class="kw">grid</span>;
-  <span class="com">/* colonnes auto, min 300px chacune */</span>
-  <span class="atr">grid-template-columns</span>: <span class="kw">repeat</span>(auto-fit, <span class="kw">minmax</span>(<span class="num">300px</span>, <span class="num">1fr</span>));
-  <span class="atr">gap</span>: <span class="num">12px</span>;
-}</div>
-        <div class="tip">💡 C'est ce qui fait que les cartes HERBORISTE s'adaptent automatiquement à la taille de l'écran.</div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ====== JAVASCRIPT ====== -->
-  <div id="js" style="display:none">
-
-    <div class="code-section">
-      <div class="code-section-title">Bases du JavaScript</div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-violet"></div>Variables</div>
-        <div class="code-desc">Les variables stockent des informations. <code>const</code> = valeur fixe. <code>let</code> = valeur qui peut changer.</div>
-        <div class="code-block"><span class="kw">const</span> nom = <span class="str">"Minljiva"</span>;     <span class="com">// texte (string)</span>
-<span class="kw">const</span> age = <span class="num">3</span>;               <span class="com">// nombre (number)</span>
-<span class="kw">let</span> actif = <span class="kw">true</span>;            <span class="com">// vrai/faux (boolean)</span>
-<span class="kw">let</span> compteur = <span class="num">0</span>;
-compteur = compteur + <span class="num">1</span>;     <span class="com">// on peut modifier avec let</span></div>
-      </div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-violet"></div>Fonctions</div>
-        <div class="code-desc">Une fonction est un bloc de code réutilisable. On la définit une fois, on l'appelle autant qu'on veut.</div>
-        <div class="code-block"><span class="com">// Définir une fonction</span>
-<span class="kw">function</span> show(id, btn) {
-  <span class="com">// cacher tous les onglets</span>
-  document.getElementById(id).style.display = <span class="str">'block'</span>;
-  btn.classList.add(<span class="str">'active'</span>);
+    /* ======== JAVASCRIPT ======== */
+    {
+      cat: "js", type: "base",
+      badge: "JavaScript", badgeClass: "badge-imm",
+      title: "Variables",
+      desc: "Les variables stockent des informations. const = valeur fixe. let = valeur qui peut changer.",
+      code: `const nom = "Minljiva";   // texte (string)
+const age = 3;            // nombre (number)
+let actif = true;         // vrai/faux (boolean)
+let compteur = 0;
+compteur = compteur + 1;  // on peut modifier avec let`,
+      tip: null
+    },
+    {
+      cat: "js", type: "base",
+      badge: "JavaScript", badgeClass: "badge-imm",
+      title: "Fonctions",
+      desc: "Une fonction est un bloc de code réutilisable. On la définit une fois, on l'appelle autant qu'on veut.",
+      code: `// Définir une fonction
+function show(id, btn) {
+  document.getElementById(id).style.display = 'block';
+  btn.classList.add('active');
 }
 
-<span class="com">// L'appeler dans le HTML :</span>
-<span class="com">// onclick="show('html', this)"</span></div>
-        <div class="tip">💡 C'est exactement la fonction utilisée pour les onglets sur cette page !</div>
-      </div>
+// L'appeler depuis le HTML :
+// onclick="show('html', this)"`,
+      tip: "C'est exactement la fonction utilisée pour les onglets sur les pages TISANES et RECETTE !"
+    },
+    {
+      cat: "js", type: "base",
+      badge: "JavaScript", badgeClass: "badge-imm",
+      title: "Manipuler le DOM",
+      desc: "DOM = la page HTML vue par JavaScript. On peut cibler des éléments et les modifier en direct.",
+      code: `// Trouver un élément par son id
+const el = document.getElementById('html');
 
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-violet"></div>Manipuler le DOM</div>
-        <div class="code-desc">DOM = la page HTML vue par JavaScript. On peut cibler des éléments et les modifier.</div>
-        <div class="code-block"><span class="com">// Trouver un élément par son id</span>
-<span class="kw">const</span> el = document.getElementById(<span class="str">'html'</span>);
+// Modifier son style
+el.style.display = 'none';    // cacher
+el.style.display = 'block';   // montrer
 
-<span class="com">// Modifier son style</span>
-el.style.display = <span class="str">'none'</span>;     <span class="com">// cacher</span>
-el.style.display = <span class="str">'block'</span>;    <span class="com">// montrer</span>
+// Ajouter / enlever une classe CSS
+el.classList.add('active');
+el.classList.remove('active');
 
-<span class="com">// Ajouter / enlever une classe CSS</span>
-el.classList.add(<span class="str">'active'</span>);
-el.classList.remove(<span class="str">'active'</span>);
+// Tous les éléments d'une classe
+document.querySelectorAll('.tab');`,
+      tip: null
+    },
+    {
+      cat: "js", type: "base",
+      badge: "JavaScript", badgeClass: "badge-imm",
+      title: "Tableaux (arrays)",
+      desc: "Un tableau stocke plusieurs valeurs. On peut les parcourir avec forEach ou les filtrer avec filter.",
+      code: `const plantes = ['Menthe', 'Thym', 'Lavande'];
 
-<span class="com">// Trouver tous les éléments d'une classe</span>
-document.querySelectorAll(<span class="str">'.tab'</span>);</div>
-      </div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-violet"></div>Tableaux (arrays)</div>
-        <div class="code-desc">Un tableau stocke plusieurs valeurs. On peut les parcourir avec <code>forEach</code> ou les filtrer avec <code>filter</code>.</div>
-        <div class="code-block"><span class="kw">const</span> plantes = [<span class="str">'Menthe'</span>, <span class="str">'Thym'</span>, <span class="str">'Lavande'</span>];
-
-<span class="com">// Parcourir</span>
-plantes.forEach(p =&gt; {
+// Parcourir
+plantes.forEach(p => {
   console.log(p);
 });
 
-<span class="com">// Filtrer</span>
-<span class="kw">const</span> med = plantes.filter(p =&gt; p === <span class="str">'Lavande'</span>);
+// Filtrer
+const med = plantes.filter(p => p === 'Lavande');
 
-<span class="com">// Transformer en HTML</span>
-<span class="kw">const</span> html = plantes.map(p =&gt; <span class="str">`&lt;li&gt;${p}&lt;/li&gt;`</span>).join(<span class="str">''</span>);</div>
-        <div class="tip">💡 C'est exactement comme ça que les cartes HERBORISTE sont générées dynamiquement depuis un tableau <code>plants</code>.</div>
-      </div>
+// Transformer en HTML
+const html = plantes.map(p => \`&lt;li&gt;\${p}&lt;/li&gt;\`).join('');`,
+      tip: "C'est comme ça que les cartes HERBORISTE et AVENIR sont générées depuis un tableau plants."
+    },
+    {
+      cat: "js", type: "astuce",
+      badge: "JavaScript", badgeClass: "badge-imm",
+      title: "Générer des cartes dynamiquement",
+      desc: "Plutôt que d'écrire le HTML de chaque carte à la main, on le génère depuis un tableau de données.",
+      code: `const data = [
+  { nom: "Thym", desc: "Antiseptique" },
+  { nom: "Menthe", desc: "Digestive" }
+];
 
-    </div>
+document.getElementById('grid').innerHTML =
+  data.map(p => \`
+    &lt;div class="card"&gt;
+      &lt;div class="plant-name"&gt;\${p.nom}&lt;/div&gt;
+      &lt;div class="desc"&gt;\${p.desc}&lt;/div&gt;
+    &lt;/div&gt;
+  \`).join('');`,
+      tip: "C'est exactement le principe de cette page CODING et de la page AVENIR !"
+    },
 
-  </div>
-
-  <!-- ====== ASTUCES ====== -->
-  <div id="astuces" style="display:none">
-
-    <div class="code-section">
-      <div class="code-section-title">Ce que j'ai appris</div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Erreurs courantes à éviter</div>
-        <div class="code-desc">Les petits pièges qu'on rencontre souvent quand on débute.</div>
-        <div class="how-box" style="margin-top:8px; margin-bottom:0;">
-          <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Ne pas lier style.css deux fois</strong> — une seule ligne <code>&lt;link rel="stylesheet"&gt;</code> dans le head suffit.</div></div>
-          <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Majuscules dans les noms de fichiers</strong> — <code>coding.html</code> ≠ <code>CODING.html</code> sur certains serveurs. Rester cohérent.</div></div>
-          <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Oublier de fermer une balise</strong> — chaque <code>&lt;div&gt;</code> doit avoir son <code>&lt;/div&gt;</code>. BBEdit colore les balises orphelines.</div></div>
-          <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Styles inline vs CSS</strong> — éviter <code>style="..."</code> dans le HTML. Mieux vaut tout mettre dans style.css pour garder le contrôle.</div></div>
-        </div>
-      </div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Raccourcis BBEdit utiles</div>
-        <div class="code-desc">Les commandes qui font gagner du temps dans BBEdit.</div>
-        <div class="block" style="margin-top:8px;">
-          <div class="block-val">
-            <strong>⌘ + S</strong> — Sauvegarder<br>
-            <strong>⌘ + Z</strong> — Annuler<br>
-            <strong>⌘ + F</strong> — Rechercher dans le fichier<br>
-            <strong>⌘ + Shift + F</strong> — Rechercher dans tout le projet<br>
-            <strong>⌘ + [</strong> / <strong>⌘ + ]</strong> — Indenter / désindenter<br>
-            <strong>⌘ + /</strong> — Commenter / décommenter
-          </div>
-        </div>
-      </div>
-
-      <div class="code-card">
-        <div class="code-card-title"><div class="code-dot code-dot-violet"></div>Anatomie d'une class CSS réutilisable</div>
-        <div class="code-desc">Comment penser quand on crée un composant pour ce projet.</div>
-        <div class="code-block"><span class="com">/* 1. La boîte conteneur */</span>
-<span class="kw">.recipe</span> { background: white; border-radius: <span class="num">12px</span>; padding: <span class="num">1.25rem</span>; }
-
-<span class="com">/* 2. L'en-tête avec icône + titre */</span>
-<span class="kw">.recipe-header</span> { display: flex; gap: <span class="num">12px</span>; }
-
-<span class="com">/* 3. Le titre */</span>
-<span class="kw">.recipe-title</span> { font-size: <span class="num">15px</span>; font-weight: <span class="num">500</span>; }
-
-<span class="com">/* 4. Le sous-titre */</span>
-<span class="kw">.recipe-sub</span> { font-size: <span class="num">12px</span>; color: <span class="str">var(--texte-doux)</span>; }</div>
-        <div class="tip">💡 On réutilise ces mêmes classes dans TISANES.html et RECETTE.html — c'est ça, un design system !</div>
-      </div>
-
-    </div>
-<!-- ====== GITHUB ====== -->
-<div id="github" style="display:none">
-
-  <div class="code-section">
-    <div class="code-section-title">C'est quoi GitHub ?</div>
-
-    <div class="code-card">
-      <div class="code-card-title"><div class="code-dot code-dot-violet"></div>Les concepts de base</div>
-      <div class="code-desc">GitHub est un endroit en ligne où on stocke et sauvegarde son code. Voici les mots importants à connaître.</div>
-      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
-        <div class="step"><div class="step-num">📁</div><div class="step-text"><strong>Repository (repo)</strong> — Le dossier de ton projet en ligne. Tout ton site Minljiva est dans un repo.</div></div>
-        <div class="step"><div class="step-num">🌿</div><div class="step-text"><strong>Branch (branche)</strong> — Une version de ton projet. Tu travailles sur la branche <code>main</code> — c'est la principale.</div></div>
-        <div class="step"><div class="step-num">💾</div><div class="step-text"><strong>Commit</strong> — Une sauvegarde avec un message qui explique ce qu'on a changé. Comme un point de restauration.</div></div>
-        <div class="step"><div class="step-num">⬆️</div><div class="step-text"><strong>Push</strong> — Envoyer ses commits locaux vers GitHub en ligne.</div></div>
-        <div class="step"><div class="step-num">⬇️</div><div class="step-text"><strong>Pull</strong> — Récupérer les derniers changements depuis GitHub vers son ordinateur.</div></div>
-        <div class="step"><div class="step-num">🍴</div><div class="step-text"><strong>Fork</strong> — Copier le projet de quelqu'un d'autre pour le modifier de son côté.</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="code-section">
-    <div class="code-section-title">Mettre à jour son site — la routine</div>
-
-    <div class="code-card">
-      <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Ce que tu fais à chaque modification</div>
-      <div class="code-desc">Tu modifies un fichier dans BBEdit → tu veux que le site en ligne se mette à jour. Voici les étapes.</div>
-      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
-        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Modifier le fichier</strong> dans BBEdit et sauvegarder (<code>⌘ + S</code>).</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Aller sur github.com</strong> → ton repo → cliquer sur le fichier à mettre à jour.</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Cliquer sur le crayon ✏️</strong> en haut à droite du fichier pour l'éditer directement en ligne. Ou glisser-déposer le fichier modifié dans l'onglet du repo.</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Écrire un message de commit</strong> en bas (ex : "Ajout recette cookies") → cliquer <strong>Commit changes</strong>.</div></div>
-        <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Attendre 1 à 3 minutes</strong> → ton site sur <code>github.io</code> est mis à jour automatiquement ✅</div></div>
-      </div>
-      <div class="tip">💡 Tu peux vérifier que le déploiement est terminé dans l'onglet <strong>Actions</strong> de ton repo — cercle vert = en ligne, cercle jaune = encore en cours.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Uploader plusieurs fichiers d'un coup</div>
-      <div class="code-desc">Quand tu as modifié plusieurs pages en même temps, inutile de les faire une par une.</div>
-      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Dans ton repo GitHub, cliquer sur <strong>Add file</strong> → <strong>Upload files</strong>.</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Glisser-déposer tous les fichiers modifiés en même temps.</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Écrire un message de commit (ex : "Mise à jour pages recettes et coding") → <strong>Commit changes</strong>.</div></div>
-      </div>
-      <div class="note">Tous les fichiers uploadés remplacent automatiquement les anciens — pas besoin de supprimer avant.</div>
-    </div>
-  </div>
-
-  <div class="code-section">
-    <div class="code-section-title">Structure de ton repo Minljiva</div>
-
-    <div class="code-card">
-      <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Ce que tu dois avoir dans ton repo</div>
-      <div class="code-desc">Tous ces fichiers doivent être à la racine du repo (pas dans un sous-dossier).</div>
-      <div class="code-block"><span class="com"># Fichiers obligatoires</span>
-index.html          <span class="com"># ⚠️ minuscule — c'est la page d'accueil</span>
-style.css           <span class="com"># la feuille de style commune</span>
-Minljiva.png        <span class="com"># le logo</span>
-
-<span class="com"># Les pages</span>
+    /* ======== GITHUB ======== */
+    {
+      cat: "github", type: "base",
+      badge: "GitHub", badgeClass: "badge-adapt",
+      title: "Les concepts de base",
+      desc: "Les mots importants à connaître pour naviguer dans GitHub.",
+      code: null,
+      liste: [
+        "📁 <strong>Repository (repo)</strong> — Le dossier de ton projet en ligne.",
+        "🌿 <strong>Branch</strong> — Une version du projet. Tu travailles sur <code>main</code>.",
+        "💾 <strong>Commit</strong> — Une sauvegarde avec un message. Comme un point de restauration.",
+        "⬆️ <strong>Push</strong> — Envoyer ses commits vers GitHub.",
+        "⬇️ <strong>Pull</strong> — Récupérer les derniers changements depuis GitHub.",
+        "🍴 <strong>Fork</strong> — Copier le projet de quelqu'un pour le modifier de son côté."
+      ],
+      tip: null
+    },
+    {
+      cat: "github", type: "routine",
+      badge: "GitHub", badgeClass: "badge-adapt",
+      title: "Mettre à jour son site",
+      desc: "Tu modifies un fichier dans BBEdit → tu veux que le site en ligne se mette à jour.",
+      code: null,
+      liste: [
+        "1. <strong>Modifier</strong> le fichier dans BBEdit et sauvegarder (⌘ + S).",
+        "2. <strong>Aller sur github.com</strong> → ton repo → cliquer sur le fichier.",
+        "3. <strong>Cliquer sur le crayon ✏️</strong> pour éditer, ou glisser-déposer le fichier modifié.",
+        "4. <strong>Écrire un message de commit</strong> (ex : \"Ajout recette cookies\") → Commit changes.",
+        "5. <strong>Attendre 1 à 3 min</strong> → le site sur github.io est mis à jour ✅"
+      ],
+      tip: "Dans l'onglet Actions de ton repo : cercle vert = en ligne, jaune = encore en cours."
+    },
+    {
+      cat: "github", type: "routine",
+      badge: "GitHub", badgeClass: "badge-adapt",
+      title: "Uploader plusieurs fichiers d'un coup",
+      desc: "Quand tu as modifié plusieurs pages en même temps, inutile de les faire une par une.",
+      code: null,
+      liste: [
+        "1. Dans ton repo → <strong>Add file</strong> → <strong>Upload files</strong>.",
+        "2. <strong>Glisser-déposer</strong> tous les fichiers modifiés en même temps.",
+        "3. Écrire un message de commit → <strong>Commit changes</strong>."
+      ],
+      tip: "Les fichiers uploadés remplacent automatiquement les anciens — pas besoin de supprimer avant."
+    },
+    {
+      cat: "github", type: "base",
+      badge: "GitHub", badgeClass: "badge-adapt",
+      title: "Structure du repo Minljiva",
+      desc: "Tous ces fichiers doivent être à la racine du repo, pas dans un sous-dossier.",
+      code: `index.html       ← ⚠️ minuscule — page d'accueil
+style.css        ← la feuille de style commune
+Minljiva.png     ← le logo
 HERBORISTE.html
 TISANES.html
 RECETTE.html
 AVENIR.html
 CODING.html
-
-<span class="com"># Le dossier police</span>
 fonts/
-  Halimun.ttf</div>
-      <div class="warn">⚠️ Si <code>index.html</code> est en majuscules (<code>INDEX.html</code>), GitHub Pages affiche une erreur 404. Toujours en minuscules !</div>
-    </div>
-  </div>
+  Halimun.ttf`,
+      tip: "Si index.html est en majuscules (INDEX.html), GitHub Pages affiche une erreur 404."
+    },
+    {
+      cat: "github", type: "routine",
+      badge: "GitHub", badgeClass: "badge-adapt",
+      title: "Activer GitHub Pages",
+      desc: "La configuration à faire une seule fois pour mettre le site en ligne.",
+      code: null,
+      liste: [
+        "1. Dans ton repo → onglet <strong>Settings</strong>.",
+        "2. Menu gauche → <strong>Pages</strong>.",
+        "3. Sous Branch → choisir <strong>main</strong> et <strong>/ (root)</strong> → Save.",
+        "4. Ton URL apparaît : <code>ton-pseudo.github.io/nom-du-repo/</code>"
+      ],
+      tip: "Cette config ne se fait qu'une seule fois. Ensuite chaque commit met le site à jour automatiquement."
+    },
+    {
+      cat: "github", type: "erreur",
+      badge: "GitHub", badgeClass: "badge-adapt",
+      title: "Erreur 404",
+      desc: "La page ne s'affiche pas — les causes les plus fréquentes.",
+      code: null,
+      liste: [
+        "❌ <strong>index.html en majuscules</strong> → renommer en minuscules.",
+        "❌ <strong>GitHub Pages pas activé</strong> → Settings → Pages → choisir main.",
+        "❌ <strong>Déploiement pas terminé</strong> → attendre 2–3 min, vérifier l'onglet Actions.",
+        "❌ <strong>Mauvaise URL</strong> → l'URL doit inclure le nom du repo à la fin."
+      ],
+      tip: "Vider le cache du navigateur avec ⌘ + Shift + R si les modifications n'apparaissent pas."
+    },
+    {
+      cat: "github", type: "erreur",
+      badge: "GitHub", badgeClass: "badge-adapt",
+      title: "Le style ou le logo ne s'affiche pas",
+      desc: "Le site est en ligne mais les fichiers CSS ou images sont manquants.",
+      code: null,
+      liste: [
+        "❌ <strong>style.css absent du repo</strong> → l'uploader comme les autres fichiers.",
+        "❌ <strong>Minljiva.png absent</strong> → l'uploader dans le repo.",
+        "❌ <strong>Dossier fonts/ absent</strong> → uploader le dossier fonts/ avec Halimun.ttf.",
+        "❌ <strong>Chemin incorrect</strong> → vérifier que c'est href=\"style.css\" sans slash ni chemin absolu."
+      ],
+      tip: null
+    },
 
-  <div class="code-section">
-    <div class="code-section-title">Activer GitHub Pages</div>
+    /* ======== ASTUCES BBEDIT ======== */
+    {
+      cat: "html", type: "astuce",
+      badge: "HTML", badgeClass: "badge-cul",
+      title: "Raccourcis BBEdit",
+      desc: "Les commandes qui font gagner du temps dans BBEdit.",
+      code: null,
+      liste: [
+        "⌘ + S — <strong>Sauvegarder</strong>",
+        "⌘ + Z — <strong>Annuler</strong>",
+        "⌘ + F — <strong>Rechercher</strong> dans le fichier",
+        "⌘ + Shift + F — <strong>Rechercher</strong> dans tout le projet",
+        "⌘ + [ / ⌘ + ] — <strong>Indenter / désindenter</strong>",
+        "⌘ + / — <strong>Commenter / décommenter</strong>",
+        "⌘ + Shift + R — <strong>Vider le cache</strong> du navigateur"
+      ],
+      tip: null
+    }
+  ];
 
-    <div class="code-card">
-      <div class="code-card-title"><div class="code-dot code-dot-violet"></div>La configuration (à faire une seule fois)</div>
-      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Dans ton repo → onglet <strong>Settings</strong> (en haut).</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Dans le menu gauche → <strong>Pages</strong>.</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Sous <em>Branch</em> → choisir <strong>main</strong> et le dossier <strong>/ (root)</strong> → cliquer <strong>Save</strong>.</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-text">Ton URL apparaît : <code>https://ton-pseudo.github.io/nom-du-repo/</code></div></div>
-      </div>
-      <div class="tip">💡 Cette configuration ne se fait qu'une seule fois. Ensuite chaque commit met le site à jour automatiquement.</div>
-    </div>
-  </div>
+  let activeCat  = 'all';
+  let activeType = 'all';
 
-  <div class="code-section">
-    <div class="code-section-title">Erreurs fréquentes</div>
-
-    <div class="code-card">
-      <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Les problèmes courants et leurs solutions</div>
-      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
-        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Erreur 404</strong> — Le fichier <code>index.html</code> est en majuscules, ou GitHub Pages n'est pas activé, ou le déploiement n'est pas encore terminé.</div></div>
-        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Le style ne s'affiche pas</strong> — <code>style.css</code> n'est pas dans le repo, ou le chemin dans le HTML est mauvais. Vérifier que c'est bien <code>href="style.css"</code> et non un chemin absolu.</div></div>
-        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Le logo ne s'affiche pas</strong> — <code>Minljiva.png</code> absent du repo. L'uploader comme les autres fichiers.</div></div>
-        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Les modifications n'apparaissent pas</strong> — Vider le cache du navigateur (<code>⌘ + Shift + R</code> sur Mac) ou attendre encore quelques minutes.</div></div>
-        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>La police Halimun ne s'affiche pas</strong> — Le dossier <code>fonts/</code> avec <code>Halimun.ttf</code> doit être uploadé dans le repo, pas seulement sur ton ordinateur.</div></div>
-      </div>
-    </div>
-  </div>
-
-</div>
-  </div>
-
-  <script>
-  function show(id, btn) {
-   ['html','css','js','astuces','github'].forEach(s => document.getElementById(s).style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  function filterCat(cat, btn) {
+    activeCat = cat;
+    document.querySelectorAll('.filter-btn:not([onclick*="filterType"])').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    render();
   }
+
+  function filterType(type, btn) {
+    activeType = type;
+    document.querySelectorAll('[onclick*="filterType"]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  }
+
+  function render() {
+    const grid = document.getElementById('grid');
+    let filtered = notes;
+    if (activeCat  !== 'all') filtered = filtered.filter(n => n.cat  === activeCat);
+    if (activeType !== 'all') filtered = filtered.filter(n => n.type === activeType);
+
+    document.getElementById('count').textContent =
+      filtered.length + ' note' + (filtered.length > 1 ? 's' : '') + ' affichée' + (filtered.length > 1 ? 's' : '');
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="empty">Aucune note ne correspond à cette sélection.</div>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map(n => `
+      <div class="card">
+        <div class="card-header">
+          <span class="badge ${n.badgeClass}">${n.badge}</span>
+          <span class="badge badge-mel">${typeLabel(n.type)}</span>
+        </div>
+        <div class="plant-name">${n.title}</div>
+        <div class="desc" style="margin:6px 0 8px;">${n.desc}</div>
+        ${n.code ? `<div class="code-block">${n.code}</div>` : ''}
+        ${n.liste ? `<div class="how-box" style="margin-top:8px;margin-bottom:0;">${n.liste.map(l => `<div class="step"><div class="step-text">${l}</div></div>`).join('')}</div>` : ''}
+        ${n.tip ? `<div class="tip">💡 ${n.tip}</div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  function typeLabel(type) {
+    const labels = { base: 'Base', astuce: 'Astuce', erreur: 'Erreur fréquente', routine: 'Routine' };
+    return labels[type] || type;
+  }
+
+  render();
   </script>
 
 </body>
