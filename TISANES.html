@@ -24,133 +24,318 @@
   <h1>Tisanes du balcon</h1>
   <p class="subtitle">Guide herboriste — préparation, recettes et mélanges</p>
 
-  <div class="tabs">
-    <button class="tab active" onclick="show('comment', this)">Comment préparer</button>
-    <button class="tab" onclick="show('solo', this)">Plantes seules</button>
-    <button class="tab" onclick="show('melanges', this)">Mélanges</button>
-    <button class="tab" onclick="show('moment', this)">Par moment</button>
+  <div class="filter-bar">
+    <span class="filter-label">Par type</span>
+    <button class="filter-btn active" onclick="filterCat('all', this)">Toutes</button>
+    <button class="filter-btn" onclick="filterCat('solo', this)">Plantes seules</button>
+    <button class="filter-btn" onclick="filterCat('melange', this)">Mélanges</button>
+    <button class="filter-btn" onclick="filterCat('moment', this)">Par moment</button>
+    <button class="filter-btn" onclick="filterCat('methode', this)">Comment préparer</button>
+
+    <span class="filter-label">Par effet</span>
+    <button class="filter-btn active-all active" onclick="filterEffet('all', this)">Tous effets</button>
+    <button class="filter-btn" onclick="filterEffet('sommeil', this)">Sommeil</button>
+    <button class="filter-btn" onclick="filterEffet('digestif', this)">Digestif</button>
+    <button class="filter-btn" onclick="filterEffet('immunite', this)">Immunité</button>
+    <button class="filter-btn" onclick="filterEffet('stress', this)">Anti-stress</button>
+    <button class="filter-btn" onclick="filterEffet('detox', this)">Détox</button>
+    <button class="filter-btn" onclick="filterEffet('froid', this)">Froid & hiver</button>
   </div>
 
-  <!-- ====== COMMENT PRÉPARER ====== -->
-  <div id="comment">
-    <div class="how-box">
-      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Récolter frais ou sécher</strong> — Frais : 1 grosse poignée de feuilles ou fleurs pour 25 cl. Sec : 1 cuillère à soupe rase. Sécher à l'ombre, dans un endroit aéré, 1 à 2 semaines.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Eau à la bonne température</strong> — Herbes délicates (verveine, menthe, camomille) : 85–90 °C, jamais à gros bouillon. Thym, lavande : 95 °C possible. L'eau bouillante détruit les huiles essentielles des plantes fragiles.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Infuser couvert</strong> — Toujours couvrir la tasse ou la théière pendant l'infusion : les principes actifs volatils (huiles essentielles) s'évaporent sinon. Durée : 5 à 10 min selon la plante.</div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Filtrer et boire</strong> — Filtrer, laisser tiédir si besoin. On peut sucrer avec du miel (ajouté après refroidissement à 40 °C pour préserver ses enzymes). Éviter le sucre blanc qui neutralise certains effets.</div></div>
-      <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Fréquence</strong> — 1 à 3 tasses par jour pour un effet thérapeutique. En cure de 2 à 3 semaines, puis pause. Les tisanes quotidiennes sans pause peuvent fatiguer le foie ou créer une accoutumance.</div></div>
-    </div>
-    <div class="warn">Les tisanes médicinales ne remplacent pas un avis médical. En cas de grossesse, allaitement, traitement médicamenteux, ou maladie chronique : consulter un professionnel avant usage régulier.</div>
-  </div>
-
-  <!-- ====== PLANTES SEULES ====== -->
-  <div id="solo" style="display:none">
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:var(--vert-clair);color:var(--vert-fonce)">V</div><div><p class="recipe-title">Verveine citronnelle</p><p class="recipe-sub">Détente, digestion</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Dosage frais</div><div class="block-val">5–6 grandes feuilles</div></div><div class="block"><div class="block-label">Infusion</div><div class="block-val">88 °C — 8 min, couvert</div></div></div>
-      <div class="note">La plus agréable en goût. Idéale le soir après un repas chargé ou avant le coucher. Peut être mélangée à presque tout.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:var(--vert-clair);color:var(--vert-fonce)">C</div><div><p class="recipe-title">Camomille allemande</p><p class="recipe-sub">Anti-inflammatoire, crampes, sommeil</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Dosage frais</div><div class="block-val">1 grosse poignée de fleurs</div></div><div class="block"><div class="block-label">Infusion</div><div class="block-val">85 °C — 5 min max, couvert</div></div></div>
-      <div class="note">Ne pas dépasser 5 min : au-delà l'infusion devient amère et peut être légèrement excitante. Fleurs fraîches ou séchées, les deux fonctionnent.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:var(--vert-clair);color:var(--vert-fonce)">T</div><div><p class="recipe-title">Thym commun</p><p class="recipe-sub">Antiseptique, toux, digestion</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Dosage frais</div><div class="block-val">2–3 brins (feuilles + tiges)</div></div><div class="block"><div class="block-label">Infusion</div><div class="block-val">95 °C — 8–10 min, couvert</div></div></div>
-      <div class="note">Ajouter un filet de citron et du miel pour démultiplier l'effet antiseptique. Parfait en cas de rhume ou de gorge irritée. Goût puissant : doser avec prudence.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:#EAF3DE;color:#27500A">M</div><div><p class="recipe-title">Menthe verte ou ananas</p><p class="recipe-sub">Digestive, fraîche, nausées</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Dosage frais</div><div class="block-val">6–8 feuilles</div></div><div class="block"><div class="block-label">Infusion</div><div class="block-val">85 °C — 5–7 min, couvert</div></div></div>
-      <div class="note">La menthe ananas est plus douce et sucrée, idéale nature. La menthe verte est plus tonique. Excellentes froides aussi, en infusion froide (cold brew 4h au frigo).</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:var(--violet-clair);color:var(--violet-fonce)">L</div><div><p class="recipe-title">Lavande grosso</p><p class="recipe-sub">Anxiété, maux de tête, sommeil</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Dosage frais</div><div class="block-val">3–4 tiges fleuries</div></div><div class="block"><div class="block-label">Infusion</div><div class="block-val">90 °C — 5–7 min, couvert</div></div></div>
-      <div class="note">Attention : le lavandin 'Grosso' est plus camphrée que la vraie lavande fine — le goût est plus prononcé. Doser modérément. Se marie bien avec la verveine pour adoucir.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:#EAF3DE;color:#27500A">Fr</div><div><p class="recipe-title">Feuilles de fraisier &amp; framboisier</p><p class="recipe-sub">Astringente, dépurative, tonique</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Dosage frais</div><div class="block-val">4–5 feuilles jeunes</div></div><div class="block"><div class="block-label">Infusion</div><div class="block-val">90 °C — 10 min, couvert</div></div></div>
-      <div class="note">Goût légèrement tannique, peu parfumé seul : à associer avec menthe ou verveine. Feuilles de framboisier déconseillées en début de grossesse.</div>
-    </div>
-
-<div class="recipe">
-  <div class="recipe-header"><div class="recipe-icon" style="background:var(--vert-clair);color:var(--vert-fonce)">B</div><div><p class="recipe-title">Basilic grand vert</p><p class="recipe-sub">Digestif, antispasmodique, anti-stress léger</p></div></div>
-  <div class="row"><div class="block"><div class="block-label">Dosage frais</div><div class="block-val">6–8 grandes feuilles</div></div><div class="block"><div class="block-label">Infusion</div><div class="block-val">85 °C — 5 min, couvert</div></div></div>
-  <div class="note">Ne jamais faire bouillir — les huiles essentielles s'évaporent très vite. Goût doux et légèrement anisé. Se marie très bien avec la verveine ou la menthe.</div>
-</div>
-
-<div class="recipe">
-  <div class="recipe-header"><div class="recipe-icon" style="background:#EAF3DE;color:#27500A">P</div><div><p class="recipe-title">Persil frisé</p><p class="recipe-sub">Reminéralisant, diurétique doux, dépuratif</p></div></div>
-  <div class="row"><div class="block"><div class="block-label">Dosage frais</div><div class="block-val">1 petite poignée de feuilles et tiges</div></div><div class="block"><div class="block-label">Infusion</div><div class="block-val">90 °C — 8 min, couvert</div></div></div>
-  <div class="note">Goût herbacé assez prononcé — adoucir avec de la menthe ou du miel. En cure dépurative de printemps : 2 tasses par jour pendant 2 semaines. Déconseillé en tisane concentrée pendant la grossesse.</div>
-</div>
-
-  </div>
-
-  <!-- ====== MÉLANGES ====== -->
-  <div id="melanges" style="display:none">
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:var(--violet-clair);color:var(--violet-fonce)">Zz</div><div><p class="recipe-title">Nuit douce</p><p class="recipe-sub">Sommeil, détente profonde</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Recette (1 tasse)</div><div class="block-val">3 feuilles verveine + 1 poignée fleurs camomille + 2 tiges lavande</div></div><div class="block"><div class="block-label">Méthode</div><div class="block-val">88 °C — 7 min couvert — miel possible</div></div></div>
-      <div class="note">Le trio classique des herboristes contre l'insomnie légère. Boire 30 min avant le coucher, sans écran.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:var(--orange-clair);color:var(--orange-fonce)">Di</div><div><p class="recipe-title">Après repas digestif</p><p class="recipe-sub">Ballonnements, lourdeurs, crampes</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Recette (1 tasse)</div><div class="block-val">4 feuilles menthe verte + 3 feuilles verveine + 1 brin thym (optionnel)</div></div><div class="block"><div class="block-label">Méthode</div><div class="block-val">88 °C — 6 min couvert</div></div></div>
-      <div class="note">Boire chaud, 10 min après le repas. La menthe relâche le sphincter œsophagien — à éviter si vous avez des reflux gastriques.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:var(--vert-clair);color:var(--vert-fonce)">Im</div><div><p class="recipe-title">Défenses hivernales</p><p class="recipe-sub">Rhume, gorge, bronchites</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Recette (1 tasse)</div><div class="block-val">3 brins thym + 1 poignée camomille + jus ½ citron + miel</div></div><div class="block"><div class="block-label">Méthode</div><div class="block-val">95 °C — 10 min couvert — citron + miel après</div></div></div>
-      <div class="note">3 tasses par jour en phase aiguë. Le thymol du thym et l'alpha-bisabolol de la camomille agissent en synergie sur les muqueuses.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:#EAF3DE;color:#27500A">De</div><div><p class="recipe-title">Cure dépurative printanière</p><p class="recipe-sub">Détox douce, reminéralisation</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Recette (1 tasse)</div><div class="block-val">3 feuilles fraisier + 3 feuilles framboisier + 3 feuilles menthe</div></div><div class="block"><div class="block-label">Méthode</div><div class="block-val">90 °C — 10 min couvert — 2–3 semaines de cure</div></div></div>
-      <div class="note">Idéale au printemps, quand les premières feuilles pointent. Goût doux si on ajoute la menthe. Déconseillée en début de grossesse (feuilles de framboisier).</div>
-    </div>
-
-    <div class="recipe">
-      <div class="recipe-header"><div class="recipe-icon" style="background:#FBEAF0;color:#72243E">Et</div><div><p class="recipe-title">Fraîcheur estivale</p><p class="recipe-sub">Désaltérante, légère (froide ou chaude)</p></div></div>
-      <div class="row"><div class="block"><div class="block-label">Recette (1 litre)</div><div class="block-val">8 feuilles menthe ananas + 4 feuilles verveine + 2 tiges lavande</div></div><div class="block"><div class="block-label">Méthode</div><div class="block-val">Cold brew : eau froide, 4–6h au frigo — ou infusion chaude puis refroidie</div></div></div>
-      <div class="note">En cold brew, les arômes sont plus doux et floraux. Ajouter des tranches de citron ou quelques fraises de la gariguette pour une boisson estivale parfaite.</div>
-    </div>
-
-
-  </div>
-
-  <!-- ====== PAR MOMENT ====== -->
-  <div id="moment" style="display:none">
-    <div class="moment-grid">
-      <div class="recipe"><p class="recipe-title" style="margin:0 0 8px">Matin — réveil en douceur</p><div class="block-val" style="font-size:13px;color:var(--texte-doux)">Thym + citron + miel pour démarrer la journée et préparer le système immunitaire. Ou menthe verte seule si le matin est frais.</div></div>
-      <div class="recipe"><p class="recipe-title" style="margin:0 0 8px">Après déjeuner — digestion</p><div class="block-val" style="font-size:13px;color:var(--texte-doux)">Menthe verte + verveine. Le duo le plus courant en France après le repas. Simple, efficace, très agréable.</div></div>
-      <div class="recipe"><p class="recipe-title" style="margin:0 0 8px">Après-midi — pause anti-stress</p><div class="block-val" style="font-size:13px;color:var(--texte-doux)">Verveine seule ou avec camomille. Légère, sans caféine, idéale pour couper le rythme sans tomber dans la somnolence.</div></div>
-      <div class="recipe"><p class="recipe-title" style="margin:0 0 8px">Soir — préparation au sommeil</p><div class="block-val" style="font-size:13px;color:var(--texte-doux)">Camomille + lavande + verveine. Le trio nuit douce. Commencer 30 à 45 min avant de se coucher.</div></div>
-      <div class="recipe"><p class="recipe-title" style="margin:0 0 8px">En cas de rhume</p><div class="block-val" style="font-size:13px;color:var(--texte-doux)">Thym + camomille + miel + citron. 3 tasses par jour. Commencer dès les premiers symptômes.</div></div>
-      <div class="recipe"><p class="recipe-title" style="margin:0 0 8px">En été — froide</p><div class="block-val" style="font-size:13px;color:var(--texte-doux)">Menthe ananas + verveine en cold brew. Préparer le soir, boire le lendemain. Rafraîchissant et riche en arômes.</div></div>
-    </div>
-  </div>
+  <div class="count-bar" id="count"></div>
+  <div class="grid" id="grid"></div>
 
   <script>
-  function show(id, btn) {
-    ['comment','solo','melanges','moment'].forEach(s => document.getElementById(s).style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  const tisanes = [
+
+    /* ======== COMMENT PRÉPARER ======== */
+    {
+      cat: "methode", effet: [],
+      badge: "Méthode", badgeClass: "badge-mel",
+      title: "Récolter frais ou sécher",
+      sub: "Étape 1",
+      desc: "Frais : 1 grosse poignée de feuilles ou fleurs pour 25 cl. Sec : 1 cuillère à soupe rase. Sécher à l'ombre, dans un endroit aéré, 1 à 2 semaines.",
+      note: null, warn: null
+    },
+    {
+      cat: "methode", effet: [],
+      badge: "Méthode", badgeClass: "badge-mel",
+      title: "Eau à la bonne température",
+      sub: "Étape 2",
+      desc: "Herbes délicates (verveine, menthe, camomille) : 85–90 °C, jamais à gros bouillon. Thym, lavande : 95 °C possible.",
+      note: "L'eau bouillante détruit les huiles essentielles des plantes fragiles.",
+      warn: null
+    },
+    {
+      cat: "methode", effet: [],
+      badge: "Méthode", badgeClass: "badge-mel",
+      title: "Infuser couvert",
+      sub: "Étape 3",
+      desc: "Toujours couvrir la tasse ou la théière pendant l'infusion : les principes actifs volatils s'évaporent sinon. Durée : 5 à 10 min selon la plante.",
+      note: null, warn: null
+    },
+    {
+      cat: "methode", effet: [],
+      badge: "Méthode", badgeClass: "badge-mel",
+      title: "Filtrer et boire",
+      sub: "Étape 4",
+      desc: "Filtrer, laisser tiédir si besoin. On peut sucrer avec du miel ajouté après refroidissement à 40 °C pour préserver ses enzymes.",
+      note: "Éviter le sucre blanc qui neutralise certains effets.",
+      warn: null
+    },
+    {
+      cat: "methode", effet: [],
+      badge: "Méthode", badgeClass: "badge-mel",
+      title: "Fréquence et durée de cure",
+      sub: "Étape 5",
+      desc: "1 à 3 tasses par jour pour un effet thérapeutique. En cure de 2 à 3 semaines, puis pause.",
+      note: null,
+      warn: "Les tisanes quotidiennes sans pause peuvent fatiguer le foie ou créer une accoutumance. Les tisanes médicinales ne remplacent pas un avis médical."
+    },
+
+    /* ======== PLANTES SEULES ======== */
+    {
+      cat: "solo", effet: ["stress", "digestif", "sommeil"],
+      badge: "Plante seule", badgeClass: "badge-med",
+      title: "Verveine citronnelle",
+      sub: "Détente, digestion",
+      dosage: "5–6 grandes feuilles",
+      infusion: "88 °C — 8 min, couvert",
+      note: "La plus agréable en goût. Idéale le soir après un repas chargé ou avant le coucher. Peut être mélangée à presque tout.",
+      warn: null
+    },
+    {
+      cat: "solo", effet: ["sommeil", "digestif"],
+      badge: "Plante seule", badgeClass: "badge-med",
+      title: "Camomille allemande",
+      sub: "Anti-inflammatoire, crampes, sommeil",
+      dosage: "1 grosse poignée de fleurs",
+      infusion: "85 °C — 5 min max, couvert",
+      note: "Ne pas dépasser 5 min : au-delà l'infusion devient amère et peut être légèrement excitante. Fleurs fraîches ou séchées, les deux fonctionnent.",
+      warn: null
+    },
+    {
+      cat: "solo", effet: ["immunite", "digestif", "froid"],
+      badge: "Plante seule", badgeClass: "badge-med",
+      title: "Thym commun",
+      sub: "Antiseptique, toux, digestion",
+      dosage: "2–3 brins (feuilles + tiges)",
+      infusion: "95 °C — 8–10 min, couvert",
+      note: "Ajouter un filet de citron et du miel pour démultiplier l'effet antiseptique. Parfait en cas de rhume ou de gorge irritée. Goût puissant : doser avec prudence.",
+      warn: null
+    },
+    {
+      cat: "solo", effet: ["digestif"],
+      badge: "Plante seule", badgeClass: "badge-med",
+      title: "Menthe verte ou ananas",
+      sub: "Digestive, fraîche, nausées",
+      dosage: "6–8 feuilles",
+      infusion: "85 °C — 5–7 min, couvert",
+      note: "La menthe ananas est plus douce et sucrée, idéale nature. La menthe verte est plus tonique. Excellentes froides aussi, en infusion froide (cold brew 4h au frigo).",
+      warn: null
+    },
+    {
+      cat: "solo", effet: ["sommeil", "stress"],
+      badge: "Plante seule", badgeClass: "badge-med",
+      title: "Lavande grosso",
+      sub: "Anxiété, maux de tête, sommeil",
+      dosage: "3–4 tiges fleuries",
+      infusion: "90 °C — 5–7 min, couvert",
+      note: "Attention : le lavandin 'Grosso' est plus camphrée que la vraie lavande fine — le goût est plus prononcé. Doser modérément. Se marie bien avec la verveine pour adoucir.",
+      warn: null
+    },
+    {
+      cat: "solo", effet: ["detox"],
+      badge: "Plante seule", badgeClass: "badge-med",
+      title: "Feuilles de fraisier & framboisier",
+      sub: "Astringente, dépurative, tonique",
+      dosage: "4–5 feuilles jeunes",
+      infusion: "90 °C — 10 min, couvert",
+      note: "Goût légèrement tannique, peu parfumé seul : à associer avec menthe ou verveine.",
+      warn: "Feuilles de framboisier déconseillées en début de grossesse."
+    },
+    {
+      cat: "solo", effet: ["digestif", "stress"],
+      badge: "Plante seule", badgeClass: "badge-med",
+      title: "Basilic grand vert",
+      sub: "Digestif, antispasmodique, anti-stress léger",
+      dosage: "6–8 grandes feuilles",
+      infusion: "85 °C — 5 min, couvert",
+      note: "Ne jamais faire bouillir — les huiles essentielles s'évaporent très vite. Goût doux et légèrement anisé. Se marie très bien avec la verveine ou la menthe.",
+      warn: null
+    },
+    {
+      cat: "solo", effet: ["detox"],
+      badge: "Plante seule", badgeClass: "badge-med",
+      title: "Persil frisé",
+      sub: "Reminéralisant, diurétique doux, dépuratif",
+      dosage: "1 petite poignée de feuilles et tiges",
+      infusion: "90 °C — 8 min, couvert",
+      note: "Goût herbacé assez prononcé — adoucir avec de la menthe ou du miel. En cure dépurative de printemps : 2 tasses par jour pendant 2 semaines.",
+      warn: "Déconseillé en tisane concentrée pendant la grossesse."
+    },
+
+    /* ======== MÉLANGES ======== */
+    {
+      cat: "melange", effet: ["sommeil", "stress"],
+      badge: "Mélange", badgeClass: "badge-imm",
+      title: "Nuit douce",
+      sub: "Sommeil, détente profonde",
+      dosage: "3 feuilles verveine + 1 poignée fleurs camomille + 2 tiges lavande",
+      infusion: "88 °C — 7 min couvert — miel possible",
+      note: "Le trio classique des herboristes contre l'insomnie légère. Boire 30 min avant le coucher, sans écran.",
+      warn: null
+    },
+    {
+      cat: "melange", effet: ["digestif"],
+      badge: "Mélange", badgeClass: "badge-imm",
+      title: "Après repas digestif",
+      sub: "Ballonnements, lourdeurs, crampes",
+      dosage: "4 feuilles menthe verte + 3 feuilles verveine + 1 brin thym (optionnel)",
+      infusion: "88 °C — 6 min couvert",
+      note: "Boire chaud, 10 min après le repas. La menthe relâche le sphincter œsophagien — à éviter si vous avez des reflux gastriques.",
+      warn: null
+    },
+    {
+      cat: "melange", effet: ["immunite", "froid"],
+      badge: "Mélange", badgeClass: "badge-imm",
+      title: "Défenses hivernales",
+      sub: "Rhume, gorge, bronchites",
+      dosage: "3 brins thym + 1 poignée camomille + jus ½ citron + miel",
+      infusion: "95 °C — 10 min couvert — citron + miel après",
+      note: "3 tasses par jour en phase aiguë. Le thymol du thym et l'alpha-bisabolol de la camomille agissent en synergie sur les muqueuses.",
+      warn: null
+    },
+    {
+      cat: "melange", effet: ["detox"],
+      badge: "Mélange", badgeClass: "badge-imm",
+      title: "Cure dépurative printanière",
+      sub: "Détox douce, reminéralisation",
+      dosage: "3 feuilles fraisier + 3 feuilles framboisier + 3 feuilles menthe",
+      infusion: "90 °C — 10 min couvert — 2–3 semaines de cure",
+      note: "Idéale au printemps, quand les premières feuilles pointent. Goût doux si on ajoute la menthe.",
+      warn: "Déconseillée en début de grossesse (feuilles de framboisier)."
+    },
+    {
+      cat: "melange", effet: ["digestif", "stress"],
+      badge: "Mélange", badgeClass: "badge-imm",
+      title: "Fraîcheur estivale",
+      sub: "Désaltérante, légère (froide ou chaude)",
+      dosage: "8 feuilles menthe ananas + 4 feuilles verveine + 2 tiges lavande",
+      infusion: "Cold brew : eau froide, 4–6h au frigo — ou infusion chaude puis refroidie",
+      note: "En cold brew, les arômes sont plus doux et floraux. Ajouter des tranches de citron ou quelques fraises de la gariguette pour une boisson estivale parfaite.",
+      warn: null
+    },
+
+    /* ======== PAR MOMENT ======== */
+    {
+      cat: "moment", effet: ["immunite", "froid"],
+      badge: "Moment", badgeClass: "badge-ete",
+      title: "Matin — réveil en douceur",
+      sub: "Pour bien démarrer",
+      desc: "Thym + citron + miel pour démarrer la journée et préparer le système immunitaire. Ou menthe verte seule si le matin est frais.",
+      note: null, warn: null
+    },
+    {
+      cat: "moment", effet: ["digestif"],
+      badge: "Moment", badgeClass: "badge-ete",
+      title: "Après déjeuner — digestion",
+      sub: "En fin de repas",
+      desc: "Menthe verte + verveine. Le duo le plus courant en France après le repas. Simple, efficace, très agréable.",
+      note: null, warn: null
+    },
+    {
+      cat: "moment", effet: ["stress"],
+      badge: "Moment", badgeClass: "badge-ete",
+      title: "Après-midi — pause anti-stress",
+      sub: "Pour couper le rythme",
+      desc: "Verveine seule ou avec camomille. Légère, sans caféine, idéale pour couper le rythme sans tomber dans la somnolence.",
+      note: null, warn: null
+    },
+    {
+      cat: "moment", effet: ["sommeil"],
+      badge: "Moment", badgeClass: "badge-ete",
+      title: "Soir — préparation au sommeil",
+      sub: "30–45 min avant de se coucher",
+      desc: "Camomille + lavande + verveine. Le trio nuit douce. Commencer 30 à 45 min avant de se coucher.",
+      note: null, warn: null
+    },
+    {
+      cat: "moment", effet: ["immunite", "froid"],
+      badge: "Moment", badgeClass: "badge-ete",
+      title: "En cas de rhume",
+      sub: "Dès les premiers symptômes",
+      desc: "Thym + camomille + miel + citron. 3 tasses par jour. Commencer dès les premiers symptômes.",
+      note: null, warn: null
+    },
+    {
+      cat: "moment", effet: ["digestif"],
+      badge: "Moment", badgeClass: "badge-ete",
+      title: "En été — froide",
+      sub: "Cold brew à préparer la veille",
+      desc: "Menthe ananas + verveine en cold brew. Préparer le soir, boire le lendemain. Rafraîchissant et riche en arômes.",
+      note: null, warn: null
+    }
+  ];
+
+  let activeCat   = 'all';
+  let activeEffet = 'all';
+
+  function filterCat(cat, btn) {
+    activeCat = cat;
+    document.querySelectorAll('.filter-btn:not([onclick*="filterEffet"])').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    render();
   }
+
+  function filterEffet(effet, btn) {
+    activeEffet = effet;
+    document.querySelectorAll('[onclick*="filterEffet"]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  }
+
+  function render() {
+    const grid = document.getElementById('grid');
+    let filtered = tisanes;
+    if (activeCat   !== 'all') filtered = filtered.filter(t => t.cat === activeCat);
+    if (activeEffet !== 'all') filtered = filtered.filter(t => t.effet.includes(activeEffet));
+
+    document.getElementById('count').textContent =
+      filtered.length + ' fiche' + (filtered.length > 1 ? 's' : '') +
+      ' affichée' + (filtered.length > 1 ? 's' : '');
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="empty">Aucune tisane ne correspond à cette sélection.</div>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map(t => `
+      <div class="card">
+        <div class="card-header">
+          <span class="badge ${t.badgeClass}">${t.badge}</span>
+        </div>
+        <div class="plant-name">${t.title}</div>
+        <div class="plant-latin">${t.sub}</div>
+        ${t.dosage ? `
+        <div class="row" style="margin-top:8px;">
+          <div class="block">
+            <div class="block-label">${t.cat === 'melange' ? 'Recette' : 'Dosage frais'}</div>
+            <div class="block-val">${t.dosage}</div>
+          </div>
+          <div class="block">
+            <div class="block-label">Infusion</div>
+            <div class="block-val">${t.infusion}</div>
+          </div>
+        </div>` : ''}
+        ${t.desc ? `<div class="desc" style="margin-top:8px;">${t.desc}</div>` : ''}
+        ${t.note ? `<div class="note">${t.note}</div>` : ''}
+        ${t.warn ? `<div class="warn">${t.warn}</div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  render();
   </script>
 
 </body>
