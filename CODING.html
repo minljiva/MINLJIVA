@@ -30,6 +30,7 @@
     <button class="tab" onclick="show('css', this)">CSS</button>
     <button class="tab" onclick="show('js', this)">JavaScript</button>
     <button class="tab" onclick="show('astuces', this)">Astuces</button>
+    <button class="tab" onclick="show('github', this)">GitHub</button>
   </div>
 
   <!-- ====== HTML ====== -->
@@ -299,12 +300,115 @@ plantes.forEach(p =&gt; {
       </div>
 
     </div>
+<!-- ====== GITHUB ====== -->
+<div id="github" style="display:none">
 
+  <div class="code-section">
+    <div class="code-section-title">C'est quoi GitHub ?</div>
+
+    <div class="code-card">
+      <div class="code-card-title"><div class="code-dot code-dot-violet"></div>Les concepts de base</div>
+      <div class="code-desc">GitHub est un endroit en ligne où on stocke et sauvegarde son code. Voici les mots importants à connaître.</div>
+      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
+        <div class="step"><div class="step-num">📁</div><div class="step-text"><strong>Repository (repo)</strong> — Le dossier de ton projet en ligne. Tout ton site Minljiva est dans un repo.</div></div>
+        <div class="step"><div class="step-num">🌿</div><div class="step-text"><strong>Branch (branche)</strong> — Une version de ton projet. Tu travailles sur la branche <code>main</code> — c'est la principale.</div></div>
+        <div class="step"><div class="step-num">💾</div><div class="step-text"><strong>Commit</strong> — Une sauvegarde avec un message qui explique ce qu'on a changé. Comme un point de restauration.</div></div>
+        <div class="step"><div class="step-num">⬆️</div><div class="step-text"><strong>Push</strong> — Envoyer ses commits locaux vers GitHub en ligne.</div></div>
+        <div class="step"><div class="step-num">⬇️</div><div class="step-text"><strong>Pull</strong> — Récupérer les derniers changements depuis GitHub vers son ordinateur.</div></div>
+        <div class="step"><div class="step-num">🍴</div><div class="step-text"><strong>Fork</strong> — Copier le projet de quelqu'un d'autre pour le modifier de son côté.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <div class="code-section-title">Mettre à jour son site — la routine</div>
+
+    <div class="code-card">
+      <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Ce que tu fais à chaque modification</div>
+      <div class="code-desc">Tu modifies un fichier dans BBEdit → tu veux que le site en ligne se mette à jour. Voici les étapes.</div>
+      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Modifier le fichier</strong> dans BBEdit et sauvegarder (<code>⌘ + S</code>).</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Aller sur github.com</strong> → ton repo → cliquer sur le fichier à mettre à jour.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Cliquer sur le crayon ✏️</strong> en haut à droite du fichier pour l'éditer directement en ligne. Ou glisser-déposer le fichier modifié dans l'onglet du repo.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Écrire un message de commit</strong> en bas (ex : "Ajout recette cookies") → cliquer <strong>Commit changes</strong>.</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Attendre 1 à 3 minutes</strong> → ton site sur <code>github.io</code> est mis à jour automatiquement ✅</div></div>
+      </div>
+      <div class="tip">💡 Tu peux vérifier que le déploiement est terminé dans l'onglet <strong>Actions</strong> de ton repo — cercle vert = en ligne, cercle jaune = encore en cours.</div>
+    </div>
+
+    <div class="code-card">
+      <div class="code-card-title"><div class="code-dot code-dot-vert"></div>Uploader plusieurs fichiers d'un coup</div>
+      <div class="code-desc">Quand tu as modifié plusieurs pages en même temps, inutile de les faire une par une.</div>
+      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
+        <div class="step"><div class="step-num">1</div><div class="step-text">Dans ton repo GitHub, cliquer sur <strong>Add file</strong> → <strong>Upload files</strong>.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text">Glisser-déposer tous les fichiers modifiés en même temps.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text">Écrire un message de commit (ex : "Mise à jour pages recettes et coding") → <strong>Commit changes</strong>.</div></div>
+      </div>
+      <div class="note">Tous les fichiers uploadés remplacent automatiquement les anciens — pas besoin de supprimer avant.</div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <div class="code-section-title">Structure de ton repo Minljiva</div>
+
+    <div class="code-card">
+      <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Ce que tu dois avoir dans ton repo</div>
+      <div class="code-desc">Tous ces fichiers doivent être à la racine du repo (pas dans un sous-dossier).</div>
+      <div class="code-block"><span class="com"># Fichiers obligatoires</span>
+index.html          <span class="com"># ⚠️ minuscule — c'est la page d'accueil</span>
+style.css           <span class="com"># la feuille de style commune</span>
+Minljiva.png        <span class="com"># le logo</span>
+
+<span class="com"># Les pages</span>
+HERBORISTE.html
+TISANES.html
+RECETTE.html
+AVENIR.html
+CODING.html
+
+<span class="com"># Le dossier police</span>
+fonts/
+  Halimun.ttf</div>
+      <div class="warn">⚠️ Si <code>index.html</code> est en majuscules (<code>INDEX.html</code>), GitHub Pages affiche une erreur 404. Toujours en minuscules !</div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <div class="code-section-title">Activer GitHub Pages</div>
+
+    <div class="code-card">
+      <div class="code-card-title"><div class="code-dot code-dot-violet"></div>La configuration (à faire une seule fois)</div>
+      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
+        <div class="step"><div class="step-num">1</div><div class="step-text">Dans ton repo → onglet <strong>Settings</strong> (en haut).</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text">Dans le menu gauche → <strong>Pages</strong>.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text">Sous <em>Branch</em> → choisir <strong>main</strong> et le dossier <strong>/ (root)</strong> → cliquer <strong>Save</strong>.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text">Ton URL apparaît : <code>https://ton-pseudo.github.io/nom-du-repo/</code></div></div>
+      </div>
+      <div class="tip">💡 Cette configuration ne se fait qu'une seule fois. Ensuite chaque commit met le site à jour automatiquement.</div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <div class="code-section-title">Erreurs fréquentes</div>
+
+    <div class="code-card">
+      <div class="code-card-title"><div class="code-dot code-dot-orange"></div>Les problèmes courants et leurs solutions</div>
+      <div class="how-box" style="margin-top:8px;margin-bottom:0;">
+        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Erreur 404</strong> — Le fichier <code>index.html</code> est en majuscules, ou GitHub Pages n'est pas activé, ou le déploiement n'est pas encore terminé.</div></div>
+        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Le style ne s'affiche pas</strong> — <code>style.css</code> n'est pas dans le repo, ou le chemin dans le HTML est mauvais. Vérifier que c'est bien <code>href="style.css"</code> et non un chemin absolu.</div></div>
+        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Le logo ne s'affiche pas</strong> — <code>Minljiva.png</code> absent du repo. L'uploader comme les autres fichiers.</div></div>
+        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>Les modifications n'apparaissent pas</strong> — Vider le cache du navigateur (<code>⌘ + Shift + R</code> sur Mac) ou attendre encore quelques minutes.</div></div>
+        <div class="step"><div class="step-num">!</div><div class="step-text"><strong>La police Halimun ne s'affiche pas</strong> — Le dossier <code>fonts/</code> avec <code>Halimun.ttf</code> doit être uploadé dans le repo, pas seulement sur ton ordinateur.</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
   </div>
 
   <script>
   function show(id, btn) {
-    ['html','css','js','astuces'].forEach(s => document.getElementById(s).style.display = 'none');
+   ['html','css','js','astuces','github'].forEach(s => document.getElementById(s).style.display = 'none');
     document.getElementById(id).style.display = 'block';
     document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
