@@ -70,7 +70,7 @@ a:hover { color: var(--violet); transform: translateY(-2px);}
 .count-bar {
   font-size: 11px;
   color: var(--texte-doux);
-  margin-bottom: 1rem;
+  margin-bottom: -0,75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;  width: 100%;
 }
