@@ -79,18 +79,18 @@
 <div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
 <div class="detail-panel" id="detail-panel">
   <div class="detail-header">
-    <div class="header-top-row" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-      <div class="header-meta" style="display: flex; align-items: center; gap: 10px;">
+    <div class="header-top-row">
+      <div class="header-meta">
         <div id="d-statut-badge"></div>
         <div id="d-date" class="date"></div>
       </div>
-      <button onclick="fermerDetail()" class="btn-close-detail" style="background:none; border:none; font-size:20px; cursor:pointer;">✕</button>
+      <button onclick="fermerDetail()" class="btn-close-detail">✕</button>
     </div>
 
-    <div class="plant-name" id="d-titre-affiche" style="font-size: 20px; margin-top: 10px; font-weight: 500;"></div>
+    <div class="plant-name detail-titre" id="d-titre-affiche"></div>
   </div>
 
-  <div class="detail-section" style="margin-top:20px;">
+  <div class="detail-section detail-section-first">
     <div class="detail-label">Statut du projet</div>
     <select class="edit-input" id="d-statut">
       <option value="todo">TO DO</option>
@@ -111,7 +111,7 @@
 
   <div class="detail-section">
     <div class="detail-label">Notes & explications</div>
-    <textarea class="edit-textarea" id="d-explication-detail" style="width:100%; min-height:100px;"></textarea>
+    <textarea class="edit-textarea" id="d-explication-detail"></textarea>
   </div>
 
   <div class="detail-section">
@@ -119,8 +119,8 @@
     <input class="edit-input" type="text" id="d-duree" />
   </div>
 
-  <button class="btn-edit-save" id="btn-detail-save" onclick="sauvegarderDetail()" style="width:100%; margin-top:15px;">Enregistrer les modifications</button>
-  <div class="save-ok" id="save-ok" style="display:none; color:var(--vert); text-align:center; margin-top:10px;">✓ Modifications enregistrées</div>
+  <button class="btn-edit-save btn-edit-save-full" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer les modifications</button>
+  <div class="save-ok" id="save-ok" style="display:none;">✓ Modifications enregistrées</div>
 </div>
 
   <script>
@@ -173,15 +173,15 @@
 
         return `
           <div class="crochet-card ${p.statut}">
-            <div class="card-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-              🧶<div class="plant-name clickable-title" onclick="ouvrirDetail('${p.id}')" style="cursor:pointer; flex:1; margin-right:10px;">
+            <div class="card-top">
+              🧶<div class="plant-name clickable-title card-top-title" onclick="ouvrirDetail('${p.id}')">
                  ${p.titre}
               </div>
               <span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>
             </div>
             ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
             ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
-            <div class="card-actions" style="margin-top:12px; display: flex; gap: 8px;">
+            <div class="card-actions">
               ${btnSuivant}
               <button class="btn-delete" onclick="event.stopPropagation(); supprimerProjet('${p.id}')">✕</button>
             </div>
@@ -283,8 +283,7 @@ function ouvrirDetail(id) {
   // Affichage du panneau
   document.getElementById('detail-overlay').classList.add('open');
   document.getElementById('detail-panel').classList.add('open');
-}ent.getElementById('detail-panel').classList.add('open');
-    }
+}
 
     function fermerDetail() {
       document.getElementById('detail-overlay').classList.remove('open');

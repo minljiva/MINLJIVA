@@ -337,3 +337,118 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 }
 
 .empty, .loading { text-align: center; padding: 3rem 1rem; color: var(--texte-pale); font-size: 14px; }
+
+
+/* ============================================================
+   14. CLASSES AJOUTÉES (remplacement des styles inline)
+   ============================================================ */
+
+/* -- CROCHET : panneau détail -- */
+.detail-titre {
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.detail-section {
+  margin-top: 12px;
+}
+
+.detail-section-first {
+  margin-top: 20px;
+}
+
+.edit-textarea {
+  width: 100%;
+  min-height: 100px;
+}
+
+.btn-edit-save-full {
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* -- CROCHET : cartes -- */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.card-top-title {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.card-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+/* -- RECETTE & DRAINAGE : couleurs des icônes recettes -- */
+.recipe-icon-orange {
+  background: var(--orange-clair);
+  color: var(--orange-fonce);
+}
+
+.recipe-icon-vert {
+  background: var(--vert-clair);
+  color: var(--vert-fonce);
+}
+
+.recipe-icon-violet {
+  background: var(--violet-clair);
+  color: var(--violet-fonce);
+}
+
+.recipe-icon-fruit {
+  background: #EAF3DE;
+  color: #27500A;
+}
+
+.recipe-icon-orn {
+  background: #FBEAF0;
+  color: #72243E;
+}
+
+.recipe-icon-neutre {
+  background: var(--fond-bloc);
+  color: var(--texte-doux);
+}
+
+/* -- RECETTE : how-box étapes -- */
+.how-box-steps {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+/* -- CODING : desc avec marges -- */
+.desc-coding {
+  margin: 6px 0 8px;
+}
+
+/* -- CODING : how-box liste -- */
+.how-box-liste {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* -- TISANES : espacements dans les cartes -- */
+.row-tisane {
+  margin-top: 8px;
+}
+
+.desc-tisane {
+  margin-top: 8px;
+}
+
+/* -- INDEX : espacement des liens dans les blocs tip -- */
+.tip-links {
+  margin-top: 6px;
+}
+
+.lien1 {
+  margin-bottom: 2px;
+}

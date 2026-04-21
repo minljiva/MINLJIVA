@@ -44,7 +44,7 @@ const data = [
 
 {
   title: "Routine rapide quotidienne", sub: "5 min · matin",
-  icon: "⚡", type: ["rapide","all"], iconStyle: "background:var(--fond-bloc);color:var(--fond-hover)",
+  icon: "⚡", type: ["rapide","all"], iconColor: "neutre",
   blocks: [
     { label: "Étapes", val: "Clavicules (pompage léger) · Cou (glisser vers bas) · Aisselles (pressions douces) · Ventre (cercles) · Aine (pompage)" },
     { label: "Rythme", val: "Mouvements lents · pression très légère · toujours vers les ganglions" }
@@ -54,7 +54,7 @@ const data = [
 
 {
   title: "Routine hebdomadaire profonde", sub: "20 min · récupération",
-  icon: "💧", type: ["deep","all"], iconStyle: "background:var(--fond-bloc);color:var(--fond-hover)",
+  icon: "💧", type: ["deep","all"], iconColor: "neutre",
   blocks: [
     { label: "Étapes", val: "Ouvrir clavicules · Cou complet · Bras entier · Ventre profond · Jambes complètes · Terminer par aine" },
     { label: "Technique", val: "Pression lente + relâchement · répétitions x5 par zone" }
@@ -64,7 +64,7 @@ const data = [
 
 {
   title: "Drainage haut du corps", sub: "10 min",
-  icon: "🫁", type: ["haut","all"], iconStyle: "background:var(--fond-bloc);color:var(--fond-hover)",
+  icon: "🫁", type: ["haut","all"], iconColor: "neutre",
   blocks: [
     { label: "Zones", val: "Clavicules · Cou · Aisselles · Bras · Poitrine" },
     { label: "Préparation", val: "Toujours commencer par ouvrir les clavicules avant de drainer" }
@@ -74,7 +74,7 @@ const data = [
 
 {
   title: "Drainage bas du corps", sub: "15 min",
-  icon: "🦵", type: ["bas","all"], iconStyle: "background:var(--fond-bloc);color:var(--fond-hover)",
+  icon: "🦵", type: ["bas","all"], iconColor: "neutre",
   blocks: [
     { label: "Zones", val: "Ventre · Aine · Cuisses · Genoux · Mollets · Chevilles" },
     { label: "Sens", val: "Toujours remonter vers l’aine" }
@@ -92,7 +92,7 @@ function render(list){
     app.innerHTML += `
       <div class="recipe">
         <div class="recipe-header">
-          <div class="recipe-icon" style="${item.iconStyle || ''}">${item.icon}</div>
+          <div class="recipe-icon recipe-icon-${item.iconColor || 'neutre'}">${item.icon}</div>
           <div>
             <p class="recipe-title">${item.title}</p>
             <p class="recipe-sub">${item.sub}</p>

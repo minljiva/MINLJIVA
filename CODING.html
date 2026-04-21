@@ -614,9 +614,9 @@ fonts/
           <span class="badge badge-mel">${typeLabel(n.type)}</span>
         </div>
         <div class="plant-name">${n.title}</div>
-        <div class="desc" style="margin:6px 0 8px;">${n.desc}</div>
+        <div class="desc desc-coding">${n.desc}</div>
         ${n.code ? `<div class="code-block">${n.code}</div>` : ''}
-        ${n.liste ? `<div class="how-box" style="margin-top:8px;margin-bottom:0;">${n.liste.map(l => `<div class="step"><div class="step-text">${l}</div></div>`).join('')}</div>` : ''}
+        ${n.liste ? `<div class="how-box how-box-liste">${n.liste.map(l => `<div class="step"><div class="step-text">${l}</div></div>`).join('')}</div>` : ''}
         ${n.tip ? `<div class="tip">💡 ${n.tip}</div>` : ''}
       </div>
     `).join('');
