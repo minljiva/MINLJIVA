@@ -192,6 +192,8 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
   cursor: pointer;
   transition: all 0.2s;
 }
+.save-ok { font-size: 11px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: -1rem; text-align: center;   text-transform: uppercase;
+  letter-spacing: 0.05em;  width: 100%;}
 
 .btn-next:hover {
   background: var(--vert-clair);
@@ -213,6 +215,18 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
   color: #e74c3c; /* Rouge au survol */
 }
 
+.btn-edit-save{
+  background: var(--fond-bloc);
+  border: 1px solid var(--bordure);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--texte);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
 /* BOUTONS DANS LES MODALES (Enregistrer / Annuler) */
 .modal-actions {
   display: flex;
@@ -228,6 +242,11 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.btn-save:hover {
+  background: var(--vert-clair);
+  border-color: var(--vert);
 }
 .overlay, .detail-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; align-items: center; justify-content: center; }
 .overlay.open, .detail-overlay.open { display: flex; }
