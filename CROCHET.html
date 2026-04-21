@@ -150,7 +150,6 @@
     function render() {
       const grid = document.getElementById('grid');
       const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
-      document.getElementById('count').textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
 
       if (list.length === 0) {
         grid.innerHTML = '<div class="empty">Aucun projet ici. 🧶</div>';
