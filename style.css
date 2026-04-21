@@ -192,7 +192,7 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
   cursor: pointer;
   transition: all 0.2s;
 }
-.save-ok { font-size: 11px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: -1rem; text-align: center;   text-transform: uppercase;
+.save-ok { font-size: 11px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: 1rem; text-align: center;   text-transform: uppercase;
   letter-spacing: 0.05em;  width: 100%;}
 
 .btn-next:hover {
