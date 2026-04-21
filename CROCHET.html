@@ -95,6 +95,14 @@
         <div id="d-statut-badge" style="margin-bottom:6px"></div>
         <div style="font-size:18px;font-weight:500;color:var(--texte)" id="d-titre-affiche"></div>
       </div>
+      <div class="detail-section">
+  <div class="detail-label">Statut du projet</div>
+  <select class="edit-input" id="d-statut">
+    <option value="todo">TO DO</option>
+    <option value="wip">WIP</option>
+    <option value="done">DONE</option>
+  </select>
+</div>
       <button class="btn-close" onclick="fermerDetail()">✕</button>
     </div>
  
@@ -358,6 +366,7 @@
     document.getElementById('d-pattern').value = p.pattern || '';
     document.getElementById('d-notes').value   = p.notes   || '';
     document.getElementById('d-duree').value   = p.duree   || '';
+    document.getElementById('d-statut').value = p.statut   || '';
  
     const actions = document.getElementById('d-actions');
     let html = '';
@@ -375,38 +384,55 @@
     document.getElementById('detail-panel').classList.remove('open');
   }
  
-  async function sauvegarderDetail() {
-    if (!detailId) return;
-    const btn = document.getElementById('btn-detail-save');
-    btn.disabled = true; btn.textContent = 'Enregistrement…';
- 
-    const titre   = document.getElementById('d-titre').value.trim();
-    const pattern = document.getElementById('d-pattern').value.trim();
-    const notes   = document.getElementById('d-notes').value.trim();
-    const duree   = document.getElementById('d-duree').value.trim();
- 
-    if (!titre) {
-      document.getElementById('d-titre').focus();
-      btn.disabled = false; btn.textContent = 'Enregistrer les modifications';
-      return;
+ async function sauvegarderDetail() {
+  if (!detailId) return;
+  const btn = document.getElementById('btn-detail-save');
+  btn.disabled = true; btn.textContent = 'Enregistrement…';
+
+  const titre   = document.getElementById('d-titre').value.trim();
+  const pattern = document.getElementById('d-pattern').value.trim();
+  const notes   = document.getElementById('d-notes').value.trim();
+  const duree   = document.getElementById('d-duree').value.trim();
+  const statut  = document.getElementById('d-statut').value; // 1. On récupère le statut choisi
+
+  if (!titre) {
+    document.getElementById('d-titre').focus();
+    btn.disabled = false; btn.textContent = 'Enregistrer les modifications';
+    return;
+  }
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${detailId}`, {
+      method: 'PATCH', 
+      headers,
+      body: JSON.stringify({ 
+        titre, 
+        pattern: pattern||null, 
+        notes: notes||null, 
+        duree: duree||null,
+        statut: statut // 2. On l'ajoute au body
+      })
+    });
+    if (!res.ok) throw new Error(await res.text());
+
+    // 3. On met à jour l'objet localement
+    const idx = projets.findIndex(x => x.id === detailId);
+    if (idx !== -1) {
+      projets[idx] = { ...projets[idx], titre, pattern, notes, duree, statut };
     }
-    try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${detailId}`, {
-        method: 'PATCH', headers,
-        body: JSON.stringify({ titre, pattern: pattern||null, notes: notes||null, duree: duree||null })
-      });
-      if (!res.ok) throw new Error(await res.text());
- 
-      const idx = projets.findIndex(x => x.id === detailId);
-      if (idx !== -1) projets[idx] = { ...projets[idx], titre, pattern: pattern||null, notes: notes||null, duree: duree||null };
-      render();
-      document.getElementById('d-titre-affiche').textContent = '🧶 ' + titre;
- 
-      const ok = document.getElementById('save-ok');
-      ok.style.display = 'block';
-      setTimeout(() => { ok.style.display = 'none'; }, 2500);
-    } catch(e) { alert('Erreur : ' + e.message); }
-    finally { btn.disabled = false; btn.textContent = 'Enregistrer les modifications'; }
+    
+    render(); // On rafraîchit la grille
+    remplirDetail(projets[idx]); // On rafraîchit le badge et les boutons du panneau
+    
+    const ok = document.getElementById('save-ok');
+    ok.style.display = 'block';
+    setTimeout(() => { ok.style.display = 'none'; }, 2500);
+  } catch(e) { 
+    alert('Erreur : ' + e.message); 
+  } finally { 
+    btn.disabled = false; 
+    btn.textContent = 'Enregistrer les modifications'; 
+  }
   }
  
   charger();
