@@ -174,18 +174,20 @@
           : '';
 
         return `
-          <div class="crochet-card ${p.statut}" onclick="ouvrirDetail('${p.id}')">
-            <div class="card-top">
-              <div class="card-title">🧶 ${p.titre}</div>
-              <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
-            </div>
-            ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
-            ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
-            <div class="card-actions" style="margin-top:10px">
-              ${btnSuivant}
-              <button class="btn-delete" onclick="event.stopPropagation(); supprimerProjet('${p.id}')">✕</button>
-            </div>
-          </div>`;
+  <div class="crochet-card ${p.statut}">
+    <div class="card-top">
+      <div class="card-title clickable-title" onclick="ouvrirDetail('${p.id}')">
+        🧶 ${p.titre}
+      </div>
+      <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
+    </div>
+    ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
+    ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
+    <div class="card-actions" style="margin-top:10px">
+      ${btnSuivant}
+      <button class="btn-delete" onclick="event.stopPropagation(); supprimerProjet('${p.id}')">✕</button>
+    </div>
+  </div>`;
       }).join('');
     }
 
