@@ -81,7 +81,8 @@ count-bar
 /* 4. TITRES */
 h1 { font-family: 'Halimun', sans-serif; font-size: 33px; font-weight: 500; text-align: center; margin-bottom: 0rem;  }
 h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--texte); }
-.subtitle { font-size: 14px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: -1rem; text-align: center; }
+.subtitle { font-size: 11px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: -1rem; text-align: center;   text-transform: uppercase;
+  letter-spacing: 0.05em;}
 
 /* 5. COMPOSANTS COMMUNS (Box, Tip, Note...) */
 .box { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
