@@ -162,7 +162,7 @@
   async function ajouterProjet() {
     const titre   = document.getElementById('inp-titre').value.trim();
     const pattern = document.getElementById('inp-pattern').value.trim();
-    const pattern = document.getElementById('inp-explication').value.trim();
+    const explication = document.getElementById('inp-explication').value.trim();
     if (!titre) { document.getElementById('inp-titre').focus(); return; }
 
     const btn = document.getElementById('btn-save');
@@ -173,7 +173,7 @@
       const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
         method:  'POST',
         headers,
-        body: JSON.stringify({ titre, pattern: pattern, explication || null, statut: 'todo' })
+        body: JSON.stringify({ titre, pattern: pattern || null, explication: explication || null, statut: 'todo' })
       });
       if (!res.ok) throw new Error(await res.text());
       fermerModal();
