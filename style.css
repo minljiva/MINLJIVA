@@ -69,6 +69,16 @@ count-bar
  font-size: 12px;
 }
 
+/* Style pour le compteur de résultats */
+.count-bar {
+  font-size: 12px;
+  color: var(--texte-pale);
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* 4. TITRES */
 h1 { font-family: 'Halimun', sans-serif; font-size: 33px; font-weight: 500; text-align: center; margin-bottom: 0rem;  }
 h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--texte); }
