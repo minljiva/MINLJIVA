@@ -95,6 +95,11 @@
     </div>
 
     <div class="detail-section">
+  <div class="detail-label">Date de création</div>
+  <div id="d-date" style="font-size: 13px; color: var(--texte-doux); font-weight: 500;"></div>
+</div>
+
+    <div class="detail-section">
       <div class="detail-label">Nom du projet</div>
       <input class="edit-input" type="text" id="d-titre" />
     </div>
@@ -242,13 +247,24 @@
       await charger();
     }
 
+// --- l'heure---
+
+    function formaterDate(isoString) {
+  if (!isoString) return "--";
+  const date = new Date(isoString);
+  const mois = String(date.getMonth() + 1).padStart(2, '0'); // Ajoute un 0 si besoin
+  const annee = date.getFullYear();
+  return `${mois}-${annee}`;
+}
+    
     // --- PANNEAU DÉTAIL ---
-    function ouvrirDetail(id) {
-      const p = projets.find(x => x.id === id);
-      if (!p) return;
-      detailId = id;
+function ouvrirDetail(id) {
+  const p = projets.find(x => x.id === id);
+  if (!p) return;
+  detailId = id;
       
       document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
+  document.getElementById('d-date').textContent = formaterDate(p.created_at);
       document.getElementById('d-titre').value = p.titre || '';
       document.getElementById('d-pattern').value = p.pattern || '';
       document.getElementById('d-explication-detail').value = p.explication || '';
