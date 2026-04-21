@@ -196,6 +196,19 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 .crochet-card.wip  { border-left: 3px solid var(--orange); }
 .crochet-card.done { border-left: 3px solid var(--vert); }
 
+
+.clickable-title {
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  display: inline-block; /* Pour que la zone de clic s'arrête à la fin du texte */
+}
+
+/* L'effet de survol uniquement sur le titre */
+.clickable-title:hover {
+  color: var(--vert);
+  text-decoration: underline; /* Optionnel : pour bien montrer que c'est un lien */
+}
 /* 13. RESPONSIVE ET UTILS */
 @media (max-width: 600px) {
   body { padding: 1rem 0.75rem; }
