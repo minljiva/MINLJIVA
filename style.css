@@ -180,7 +180,55 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 
 /* 12. CROCHET — modale et panneau slide */
 .btn-add { display: inline-flex; align-items: center; gap: 6px; background: var(--vert); color: #fff; border: none; border-radius: 99px; padding: 8px 18px; font-size: 13px; font-weight: 500; cursor: pointer; margin-bottom: 1.5rem; }
+/* BOUTONS D'ACTION (Démarrer / Terminer) */
+.btn-next {
+  background: var(--fond-bloc);
+  border: 1px solid var(--bordure);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--texte);
+  cursor: pointer;
+  transition: all 0.2s;
+}
 
+.btn-next:hover {
+  background: var(--vert-clair);
+  border-color: var(--vert);
+}
+
+/* BOUTON SUPPRIMER (La petite croix) */
+.btn-delete {
+  background: none;
+  border: none;
+  color: var(--texte-pale);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.btn-delete:hover {
+  color: #e74c3c; /* Rouge au survol */
+}
+
+/* BOUTONS DANS LES MODALES (Enregistrer / Annuler) */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background: var(--vert);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 .overlay, .detail-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; align-items: center; justify-content: center; }
 .overlay.open, .detail-overlay.open { display: flex; }
 
