@@ -56,6 +56,10 @@
       <div class="field">
         <label>Pattern (nom ou lien)</label>
         <input type="text" id="inp-pattern" placeholder="ex : Ravelry — Cozy Hat par XYZ" />
+      </div>      
+      <div class="field">
+        <label>Explication</label>
+        <input type="text" id="inp-explication" placeholder="toutes les informations nécessaire" />
       </div>
       <div class="modal-actions">
         <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
@@ -120,6 +124,7 @@
             <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
           </div>
           ${p.pattern ? `<div class="card-pattern">📋 ${p.pattern}</div>` : ''}
+          ${p.explication ? `<div class="card-explication">📋 ${p.explication}</div>` : ''}
           <div class="card-actions">
             ${btnSuivant}
             <button class="btn-delete" onclick="supprimerProjet('${p.id}')">✕</button>
@@ -141,6 +146,7 @@
   function ouvrirModal() {
     document.getElementById('inp-titre').value   = '';
     document.getElementById('inp-pattern').value = '';
+    document.getElementById('inp-explication').value = '';
     document.getElementById('overlay').classList.add('open');
     setTimeout(() => document.getElementById('inp-titre').focus(), 100);
   }
@@ -156,6 +162,7 @@
   async function ajouterProjet() {
     const titre   = document.getElementById('inp-titre').value.trim();
     const pattern = document.getElementById('inp-pattern').value.trim();
+    const pattern = document.getElementById('inp-explication').value.trim();
     if (!titre) { document.getElementById('inp-titre').focus(); return; }
 
     const btn = document.getElementById('btn-save');
@@ -166,7 +173,7 @@
       const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
         method:  'POST',
         headers,
-        body: JSON.stringify({ titre, pattern: pattern || null, statut: 'todo' })
+        body: JSON.stringify({ titre, pattern: pattern, explication || null, statut: 'todo' })
       });
       if (!res.ok) throw new Error(await res.text());
       fermerModal();
