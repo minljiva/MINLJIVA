@@ -1,8 +1,8 @@
 /* ============================================================
-   MINLJIVA — FEUILLE DE STYLE PRINCIPALE (VERSION UNIFIÉE)
+   MINLJIVA — FEUILLE DE STYLE PRINCIPALE
    ============================================================ */
 
-/* 1. PALETTE & VARIABLES */
+/* 1. PALETTE DE COULEURS */
 :root {
   --vert:          #1D9E75;
   --vert-clair:    #E1F5EE;
@@ -25,7 +25,11 @@
 }
 
 /* 2. RESET & BASE */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 @font-face {
   font-family: 'Halimun';
@@ -45,7 +49,7 @@ body {
 a { color: var(--texte-doux); text-decoration: none; transition: color 0.15s; }
 a:hover { color: var(--vert); }
 
-/* 3. HEADER & NAVIGATION */
+/* 3. HEADER — logo + navigation */
 .site-header { margin-bottom: 2rem; }
 .site-header img { display: block; max-width: 260px; margin: 0 auto 0.75rem; }
 
@@ -56,120 +60,141 @@ a:hover { color: var(--vert); }
   padding: 0.5rem 1rem;
   text-align: center;
   font-size: 13px;
+  color: var(--texte-doux);
   line-height: 2;
 }
 
-.nav a.actif { color: var(--vert); font-weight: 500; }
+.nav a:hover, .nav a.actif {
+  color: var(--vert);
+  font-weight: 500;
+}
 
-/* 4. TYPOGRAPHIE */
+/* 4. TITRES */
 h1 { font-family: 'Halimun', sans-serif; font-size: 33px; font-weight: 500; text-align: center; margin-bottom: 0.25rem; }
-h2 { font-size: 16px; font-weight: 500; margin-bottom: 1rem; }
+h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--texte); }
 .subtitle { font-size: 14px; color: var(--texte-doux); margin-bottom: 1.5rem; text-align: center; }
 
-/* 5. BOUTONS & FILTRES COMMUNS */
-.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
-.filter-label { font-size: 11px; color: var(--texte-pale); text-transform: uppercase; letter-spacing: .05em; width: 100%; margin-bottom: 4px; }
+/* 5. COMPOSANTS COMMUNS (Box, Tip, Note...) */
+.box { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
 
-.filter-btn, .tab {
+.tip, .note {
+  font-size: 12px; margin-top: 10px; padding: 8px 10px;
+  background: var(--fond-bloc); border-left: 3px solid var(--vert);
+  border-radius: 0 8px 8px 0; color: var(--texte-doux);
+}
+
+.warn { font-size: 12px; background: var(--orange-clair); color: var(--orange-fonce); border-radius: 8px; padding: 8px 12px; margin-top: 1rem; }
+
+.mariage {
+  font-size: 12px; margin-top: 6px; padding: 8px 10px;
+  background: #EEEDFE18; border-left: 3px solid var(--violet);
+  border-radius: 0 8px 8px 0; color: var(--texte-doux);
+}
+
+.pot-info {
+  font-size: 12px; margin-top: 6px; padding: 8px 10px;
+  background: #FAEEDA44; border-left: 3px solid var(--orange);
+  border-radius: 0 8px 8px 0; color: var(--texte-doux);
+}
+
+/* 6. ONGLETS ET FILTRES */
+.tabs, .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.filter-label { font-size: 11px; color: var(--texte-pale); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; margin-top: 0.75rem; width: 100%; }
+
+.tab, .filter-btn {
   font-size: 13px; padding: 5px 14px; border-radius: 99px;
   border: 1px solid var(--bordure2); background: transparent;
   color: var(--texte-doux); cursor: pointer; transition: all 0.15s;
 }
 
-.filter-btn:hover, .tab:hover { border-color: #999; color: var(--texte); }
-.filter-btn.active, .tab.active { background: var(--fond-hover); color: var(--texte); border-color: #999; font-weight: 500; }
+.tab:hover, .filter-btn:hover { border-color: #999; color: var(--texte); }
+.tab.active, .filter-btn.active { background: var(--fond-hover); color: var(--texte); border-color: #999; font-weight: 500; }
 
-.btn-add {
-  display: inline-flex; align-items: center; gap: 6px; background: var(--vert);
-  color: #fff; border: none; border-radius: 99px; padding: 8px 18px;
-  font-size: 13px; font-weight: 500; cursor: pointer; margin-bottom: 1.5rem;
-}
+/* 7. GRILLES ET CARTES */
+.grid, .moment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
 
-/* 6. COMPOSANTS DE CONTENU (Box, Tip, Cards) */
-.box, .card, .recipe, .code-card, .crochet-card {
-  background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px;
-  padding: 1rem 1.25rem; margin-bottom: 12px;
-}
+.card { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1rem 1.25rem; }
+.card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.plant-name { font-size: 15px; font-weight: 500; color: var(--texte); }
+.plant-latin { font-size: 12px; color: var(--texte-doux); margin-bottom: 6px; }
+.desc { font-size: 13px; color: var(--texte-doux); line-height: 1.6; }
 
-.grid, .moment-grid, .crochet-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;
-}
-
-.tip, .note, .mariage, .pot-info {
-  font-size: 12px; margin-top: 8px; padding: 8px 10px;
-  border-radius: 0 8px 8px 0; color: var(--texte-doux);
-}
-.tip, .note { background: var(--fond-bloc); border-left: 3px solid var(--vert); }
-.mariage { background: #EEEDFE18; border-left: 3px solid var(--violet); }
-.pot-info { background: #FAEEDA44; border-left: 3px solid var(--orange); }
-
-/* 7. BADGES & TAGS */
-.badge, .expo-tag, .statut-badge {
-  font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; flex-shrink: 0;
-}
-.badge-med, .statut-done, .expo-ombre { background: var(--vert-clair); color: var(--vert-fonce); }
-.badge-cul, .badge-arom, .statut-wip, .expo-ouest { background: var(--orange-clair); color: var(--orange-fonce); }
-.badge-imm, .statut-todo { background: var(--violet-clair); color: var(--violet-fonce); }
+/* 8. BADGES ET TAGS */
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; flex-shrink: 0; }
+.badge-med { background: var(--vert-clair); color: var(--vert-fonce); }
+.badge-cul, .badge-arom { background: var(--orange-clair); color: var(--orange-fonce); }
 .badge-orn, .badge-ete { background: #FBEAF0; color: #72243E; }
 .badge-fruit, .badge-adapt { background: #EAF3DE; color: #27500A; }
-.expo-est { background: #E6F1FB; color: #0C447C; }
+.badge-imm { background: var(--violet-clair); color: var(--violet-fonce); }
+.badge-mel { background: var(--fond-hover); color: #444441; }
 
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
 .tag { font-size: 11px; background: var(--fond-bloc); color: var(--texte-doux); padding: 2px 8px; border-radius: 99px; border: 1px solid var(--bordure); }
 
-/* 8. RECETTES & ÉTAPES (How-to) */
+/* 9. RECETTES ET ÉTAPES (Tisanes & Cuisine) */
+.recipe { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 12px; }
 .recipe-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-.recipe-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; }
+.recipe-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; font-weight: 600; }
+.recipe-title { font-size: 15px; font-weight: 500; color: var(--texte); margin: 0; }
+.recipe-sub { font-size: 12px; color: var(--texte-doux); margin: 0; }
+
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
 .block { background: var(--fond-bloc); border-radius: 8px; padding: 10px 12px; }
-.block-label { font-size: 11px; color: var(--texte-pale); text-transform: uppercase; margin-bottom: 4px; }
-.block-val { font-size: 13px; color: var(--texte); }
+.block-label { font-size: 11px; color: var(--texte-pale); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+.block-val { font-size: 13px; color: var(--texte); line-height: 1.5; }
 
 .how-box { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; }
-.step { display: flex; gap: 12px; margin-bottom: 12px; }
+.step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
 .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--vert-clair); color: var(--vert-fonce); font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.step-text { font-size: 13px; color: var(--texte-doux); }
+.step-text { font-size: 13px; color: var(--texte-doux); line-height: 1.6; }
 
-/* 9. PAGE CODING (Blocks de code) */
-.code-block {
-  background: #1a1a18; color: #e8e7e3; border-radius: 8px; padding: 10px 14px;
-  font-family: 'Courier New', Courier, monospace; font-size: 12px;
-  line-height: 1.7; overflow-x: auto; margin-top: 6px;
-}
-.code-block .kw { color: var(--violet-clair); }
+/* 10. PAGE AVENIR — expositions */
+.expo-btn.active-est   { background: #E6F1FB; color: #0C447C; border-color: #378ADD; }
+.expo-btn.active-ouest { background: var(--orange-clair); color: var(--orange-fonce); border-color: var(--orange); }
+.expo-btn.active-ombre { background: #EAF3DE; color: #27500A; border-color: #639922; }
+.expo-btn.active-all   { background: var(--fond-hover); color: var(--texte); border-color: #999; }
+
+.expo-tag { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; }
+.expo-est   { background: #E6F1FB; color: #0C447C; }
+.expo-ouest { background: var(--orange-clair); color: var(--orange-fonce); }
+.expo-ombre { background: #EAF3DE; color: #27500A; }
+.expo-both  { background: var(--fond-hover); color: #444441; }
+
+.card.prio { border: 2px solid var(--vert); }
+.prio-label { font-size: 11px; background: var(--vert-clair); color: var(--vert-fonce); padding: 2px 8px; border-radius: 8px; font-weight: 500; display: inline-block; margin-bottom: 8px; }
+
+/* 11. PAGE CODING — blocks de code */
+.code-block { background: #1a1a18; color: #e8e7e3; border-radius: 8px; padding: 10px 14px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-top: 6px; }
+.code-block .kw  { color: var(--violet-clair); }
 .code-block .str { color: #a8e6cf; }
-.code-block .tag { color: #f8c291; }
+.code-block .com { color: #666; font-style: italic; }
+.code-block .tag { color: #f8c291; border: none; background: none; }
+.code-block .atr { color: var(--vert-clair); }
 
-/* 10. SPÉCIFIQUE CROCHET & MODALES */
-.crochet-card.todo { border-left: 3px solid var(--violet); }
-.crochet-card.wip  { border-left: 3px solid var(--orange); }
-.crochet-card.done { border-left: 3px solid var(--vert); }
+/* 12. CROCHET — modale et panneau slide */
+.btn-add { display: inline-flex; align-items: center; gap: 6px; background: var(--vert); color: #fff; border: none; border-radius: 99px; padding: 8px 18px; font-size: 13px; font-weight: 500; cursor: pointer; margin-bottom: 1.5rem; }
 
-.overlay, .detail-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100;
-  align-items: center; justify-content: center;
-}
+.overlay, .detail-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; align-items: center; justify-content: center; }
 .overlay.open, .detail-overlay.open { display: flex; }
 
 .modal { background: var(--blanc); border-radius: 16px; padding: 1.5rem; width: 90%; max-width: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
 .field { margin-bottom: 0.9rem; }
-.field input, .field textarea, .field select, .edit-input, .edit-textarea {
-  width: 100%; border: 1px solid var(--bordure); border-radius: 8px; padding: 8px 10px;
-  font-size: 13px; font-family: inherit; background: var(--fond); outline: none;
-}
+.field label, .detail-label { display: block; font-size: 11px; color: var(--texte-pale); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+.field input, .field textarea, .field select, .edit-input, .edit-textarea { width: 100%; border: 1px solid var(--bordure); border-radius: 8px; padding: 8px 10px; font-size: 13px; font-family: inherit; background: var(--fond); outline: none; }
 
-.detail-panel {
-  position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px; height: 100%;
-  background: var(--blanc); box-shadow: -4px 0 24px rgba(0,0,0,0.12); z-index: 201;
-  transition: right 0.25s ease; padding: 1.5rem; overflow-y: auto;
-}
+.detail-panel { position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px; height: 100%; background: var(--blanc); box-shadow: -4px 0 24px rgba(0,0,0,0.12); z-index: 201; overflow-y: auto; transition: right 0.25s ease; padding: 1.5rem; }
 .detail-panel.open { right: 0; }
 
-/* 11. UTILITAIRES & RESPONSIVE */
-.save-ok { font-size: 12px; color: var(--vert-fonce); margin-top: 6px; display: none; }
-.loading, .empty { text-align: center; padding: 3rem 1rem; color: var(--texte-pale); font-size: 14px; }
+.crochet-card.todo { border-left: 3px solid var(--violet); }
+.crochet-card.wip  { border-left: 3px solid var(--orange); }
+.crochet-card.done { border-left: 3px solid var(--vert); }
 
+/* 13. RESPONSIVE ET UTILS */
 @media (max-width: 600px) {
+  body { padding: 1rem 0.75rem; }
   .grid, .moment-grid, .crochet-grid { grid-template-columns: 1fr; }
   .row { grid-template-columns: 1fr; }
   .detail-panel { max-width: 100%; }
 }
+
+.empty, .loading { text-align: center; padding: 3rem 1rem; color: var(--texte-pale); font-size: 14px; }
