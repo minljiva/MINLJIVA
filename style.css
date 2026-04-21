@@ -59,9 +59,12 @@ a:hover { color: var(--violet); }
   line-height: 2;
 }
 
-.nav a:hover, .nav a.actif {
-  color: var(--vert);
+.nav a:hover, {
+  color: var(--violet);
+  transform: translateY(-2px);
 }
+.nav a.actif  {
+  color: var(--orange);}
 
 /* Style pour le compteur de résultats */
 .count-bar {
@@ -118,12 +121,6 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 .grid, .moment-grid, .crochet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
 
 .card, .crochet-card { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1rem 1.25rem; }
-.crochet-card:hover {
-  background-color: var(--fond-hover); /* Ou var(--vert-clair) si tu veux que ça flashe plus */
-  border-color: #999;
-  transform: translateY(-2px); /* Petit effet de soulèvement sympa */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
 .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .plant-name { font-size: 15px; font-weight: 500; color: var(--texte); }
 .plant-latin { font-size: 12px; color: var(--texte-doux); margin-bottom: 6px; }
