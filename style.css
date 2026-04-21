@@ -63,7 +63,7 @@ a:hover { color: var(--vert); }
   color: var(--texte-doux);
   line-height: 2;
 }
-count-bar
+
 .nav a:hover, .nav a.actif {
   color: var(--vert);
  font-size: 12px;
