@@ -77,16 +77,16 @@
 
   <div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
   <div class="detail-panel" id="detail-panel">
-<div class="detail-header">
-  <div style="flex:1">
-    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-      <div id="d-statut-badge"></div>
-      <div id="d-date" style="font-size: 12px; color: var(--texte-pale); font-weight: 500; letter-spacing: 0.05em;"></div>
+    <div class="detail-header">
+      <div style="flex:1">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+          <div id="d-statut-badge"></div>
+          <div id="d-date" style="font-size: 12px; color: var(--texte-pale); font-weight: 500; letter-spacing: 0.05em;"></div>
+        </div>
+        <div style="font-size: 18px; font-weight: 500;" id="d-titre-affiche"></div>
+      </div>
+      <button onclick="fermerDetail()" style="background:none; border:none; cursor:pointer; font-size:20px; align-self: flex-start;">✕</button>
     </div>
-    <div style="font-size: 18px; font-weight: 500;" id="d-titre-affiche"></div>
-  </div>
-  <button onclick="fermerDetail()" style="background:none; border:none; cursor:pointer; font-size:20px; align-self: flex-start;">✕</button>
-</div>
 
     <div class="detail-section">
       <div class="detail-label">Statut du projet</div>
@@ -119,7 +119,6 @@
 
     <button class="btn-edit-save" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer les modifications</button>
     <div class="save-ok" id="save-ok">✓ Modifications enregistrées</div>
-    <div class="detail-actions" id="d-actions"></div>
   </div>
 
   <script>
@@ -148,25 +147,22 @@
     }
 
     function render() {
-  const grid = document.getElementById('grid');
-  // 1. On définit d'abord la liste filtrée
-  const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
+      const grid = document.getElementById('grid');
+      const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
 
-  // 2. On met à jour le compteur (BIEN PLACÉ ICI)
-  const countElem = document.getElementById('count');
-  if (countElem) {
-    countElem.textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
-  }
+      const countElem = document.getElementById('count');
+      if (countElem) {
+        countElem.textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
+      }
 
-  // 3. Gestion de l'affichage vide
-  if (list.length === 0) {
-    grid.innerHTML = '<div class="empty">Aucun projet ici. 🧶</div>';
-    return;
-  }
+      if (list.length === 0) {
+        grid.innerHTML = '<div class="empty">Aucun projet ici. 🧶</div>';
+        return;
+      }
 
-  // 4. Construction de la grille
-  const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE' };
-  grid.innerHTML = list.map(p => {
+      const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE' };
+
+      grid.innerHTML = list.map(p => {
         const btnSuivant = p.statut === 'todo'
           ? `<button class="btn-next" onclick="event.stopPropagation(); changerStatut('${p.id}','wip')">▶ Démarrer</button>`
           : p.statut === 'wip'
@@ -174,20 +170,20 @@
           : '';
 
         return `
-  <div class="crochet-card ${p.statut}">
-    <div class="card-top">
-      <div class="card-title clickable-title" onclick="ouvrirDetail('${p.id}')">
-        🧶 ${p.titre}
-      </div>
-      <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
-    </div>
-    ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
-    ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
-    <div class="card-actions" style="margin-top:10px">
-      ${btnSuivant}
-      <button class="btn-delete" onclick="event.stopPropagation(); supprimerProjet('${p.id}')">✕</button>
-    </div>
-  </div>`;
+          <div class="crochet-card ${p.statut}">
+            <div class="card-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <div class="plant-name clickable-title" onclick="ouvrirDetail('${p.id}')" style="cursor:pointer; flex:1; margin-right:10px;">
+                🧶 ${p.titre}
+              </div>
+              <span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>
+            </div>
+            ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
+            ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
+            <div class="card-actions" style="margin-top:12px; display: flex; gap: 8px;">
+              ${btnSuivant}
+              <button class="btn-delete" onclick="event.stopPropagation(); supprimerProjet('${p.id}')">✕</button>
+            </div>
+          </div>`;
       }).join('');
     }
 
@@ -198,7 +194,6 @@
       render();
     }
 
-    // --- LOGIQUE MODAL AJOUT ---
     function ouvrirModal() {
       document.getElementById('inp-titre').value = '';
       document.getElementById('inp-pattern').value = '';
@@ -225,7 +220,6 @@
       } catch(e) { alert(e.message); }
     }
 
-    // --- LOGIQUE STATUT & DURÉE ---
     function demanderDuree(id) {
       projetEnCours = id;
       document.getElementById('inp-duree').value = '';
@@ -254,38 +248,30 @@
       await charger();
     }
 
-// --- l'heure---
-
-function formaterDate(isoString) {
-  if (!isoString) return "--";
-  const date = new Date(isoString);
-  const mois = String(date.getMonth() + 1).padStart(2, '0');
-  const annee = date.getFullYear();
-  return `${mois}-${annee}`;
-}
+    function formaterDate(isoString) {
+      if (!isoString) return "--";
+      const date = new Date(isoString);
+      return `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+    }
     
-    // --- PANNEAU DÉTAIL ---
-function ouvrirDetail(id) {
-  const p = projets.find(x => x.id === id);
-  if (!p) return;
-  detailId = id;
-  
-  // On remplit la date ici
-  document.getElementById('d-date').textContent = formaterDate(p.created_at);
-
-  // On remplit le badge
-  const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
-  document.getElementById('d-statut-badge').innerHTML = `<span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
-  
-  // Le reste de tes lignes...
-  document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
+    function ouvrirDetail(id) {
+      const p = projets.find(x => x.id === id);
+      if (!p) return;
+      detailId = id;
+      
+      document.getElementById('d-date').textContent = formaterDate(p.created_at);
+      const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
+      
+      // On utilise la classe .badge et la classe couleur .statut-XXX
+      document.getElementById('d-statut-badge').innerHTML = `<span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
+      
+      document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
       document.getElementById('d-titre').value = p.titre || '';
       document.getElementById('d-pattern').value = p.pattern || '';
       document.getElementById('d-explication-detail').value = p.explication || '';
       document.getElementById('d-duree').value = p.duree || '';
       document.getElementById('d-statut').value = p.statut;
       
-    
       document.getElementById('detail-overlay').classList.add('open');
       document.getElementById('detail-panel').classList.add('open');
     }
@@ -312,7 +298,7 @@ function ouvrirDetail(id) {
           method: 'PATCH', headers, body: JSON.stringify(body)
         });
         await charger();
-        ouvrirDetail(detailId); // Rafraîchir le panneau
+        ouvrirDetail(detailId);
         document.getElementById('save-ok').style.display = 'block';
         setTimeout(() => document.getElementById('save-ok').style.display = 'none', 2000);
       } catch(e) { alert(e.message); }
