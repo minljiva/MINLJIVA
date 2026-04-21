@@ -77,15 +77,16 @@
 
   <div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
   <div class="detail-panel" id="detail-panel">
-    <div class="detail-header">
-      <div style="flex:1">
-        <div id="d-statut-badge" style="margin-bottom:6px"></div>
-
-  <div id="d-date" style="font-size: 13px; color: var(--texte-doux); font-weight: 500;"></div>
-        <div style="font-size:18px;font-weight:500;" id="d-titre-affiche"></div>
-      </div>
-      <button onclick="fermerDetail()" style="background:none; border:none; cursor:pointer; font-size:20px;">✕</button>
+<div class="detail-header">
+  <div style="flex:1">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+      <div id="d-statut-badge"></div>
+      <div id="d-date" style="font-size: 12px; color: var(--texte-pale); font-weight: 500; letter-spacing: 0.05em;"></div>
     </div>
+    <div style="font-size: 18px; font-weight: 500;" id="d-titre-affiche"></div>
+  </div>
+  <button onclick="fermerDetail()" style="background:none; border:none; cursor:pointer; font-size:20px; align-self: flex-start;">✕</button>
+</div>
 
     <div class="detail-section">
       <div class="detail-label">Statut du projet</div>
@@ -246,10 +247,10 @@
 
 // --- l'heure---
 
-    function formaterDate(isoString) {
+function formaterDate(isoString) {
   if (!isoString) return "--";
   const date = new Date(isoString);
-  const mois = String(date.getMonth() + 1).padStart(2, '0'); // Ajoute un 0 si besoin
+  const mois = String(date.getMonth() + 1).padStart(2, '0');
   const annee = date.getFullYear();
   return `${mois}-${annee}`;
 }
@@ -259,9 +260,16 @@ function ouvrirDetail(id) {
   const p = projets.find(x => x.id === id);
   if (!p) return;
   detailId = id;
-      
-      document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
+  
+  // On remplit la date ici
   document.getElementById('d-date').textContent = formaterDate(p.created_at);
+
+  // On remplit le badge
+  const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
+  document.getElementById('d-statut-badge').innerHTML = `<span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
+  
+  // Le reste de tes lignes...
+  document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
       document.getElementById('d-titre').value = p.titre || '';
       document.getElementById('d-pattern').value = p.pattern || '';
       document.getElementById('d-explication-detail').value = p.explication || '';
