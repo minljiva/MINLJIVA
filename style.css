@@ -1,8 +1,8 @@
 /* ============================================================
-   MINLJIVA — FEUILLE DE STYLE PRINCIPALE
+   MINLJIVA — FEUILLE DE STYLE PRINCIPALE (VERSION UNIFIÉE)
    ============================================================ */
 
-/* PALETTE DE COULEURS */
+/* 1. PALETTE & VARIABLES */
 :root {
   --vert:          #1D9E75;
   --vert-clair:    #E1F5EE;
@@ -24,11 +24,12 @@
   --fond-hover:    #efefec;
 }
 
-/* RESET & BASE */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* 2. RESET & BASE */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@font-face {
+  font-family: 'Halimun';
+  src: url('fonts/Halimun.ttf') format('truetype');
 }
 
 body {
@@ -41,31 +42,12 @@ body {
   line-height: 1.6;
 }
 
-a {
-  color: var(--texte-doux);
-  text-decoration: none;
-  transition: color 0.15s;
-}
+a { color: var(--texte-doux); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--vert); }
 
-a:hover {
-  color: var(--vert);
-}
-
-@font-face {
-  font-family: 'Halimun';
-  src: url('fonts/Halimun.ttf') format('truetype');
-}
-
-/* ============================================================
-   LAYOUT & HEADER
-   ============================================================ */
-
+/* 3. HEADER & NAVIGATION */
 .site-header { margin-bottom: 2rem; }
-.site-header img {
-  display: block;
-  max-width: 260px;
-  margin: 0 auto 0.75rem;
-}
+.site-header img { display: block; max-width: 260px; margin: 0 auto 0.75rem; }
 
 .nav {
   background: var(--blanc);
@@ -74,312 +56,120 @@ a:hover {
   padding: 0.5rem 1rem;
   text-align: center;
   font-size: 13px;
-  color: var(--texte-doux);
   line-height: 2;
 }
 
-.nav a {
-  padding: 2px 4px;
-  border-radius: 4px;
+.nav a.actif { color: var(--vert); font-weight: 500; }
+
+/* 4. TYPOGRAPHIE */
+h1 { font-family: 'Halimun', sans-serif; font-size: 33px; font-weight: 500; text-align: center; margin-bottom: 0.25rem; }
+h2 { font-size: 16px; font-weight: 500; margin-bottom: 1rem; }
+.subtitle { font-size: 14px; color: var(--texte-doux); margin-bottom: 1.5rem; text-align: center; }
+
+/* 5. BOUTONS & FILTRES COMMUNS */
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
+.filter-label { font-size: 11px; color: var(--texte-pale); text-transform: uppercase; letter-spacing: .05em; width: 100%; margin-bottom: 4px; }
+
+.filter-btn, .tab {
+  font-size: 13px; padding: 5px 14px; border-radius: 99px;
+  border: 1px solid var(--bordure2); background: transparent;
+  color: var(--texte-doux); cursor: pointer; transition: all 0.15s;
 }
 
-.nav a:hover, .nav a.actif {
-  color: var(--vert);
-  font-weight: 500;
+.filter-btn:hover, .tab:hover { border-color: #999; color: var(--texte); }
+.filter-btn.active, .tab.active { background: var(--fond-hover); color: var(--texte); border-color: #999; font-weight: 500; }
+
+.btn-add {
+  display: inline-flex; align-items: center; gap: 6px; background: var(--vert);
+  color: #fff; border: none; border-radius: 99px; padding: 8px 18px;
+  font-size: 13px; font-weight: 500; cursor: pointer; margin-bottom: 1.5rem;
 }
 
-/* TITRES */
-h1 {
-  font-size: 33px;
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-  font-family: 'Halimun', sans-serif;
-  text-align: center;
+/* 6. COMPOSANTS DE CONTENU (Box, Tip, Cards) */
+.box, .card, .recipe, .code-card, .crochet-card {
+  background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px;
+  padding: 1rem 1.25rem; margin-bottom: 12px;
 }
-
-h2 {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: var(--texte);
-}
-
-.subtitle {
-  font-size: 14px;
-  color: var(--texte-doux);
-  margin-bottom: 1.5rem;
-  padding-left: 33px;
-}
-
-/* ============================================================
-   COMPOSANTS GÉNÉRIQUES (Boutons, Badges, Grilles)
-   ============================================================ */
 
 .grid, .moment-grid, .crochet-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 12px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;
 }
 
-/* Bouton principal (Ajout) */
-.btn-add {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--vert);
-  color: #fff;
-  border: none;
-  border-radius: 99px;
-  padding: 8px 18px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  transition: opacity 0.15s;
+.tip, .note, .mariage, .pot-info {
+  font-size: 12px; margin-top: 8px; padding: 8px 10px;
+  border-radius: 0 8px 8px 0; color: var(--texte-doux);
 }
+.tip, .note { background: var(--fond-bloc); border-left: 3px solid var(--vert); }
+.mariage { background: #EEEDFE18; border-left: 3px solid var(--violet); }
+.pot-info { background: #FAEEDA44; border-left: 3px solid var(--orange); }
 
-.btn-add:hover { opacity: 0.85; }
-
-/* Boutons secondaires */
-.btn-next, .btn-detail, .tab, .filter-btn {
-  font-size: 12px;
-  padding: 4px 12px;
-  border-radius: 99px;
-  border: 1px solid var(--bordure2);
-  background: transparent;
-  color: var(--texte-doux);
-  cursor: pointer;
-  transition: all 0.15s;
+/* 7. BADGES & TAGS */
+.badge, .expo-tag, .statut-badge {
+  font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; flex-shrink: 0;
 }
-
-.btn-next:hover, .btn-detail:hover, .tab:hover, .filter-btn:hover {
-  background: var(--fond-hover);
-  color: var(--texte);
-  border-color: #999;
-}
-
-.tab.active, .filter-btn.active {
-  background: var(--fond-hover);
-  color: var(--texte);
-  border-color: #999;
-  font-weight: 500;
-}
-
-/* Bouton Supprimer */
-.btn-delete {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 99px;
-  border: 1px solid #f5c0c0;
-  background: transparent;
-  color: #c0392b;
-  cursor: pointer;
-  margin-left: auto;
-  transition: all 0.15s;
-}
-
-.btn-delete:hover { background: #fdf0f0; }
-
-/* Badges de statut & Tags */
-.badge, .statut-badge, .tag, .expo-tag {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 8px;
-  font-weight: 500;
-  display: inline-block;
-}
-
-.badge-med, .statut-done { background: var(--vert-clair); color: var(--vert-fonce); }
-.badge-cul, .statut-wip, .expo-ouest { background: var(--orange-clair); color: var(--orange-fonce); }
+.badge-med, .statut-done, .expo-ombre { background: var(--vert-clair); color: var(--vert-fonce); }
+.badge-cul, .badge-arom, .statut-wip, .expo-ouest { background: var(--orange-clair); color: var(--orange-fonce); }
 .badge-imm, .statut-todo { background: var(--violet-clair); color: var(--violet-fonce); }
+.badge-orn, .badge-ete { background: #FBEAF0; color: #72243E; }
+.badge-fruit, .badge-adapt { background: #EAF3DE; color: #27500A; }
 .expo-est { background: #E6F1FB; color: #0C447C; }
-.expo-ombre { background: #EAF3DE; color: #27500A; }
 
-/* ============================================================
-   BLOCS DE CONTENU (Cards, Boxes)
-   ============================================================ */
+.tag { font-size: 11px; background: var(--fond-bloc); color: var(--texte-doux); padding: 2px 8px; border-radius: 99px; border: 1px solid var(--bordure); }
 
-.box, .card, .recipe, .how-box, .crochet-card, .code-card {
-  background: var(--blanc);
-  border: 1px solid var(--bordure);
-  border-radius: 12px;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
+/* 8. RECETTES & ÉTAPES (How-to) */
+.recipe-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.recipe-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+.block { background: var(--fond-bloc); border-radius: 8px; padding: 10px 12px; }
+.block-label { font-size: 11px; color: var(--texte-pale); text-transform: uppercase; margin-bottom: 4px; }
+.block-val { font-size: 13px; color: var(--texte); }
+
+.how-box { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; }
+.step { display: flex; gap: 12px; margin-bottom: 12px; }
+.step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--vert-clair); color: var(--vert-fonce); font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-text { font-size: 13px; color: var(--texte-doux); }
+
+/* 9. PAGE CODING (Blocks de code) */
+.code-block {
+  background: #1a1a18; color: #e8e7e3; border-radius: 8px; padding: 10px 14px;
+  font-family: 'Courier New', Courier, monospace; font-size: 12px;
+  line-height: 1.7; overflow-x: auto; margin-top: 6px;
 }
+.code-block .kw { color: var(--violet-clair); }
+.code-block .str { color: #a8e6cf; }
+.code-block .tag { color: #f8c291; }
 
-/* Variantes Crochet Card */
-.crochet-card.todo { border-left: 4px solid var(--violet); }
-.crochet-card.wip  { border-left: 4px solid var(--orange); }
-.crochet-card.done { border-left: 4px solid var(--vert); }
-
-/* Éléments internes des cards */
-.card-top, .card-header, .recipe-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.card-title, .plant-name, .recipe-title {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--texte);
-}
-
-.card-title:hover { color: var(--vert); cursor: pointer; }
-
-/* Blocs d'info colorés */
-.tip, .note, .mariage, .pot-info, .block {
-  font-size: 12px;
-  margin-top: 8px;
-  padding: 8px 10px;
-  border-radius: 0 8px 8px 0;
-  border-left: 3px solid var(--vert);
-  background: var(--fond-bloc);
-  color: var(--texte-doux);
-}
-
-.mariage { border-color: var(--violet); background: #EEEDFE18; }
-.pot-info { border-color: var(--orange); background: #FAEEDA44; }
-
-/* ============================================================
-   MODALES & FORMULAIRES
-   ============================================================ */
+/* 10. SPÉCIFIQUE CROCHET & MODALES */
+.crochet-card.todo { border-left: 3px solid var(--violet); }
+.crochet-card.wip  { border-left: 3px solid var(--orange); }
+.crochet-card.done { border-left: 3px solid var(--vert); }
 
 .overlay, .detail-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100;
+  align-items: center; justify-content: center;
 }
-
 .overlay.open, .detail-overlay.open { display: flex; }
 
-.modal {
-  background: var(--blanc);
-  border-radius: 16px;
-  padding: 1.5rem;
-  width: 90%;
-  max-width: 420px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-}
-
+.modal { background: var(--blanc); border-radius: 16px; padding: 1.5rem; width: 90%; max-width: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
 .field { margin-bottom: 0.9rem; }
-.field label, .detail-label {
-  display: block;
-  font-size: 11px;
-  color: var(--texte-pale);
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  margin-bottom: 4px;
-}
-
 .field input, .field textarea, .field select, .edit-input, .edit-textarea {
-  width: 100%;
-  border: 1px solid var(--bordure);
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--texte);
-  background: var(--fond);
-  outline: none;
-  transition: border-color 0.15s;
+  width: 100%; border: 1px solid var(--bordure); border-radius: 8px; padding: 8px 10px;
+  font-size: 13px; font-family: inherit; background: var(--fond); outline: none;
 }
-
-.field input:focus, .field textarea:focus, .edit-input:focus, .edit-textarea:focus { 
-  border-color: var(--vert); 
-}
-
-.field textarea, .edit-textarea { resize: vertical; min-height: 80px; }
-
-/* Actions Modale */
-.modal-actions, .detail-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 1.2rem;
-}
-
-.btn-save, .btn-edit-save {
-  background: var(--vert);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 7px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.btn-save:hover, .btn-edit-save:hover { opacity: 0.85; }
-.btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* ============================================================
-   PANNEAU DE DÉTAIL (Slide-in)
-   ============================================================ */
 
 .detail-panel {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 100%;
-  max-width: 480px;
-  height: 100%;
-  background: var(--blanc);
-  box-shadow: -4px 0 24px rgba(0,0,0,0.12);
-  z-index: 201;
-  overflow-y: auto;
-  transition: right 0.25s ease;
-  padding: 1.5rem;
+  position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px; height: 100%;
+  background: var(--blanc); box-shadow: -4px 0 24px rgba(0,0,0,0.12); z-index: 201;
+  transition: right 0.25s ease; padding: 1.5rem; overflow-y: auto;
 }
-
 .detail-panel.open { right: 0; }
 
-.save-ok {
-  font-size: 12px;
-  color: var(--vert-fonce);
-  margin-top: 6px;
-  display: none;
-}
-
-/* ============================================================
-   UTILITAIRES & RESPONSIVE
-   ============================================================ */
-
-.loading, .empty {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: var(--texte-pale);
-  font-size: 14px;
-}
+/* 11. UTILITAIRES & RESPONSIVE */
+.save-ok { font-size: 12px; color: var(--vert-fonce); margin-top: 6px; display: none; }
+.loading, .empty { text-align: center; padding: 3rem 1rem; color: var(--texte-pale); font-size: 14px; }
 
 @media (max-width: 600px) {
-  body { padding: 1rem 0.75rem; }
   .grid, .moment-grid, .crochet-grid { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 1fr; }
   .detail-panel { max-width: 100%; }
 }
-
-@media (max-width: 480px) {
-  .row { grid-template-columns: 1fr; }
-}
-
-/* SECTION CODE CHEAT SHEET */
-.code-block {
-  background: #1a1a18;
-  color: #e8e7e3;
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 12px;
-  line-height: 1.7;
-  overflow-x: auto;
-}
-.code-block .kw  { color: var(--violet-clair); }
-.code-block .str { color: #a8e6cf; }
-.code-block .com { color: #666; font-style: italic; }
-.code-block .num { color: var(--orange-clair); }
