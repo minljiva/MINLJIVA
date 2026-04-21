@@ -297,4 +297,43 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 
 .date { font-size: 12px; color: var(--texte-pale); font-weight: 500; letter-spacing: 0.05em; }
 
+/* La ligne qui contient Badge, Date et Bouton */
+.header-top-row {
+  display: flex;
+  justify-content: space-between; /* Pousse le bouton à droite et les infos à gauche */
+  align-items: center;            /* Aligne tout verticalement au centre */
+  width: 100%;
+}
+
+/* Le groupe Badge + Date */
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style spécifique pour le bouton fermer du panneau */
+.btn-close-detail {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--texte-pale);
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.btn-close-detail:hover {
+  color: var(--texte); /* Devient plus sombre au survol */
+}
+
+/* Optionnel : style pour la date si tu ne l'as pas déjà */
+.date {
+  font-size: 12px;
+  color: var(--texte-pale);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
 .empty, .loading { text-align: center; padding: 3rem 1rem; color: var(--texte-pale); font-size: 14px; }
