@@ -29,11 +29,11 @@
 
   <div class="filter-bar">
     <span class="filter-label">Par sujet</span>
-  <button class="filter-btn active" onclick="filter('all')">Tout</button>
-  <button class="filter-btn" onclick="filter('rapide')">Rapide quotidien</button>
-  <button class="filter-btn" onclick="filter('deep')">Hebdo profond</button>
-  <button class="filter-btn" onclick="filter('haut')">Haut du corps</button>
-  <button class="filter-btn" onclick="filter('bas')">Bas du corps</button>
+  <button class="filter-btn active" onclick="filter('all', this)">Tout</button>
+  <button class="filter-btn" onclick="filter('rapide', this)">Rapide quotidien</button>
+  <button class="filter-btn" onclick="filter('deep', this)">Hebdo profond</button>
+  <button class="filter-btn" onclick="filter('haut', this)">Haut du corps</button>
+  <button class="filter-btn" onclick="filter('bas', this)">Bas du corps</button>
 </div>
 
 <div id="app"></div>
@@ -115,12 +115,24 @@ function render(list){
 }
 
 
+function filter(type, btn) {
+  // --- PARTIE VISUELLE ---
+  // 1. On cherche tous les boutons dans la barre de filtre
+  const boutons = document.querySelectorAll('.filter-btn');
+  
+  // 2. On retire "active" de tout le monde
+  boutons.forEach(b => b.classList.remove('active'));
+  
+  // 3. On ajoute "active" sur le bouton cliqué
+  btn.classList.add('active');
 
-function filter(type){
-  if(type === "all") return render(data);
+  // --- PARTIE LOGIQUE (Ton code) ---
+  if(type === "all") {
+    return render(data);
+  }
   render(data.filter(d => d.type.includes(type)));
 }
-
+  
 // affichage initial
 render(data);
 
