@@ -148,17 +148,25 @@
     }
 
     function render() {
-      const grid = document.getElementById('grid');
-      const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
+  const grid = document.getElementById('grid');
+  // 1. On définit d'abord la liste filtrée
+  const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
 
-      if (list.length === 0) {
-        grid.innerHTML = '<div class="empty">Aucun projet ici. 🧶</div>';
-        return;
-      }
+  // 2. On met à jour le compteur (BIEN PLACÉ ICI)
+  const countElem = document.getElementById('count');
+  if (countElem) {
+    countElem.textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
+  }
 
-      const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE' };
+  // 3. Gestion de l'affichage vide
+  if (list.length === 0) {
+    grid.innerHTML = '<div class="empty">Aucun projet ici. 🧶</div>';
+    return;
+  }
 
-      grid.innerHTML = list.map(p => {
+  // 4. Construction de la grille
+  const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE' };
+  grid.innerHTML = list.map(p => {
         const btnSuivant = p.statut === 'todo'
           ? `<button class="btn-next" onclick="event.stopPropagation(); changerStatut('${p.id}','wip')">▶ Démarrer</button>`
           : p.statut === 'wip'
