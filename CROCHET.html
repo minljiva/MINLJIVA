@@ -59,7 +59,7 @@
       </div>
       <div class="field">
         <label>Notes / Explications</label>
-        <textarea id="inp-notes" placeholder="Laine utilisée, taille d'aiguilles, modifications…"></textarea>
+        <textarea id="inp-explication" placeholder="Laine utilisée, taille d'aiguilles, modifications…"></textarea>
       </div>
       <div class="modal-actions">
         <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
@@ -118,7 +118,7 @@
  
     <div class="detail-section">
       <div class="detail-label">Notes &amp; explications</div>
-      <textarea class="edit-textarea" id="d-notes" placeholder="Laine utilisée, taille d'aiguilles, modifications, difficultés rencontrées…"></textarea>
+      <textarea class="edit-textarea" id="d-explication" placeholder="Laine utilisée, taille d'aiguilles, modifications, difficultés rencontrées…"></textarea>
     </div>
  
     <div class="detail-section">
@@ -222,8 +222,8 @@
         : p.statut === 'wip'
         ? `<button class="btn-next" onclick="demanderDuree('${p.id}');event.stopPropagation()">✓ Terminer</button>`
         : '';
-      const notesPreview = p.notes
-        ? `<div class="card-notes-preview">📝 ${p.notes}</div>` : '';
+      const explicationPreview = p.explication
+        ? `<div class="card-notes-preview">📝 ${p.explication}</div>` : '';
       const dureeTag = p.duree
         ? `<div class="card-duree">⏱ ${p.duree}</div>` : '';
  
@@ -234,7 +234,7 @@
             <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
           </div>
           ${p.pattern ? `<div class="card-pattern">📋 ${p.pattern}</div>` : ''}
-          ${notesPreview}
+          ${explicationPreview}
           ${dureeTag}
           <div class="card-actions">
             <button class="btn-detail" onclick="ouvrirDetail('${p.id}')">→ Détail</button>
@@ -364,7 +364,7 @@
     document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
     document.getElementById('d-titre').value   = p.titre   || '';
     document.getElementById('d-pattern').value = p.pattern || '';
-    document.getElementById('d-notes').value   = p.notes   || '';
+    document.getElementById('d-explication').value   = p.explication   || '';
     document.getElementById('d-duree').value   = p.duree   || '';
     document.getElementById('d-statut').value = p.statut   || '';
  
@@ -391,7 +391,7 @@
 
   const titre   = document.getElementById('d-titre').value.trim();
   const pattern = document.getElementById('d-pattern').value.trim();
-  const notes   = document.getElementById('d-notes').value.trim();
+  const explication   = document.getElementById('d-explication').value.trim();
   const duree   = document.getElementById('d-duree').value.trim();
   const statut  = document.getElementById('d-statut').value; // 1. On récupère le statut choisi
 
@@ -408,7 +408,7 @@
       body: JSON.stringify({ 
         titre, 
         pattern: pattern||null, 
-        notes: notes||null, 
+        explication: explication||null, 
         duree: duree||null,
         statut: statut // 2. On l'ajoute au body
       })
@@ -418,7 +418,7 @@
     // 3. On met à jour l'objet localement
     const idx = projets.findIndex(x => x.id === detailId);
     if (idx !== -1) {
-      projets[idx] = { ...projets[idx], titre, pattern, notes, duree, statut };
+      projets[idx] = { ...projets[idx], titre, pattern, explication, duree, statut };
     }
     
     render(); // On rafraîchit la grille
