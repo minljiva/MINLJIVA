@@ -42,7 +42,7 @@ body {
 }
 
 a { color: var(--texte-doux); text-decoration: none; transition: color 0.15s; }
-a:hover { color: var(--vert); }
+a:hover { color: var(--violet); }
 
 /* 3. HEADER — logo + navigation */
 .site-header { margin-bottom: 2rem; }
