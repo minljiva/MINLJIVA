@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Crochet — Minljiva</title>
-  <style>
-     </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="site-header">
     <img src="Minljiva.png" alt="Minljiva">
     <nav class="nav">
@@ -28,12 +25,9 @@
   <h1>Crochet</h1>
   <p class="subtitle">Tous mes projets</p>
 
-  <!-- Bouton ajout -->
   <button class="btn-add" onclick="ouvrirModal()">+ Nouveau projet</button>
 
-  <!-- Filtres -->
   <div class="filter-bar">
-    <span class="filter-label">Statut</span>
     <button class="filter-btn active" onclick="setFiltre('all', this)">Tout</button>
     <button class="filter-btn" onclick="setFiltre('todo', this)">TO DO</button>
     <button class="filter-btn" onclick="setFiltre('wip', this)">WIP</button>
@@ -45,7 +39,6 @@
     <div class="loading">Chargement des projets…</div>
   </div>
 
-  <!-- ====== MODAL POP UP AJOUT ====== -->
   <div class="overlay" id="overlay" onclick="fermerModalSiDehors(event)">
     <div class="modal">
       <h2>Nouveau projet</h2>
@@ -55,388 +48,250 @@
       </div>
       <div class="field">
         <label>Pattern (nom ou lien)</label>
-        <input type="text" id="inp-pattern" placeholder="ex : Ravelry — Cozy Hat par XYZ" />
+        <input type="text" id="inp-pattern" placeholder="ex : Ravelry — Cozy Hat" />
       </div>
       <div class="field">
         <label>Notes / Explications</label>
-        <textarea id="inp-explication" placeholder="Laine utilisée, taille d'aiguilles, modifications…"></textarea>
+        <textarea id="inp-explication" placeholder="Laine, aiguilles..."></textarea>
       </div>
       <div class="modal-actions">
-        <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
+        <button class="btn-next" onclick="fermerModal()">Annuler</button>
         <button class="btn-save" id="btn-save" onclick="ajouterProjet()">Ajouter</button>
       </div>
     </div>
   </div>
- 
- 
-  <!-- ====== MODAL DURÉE ====== -->
+
   <div class="overlay" id="overlay-duree" onclick="fermerDureeSiDehors(event)">
     <div class="modal">
       <h2>✓ Projet terminé !</h2>
-      <p class="duree-hint">Note le temps total passé sur ce projet si tu veux — tu pourras aussi le modifier plus tard depuis le détail.</p>
       <div class="field">
         <label>Temps passé (optionnel)</label>
-        <input type="text" id="inp-duree" placeholder="ex : 12h, 3 semaines, 5 séances…" />
+        <input type="text" id="inp-duree" placeholder="ex : 12h, 3 séances…" />
       </div>
       <div class="modal-actions">
-        <button class="btn-cancel" onclick="validerDuree(false)">Passer</button>
+        <button class="btn-next" onclick="validerDuree(false)">Passer</button>
         <button class="btn-save" onclick="validerDuree(true)">Enregistrer</button>
       </div>
     </div>
   </div>
- 
- 
-  <!-- ====== PANNEAU DÉTAIL ====== -->
+
   <div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
   <div class="detail-panel" id="detail-panel">
- 
     <div class="detail-header">
       <div style="flex:1">
         <div id="d-statut-badge" style="margin-bottom:6px"></div>
-        <div style="font-size:18px;font-weight:500;color:var(--texte)" id="d-titre-affiche"></div>
+        <div style="font-size:18px;font-weight:500;" id="d-titre-affiche"></div>
       </div>
-      <div class="detail-section">
-  <div class="detail-label">Statut du projet</div>
-  <select class="edit-input" id="d-statut">
-    <option value="todo">TO DO</option>
-    <option value="wip">WIP</option>
-    <option value="done">DONE</option>
-  </select>
-</div>
-      <button class="btn-close" onclick="fermerDetail()">✕</button>
+      <button onclick="fermerDetail()" style="background:none; border:none; cursor:pointer; font-size:20px;">✕</button>
     </div>
- 
+
+    <div class="detail-section">
+      <div class="detail-label">Statut du projet</div>
+      <select class="edit-input" id="d-statut">
+        <option value="todo">TO DO</option>
+        <option value="wip">WIP</option>
+        <option value="done">DONE</option>
+      </select>
+    </div>
+
     <div class="detail-section">
       <div class="detail-label">Nom du projet</div>
       <input class="edit-input" type="text" id="d-titre" />
     </div>
- 
+
     <div class="detail-section">
       <div class="detail-label">Pattern</div>
-      <input class="edit-input" type="text" id="d-pattern" placeholder="Nom ou lien du patron…" />
+      <input class="edit-input" type="text" id="d-pattern" />
     </div>
- 
+
     <div class="detail-section">
-      <div class="detail-label">Notes &amp; explications</div>
-      <textarea class="edit-textarea" id="d-explication" placeholder="Laine utilisée, taille d'aiguilles, modifications, difficultés rencontrées…"></textarea>
+      <div class="detail-label">Notes & explications</div>
+      <textarea class="edit-textarea" id="d-explication-detail"></textarea>
     </div>
- 
+
     <div class="detail-section">
       <div class="detail-label">Temps total passé</div>
-      <input class="edit-input" type="text" id="d-duree" placeholder="ex : 12h, 3 semaines, 5 séances…" />
+      <input class="edit-input" type="text" id="d-duree" />
     </div>
- 
+
     <button class="btn-edit-save" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer les modifications</button>
     <div class="save-ok" id="save-ok">✓ Modifications enregistrées</div>
- 
     <div class="detail-actions" id="d-actions"></div>
   </div>
 
   <script>
-  // ====== CONFIG SUPABASE ======
-  const SUPABASE_URL  = 'https://wenkojnlclbyuzgmtyyw.supabase.co';
-  const SUPABASE_KEY  = 'sb_publishable_Gs78kcFk41qbUpaIM3RhZw_ONgTzhuQ';
-  const TABLE         = 'projets_crochet';
+    const SUPABASE_URL = 'https://wenkojnlclbyuzgmtyyw.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_Gs78kcFk41qbUpaIM3RhZw_ONgTzhuQ';
+    const TABLE = 'projets_crochet';
 
-  const headers = {
-    'Content-Type':  'application/json',
-    'apikey':        SUPABASE_KEY,
-    'Authorization': 'Bearer ' + SUPABASE_KEY,
-    'Prefer':        'return=representation'
-  };
+    const headers = {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Prefer': 'return=representation'
+    };
 
-  // ====== ÉTAT ======
-  let projets  = [];
-  let filtre   = 'all';
-  let projetEnCours = null;
-  let detailId      = null;
-    
-  // ====== CHARGEMENT ======
-  async function charger() {
-    try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?order=created_at.desc`, { headers });
-      if (!res.ok) throw new Error(await res.text());
-      projets = await res.json();
-      render();
-    } catch(e) {
-      document.getElementById('grid').innerHTML =
-        `<div class="empty">Erreur de connexion à la base de données.<br><small>${e.message}</small></div>`;
-    }
-  }
+    let projets = [];
+    let filtre = 'all';
+    let projetEnCours = null;
+    let detailId = null;
 
-  // ====== AFFICHAGE ======
-  function render() {
-    const grid = document.getElementById('grid');
-    const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
-
-    document.getElementById('count').textContent =
-      list.length + ' projet' + (list.length > 1 ? 's' : '') +
-      ' affiché' + (list.length > 1 ? 's' : '');
-
-    if (list.length === 0) {
-      grid.innerHTML = '<div class="empty">Aucun projet ici pour l\'instant. 🧶</div>';
-      return;
+    async function charger() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?order=created_at.desc`, { headers });
+        projets = await res.json();
+        render();
+      } catch(e) { console.error(e); }
     }
 
-    grid.innerHTML = list.map(p => {
+    function render() {
+      const grid = document.getElementById('grid');
+      const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
+      document.getElementById('count').textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
+
+      if (list.length === 0) {
+        grid.innerHTML = '<div class="empty">Aucun projet ici. 🧶</div>';
+        return;
+      }
+
       const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE' };
-      const btnSuivant  = p.statut === 'todo' ? `<button class="btn-next" onclick="changerStatut('${p.id}', 'wip')">▶ Démarrer</button>`
-                        : p.statut === 'wip'  ? `<button class="btn-next" onclick="changerStatut('${p.id}', 'done')">✓ Terminer</button>`
-                        : '';
-      return `
-        <div class="crochet-card ${p.statut}">
-          <div class="card-top">
-            <div class="card-title">🧶 ${p.titre}</div>
-            <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
-          </div>
-          ${p.pattern ? `<div class="card-pattern">📋 ${p.pattern}</div>` : ''}
-          ${p.explication ? `<div class="card-notes">📋 ${p.explication}</div>` : ''}
-          <div class="card-actions">
-            ${btnSuivant}
-            <button class="btn-delete" onclick="supprimerProjet('${p.id}')">✕</button>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
 
-    // ---- Affichage des cartes ----
-  function render() {
-    const grid = document.getElementById('grid');
-    const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
- 
-    document.getElementById('count').textContent =
-      list.length + ' projet' + (list.length > 1 ? 's' : '') +
-      ' affiché' + (list.length > 1 ? 's' : '');
- 
-    if (list.length === 0) {
-      grid.innerHTML = '<div class="empty">Aucun projet ici pour l\'instant. 🧶</div>';
-      return;
+      grid.innerHTML = list.map(p => {
+        const btnSuivant = p.statut === 'todo'
+          ? `<button class="btn-next" onclick="event.stopPropagation(); changerStatut('${p.id}','wip')">▶ Démarrer</button>`
+          : p.statut === 'wip'
+          ? `<button class="btn-next" onclick="event.stopPropagation(); demanderDuree('${p.id}')">✓ Terminer</button>`
+          : '';
+
+        return `
+          <div class="crochet-card ${p.statut}" onclick="ouvrirDetail('${p.id}')">
+            <div class="card-top">
+              <div class="card-title">🧶 ${p.titre}</div>
+              <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
+            </div>
+            ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
+            ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
+            <div class="card-actions" style="margin-top:10px">
+              ${btnSuivant}
+              <button class="btn-delete" onclick="event.stopPropagation(); supprimerProjet('${p.id}')">✕</button>
+            </div>
+          </div>`;
+      }).join('');
     }
- 
-    const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE' };
- 
-    grid.innerHTML = list.map(p => {
-      const btnSuivant = p.statut === 'todo'
-        ? `<button class="btn-next" onclick="changerStatut('${p.id}','wip');event.stopPropagation()">▶ Démarrer</button>`
-        : p.statut === 'wip'
-        ? `<button class="btn-next" onclick="demanderDuree('${p.id}');event.stopPropagation()">✓ Terminer</button>`
-        : '';
-      const explicationPreview = p.explication
-        ? `<div class="card-notes-preview">📝 ${p.explication}</div>` : '';
-      const dureeTag = p.duree
-        ? `<div class="card-duree">⏱ ${p.duree}</div>` : '';
- 
-      return `
-        <div class="crochet-card ${p.statut}">
-          <div class="card-top">
-            <div class="card-title" onclick="ouvrirDetail('${p.id}')">🧶 ${p.titre}</div>
-            <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
-          </div>
-          ${p.pattern ? `<div class="card-pattern">📋 ${p.pattern}</div>` : ''}
-          ${explicationPreview}
-          ${dureeTag}
-          <div class="card-actions">
-            <button class="btn-detail" onclick="ouvrirDetail('${p.id}')">→ Détail</button>
-            ${btnSuivant}
-            <button class="btn-delete" onclick="supprimerProjet('${p.id}');event.stopPropagation()">✕</button>
-          </div>
-        </div>`;
-    }).join('');
-  }
-  // ====== FILTRES ======
-  function setFiltre(f, btn) {
-    filtre = f;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    render();
-  }
 
-  // ====== AJOUTER ======
-  function ouvrirModal() {
-    document.getElementById('inp-titre').value   = '';
-    document.getElementById('inp-pattern').value = '';
-    document.getElementById('inp-explication').value = '';
-    document.getElementById('overlay').classList.add('open');
-    setTimeout(() => document.getElementById('inp-titre').focus(), 100);
-  }
-
-  function fermerModal() {
-    document.getElementById('overlay').classList.remove('open');
-  }
-
-  function fermerModalSiDehors(e) {
-    if (e.target === document.getElementById('overlay')) fermerModal();
-  }
-
-  async function ajouterProjet() {
-    const titre   = document.getElementById('inp-titre').value.trim();
-    const pattern = document.getElementById('inp-pattern').value.trim();
-    const explication = document.getElementById('inp-explication').value.trim();
-    if (!titre) { document.getElementById('inp-titre').focus(); return; }
-
-    const btn = document.getElementById('btn-save');
-    btn.disabled    = true;
-    btn.textContent = 'Ajout…';
-
-    try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
-        method:  'POST',
-        headers,
-        body: JSON.stringify({ titre, pattern: pattern || null, explication: explication || null, statut: 'todo' })
-      });
-      if (!res.ok) throw new Error(await res.text());
-      fermerModal();
-      await charger();
-    } catch(e) {
-      alert('Erreur lors de l\'ajout : ' + e.message);
-    } finally {
-      btn.disabled    = false;
-      btn.textContent = 'Ajouter';
+    function setFiltre(f, btn) {
+      filtre = f;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
     }
-  }
 
-      // ---- Modal durée ----
-  function demanderDuree(id) {
-    projetEnCours = id;
-    document.getElementById('inp-duree').value = '';
-    document.getElementById('overlay-duree').classList.add('open');
-    setTimeout(() => document.getElementById('inp-duree').focus(), 100);
-  }
-  function fermerDureeSiDehors(e) { if (e.target.id === 'overlay-duree') validerDuree(false); }
- 
-  async function validerDuree(sauvegarder) {
-    document.getElementById('overlay-duree').classList.remove('open');
-    const duree = sauvegarder ? document.getElementById('inp-duree').value.trim() : null;
-    if (projetEnCours) {
+    // --- LOGIQUE MODAL AJOUT ---
+    function ouvrirModal() {
+      document.getElementById('inp-titre').value = '';
+      document.getElementById('inp-pattern').value = '';
+      document.getElementById('inp-explication').value = '';
+      document.getElementById('overlay').classList.add('open');
+    }
+    function fermerModal() { document.getElementById('overlay').classList.remove('open'); }
+    function fermerModalSiDehors(e) { if (e.target.id === 'overlay') fermerModal(); }
+
+    async function ajouterProjet() {
+      const titre = document.getElementById('inp-titre').value.trim();
+      const pattern = document.getElementById('inp-pattern').value.trim();
+      const explication = document.getElementById('inp-explication').value.trim();
+      if (!titre) return;
+
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ titre, pattern: pattern||null, explication: explication||null, statut: 'todo' })
+        });
+        fermerModal();
+        await charger();
+      } catch(e) { alert(e.message); }
+    }
+
+    // --- LOGIQUE STATUT & DURÉE ---
+    function demanderDuree(id) {
+      projetEnCours = id;
+      document.getElementById('inp-duree').value = '';
+      document.getElementById('overlay-duree').classList.add('open');
+    }
+    function fermerDureeSiDehors(e) { if (e.target.id === 'overlay-duree') validerDuree(false); }
+
+    async function validerDuree(sauver) {
+      const duree = sauver ? document.getElementById('inp-duree').value.trim() : null;
+      document.getElementById('overlay-duree').classList.remove('open');
       await changerStatut(projetEnCours, 'done', duree);
-      projetEnCours = null;
     }
-  }
 
-    
-  // ====== CHANGER STATUT ======
-  async function changerStatut(id, nouveauStatut) {
-    try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
-        method:  'PATCH',
-        headers,
-        body: JSON.stringify({ statut: nouveauStatut })
+    async function changerStatut(id, statut, duree = null) {
+      const body = { statut };
+      if (duree) body.duree = duree;
+      await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
+        method: 'PATCH', headers, body: JSON.stringify(body)
       });
-      if (!res.ok) throw new Error(await res.text());
       await charger();
-    } catch(e) {
-      alert('Erreur : ' + e.message);
     }
-  }
 
-  // ====== SUPPRIMER ======
-  async function supprimerProjet(id) {
-    if (!confirm('Supprimer ce projet ?')) return;
-    try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
-        method:  'DELETE',
-        headers
-      });
-      if (!res.ok) throw new Error(await res.text());
+    async function supprimerProjet(id) {
+      if (!confirm('Supprimer ?')) return;
+      await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, { method: 'DELETE', headers });
       await charger();
-    } catch(e) {
-      alert('Erreur : ' + e.message);
     }
-  }
 
-  // ====== INIT ======
-// ---- Panneau détail ----
-  function ouvrirDetail(id) {
-    const p = projets.find(x => x.id === id);
-    if (!p) return;
-    detailId = id;
-    remplirDetail(p);
-    document.getElementById('detail-overlay').classList.add('open');
-    document.getElementById('detail-panel').classList.add('open');
-  }
- 
-  function remplirDetail(p) {
-    const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
-    const statutClass = { todo:'statut-todo', wip:'statut-wip', done:'statut-done' };
-    document.getElementById('d-statut-badge').innerHTML =
-      `<span class="statut-badge ${statutClass[p.statut]}">${statutLabel[p.statut]}</span>`;
-    document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
-    document.getElementById('d-titre').value   = p.titre   || '';
-    document.getElementById('d-pattern').value = p.pattern || '';
-    document.getElementById('d-explication').value   = p.explication   || '';
-    document.getElementById('d-duree').value   = p.duree   || '';
-    document.getElementById('d-statut').value = p.statut   || '';
- 
-    const actions = document.getElementById('d-actions');
-    let html = '';
-    if (p.statut === 'todo') html += `<button class="btn-next" onclick="changerStatut('${p.id}','wip')">▶ Démarrer</button>`;
-    if (p.statut === 'wip')  html += `<button class="btn-next" onclick="demanderDuree('${p.id}')">✓ Terminer</button>`;
-    html += `<button class="btn-delete" style="margin-left:0" onclick="supprimerProjet('${p.id}')">✕ Supprimer</button>`;
-    actions.innerHTML = html;
- 
-    document.getElementById('save-ok').style.display = 'none';
-  }
- 
-  function fermerDetail() {
-    detailId = null;
-    document.getElementById('detail-overlay').classList.remove('open');
-    document.getElementById('detail-panel').classList.remove('open');
-  }
- 
- async function sauvegarderDetail() {
-  if (!detailId) return;
-  const btn = document.getElementById('btn-detail-save');
-  btn.disabled = true; btn.textContent = 'Enregistrement…';
-
-  const titre   = document.getElementById('d-titre').value.trim();
-  const pattern = document.getElementById('d-pattern').value.trim();
-  const explication   = document.getElementById('d-explication').value.trim();
-  const duree   = document.getElementById('d-duree').value.trim();
-  const statut  = document.getElementById('d-statut').value; // 1. On récupère le statut choisi
-
-  if (!titre) {
-    document.getElementById('d-titre').focus();
-    btn.disabled = false; btn.textContent = 'Enregistrer les modifications';
-    return;
-  }
-
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${detailId}`, {
-      method: 'PATCH', 
-      headers,
-      body: JSON.stringify({ 
-        titre, 
-        pattern: pattern||null, 
-        explication: explication||null, 
-        duree: duree||null,
-        statut: statut // 2. On l'ajoute au body
-      })
-    });
-    if (!res.ok) throw new Error(await res.text());
-
-    // 3. On met à jour l'objet localement
-    const idx = projets.findIndex(x => x.id === detailId);
-    if (idx !== -1) {
-      projets[idx] = { ...projets[idx], titre, pattern, explication, duree, statut };
+    // --- PANNEAU DÉTAIL ---
+    function ouvrirDetail(id) {
+      const p = projets.find(x => x.id === id);
+      if (!p) return;
+      detailId = id;
+      
+      document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
+      document.getElementById('d-titre').value = p.titre || '';
+      document.getElementById('d-pattern').value = p.pattern || '';
+      document.getElementById('d-explication-detail').value = p.explication || '';
+      document.getElementById('d-duree').value = p.duree || '';
+      document.getElementById('d-statut').value = p.statut;
+      
+      const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
+      document.getElementById('d-statut-badge').innerHTML = `<span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
+      
+      document.getElementById('detail-overlay').classList.add('open');
+      document.getElementById('detail-panel').classList.add('open');
     }
-    
-    render(); // On rafraîchit la grille
-    remplirDetail(projets[idx]); // On rafraîchit le badge et les boutons du panneau
-    
-    const ok = document.getElementById('save-ok');
-    ok.style.display = 'block';
-    setTimeout(() => { ok.style.display = 'none'; }, 2500);
-  } catch(e) { 
-    alert('Erreur : ' + e.message); 
-  } finally { 
-    btn.disabled = false; 
-    btn.textContent = 'Enregistrer les modifications'; 
-  }
-  }
- 
-  charger();
+
+    function fermerDetail() {
+      document.getElementById('detail-overlay').classList.remove('open');
+      document.getElementById('detail-panel').classList.remove('open');
+    }
+
+    async function sauvegarderDetail() {
+      const btn = document.getElementById('btn-detail-save');
+      btn.disabled = true;
+      
+      const body = {
+        titre: document.getElementById('d-titre').value,
+        pattern: document.getElementById('d-pattern').value || null,
+        explication: document.getElementById('d-explication-detail').value || null,
+        duree: document.getElementById('d-duree').value || null,
+        statut: document.getElementById('d-statut').value
+      };
+
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${detailId}`, {
+          method: 'PATCH', headers, body: JSON.stringify(body)
+        });
+        await charger();
+        ouvrirDetail(detailId); // Rafraîchir le panneau
+        document.getElementById('save-ok').style.display = 'block';
+        setTimeout(() => document.getElementById('save-ok').style.display = 'none', 2000);
+      } catch(e) { alert(e.message); }
+      finally { btn.disabled = false; }
+    }
+
+    charger();
   </script>
-
 </body>
 </html>
