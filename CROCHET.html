@@ -44,30 +44,8 @@
   <div class="crochet-grid" id="grid">
     <div class="loading">Chargement des projets…</div>
   </div>
-  <!-- ====== POP-UP AJOUT ====== -->
-  <div class="overlay" id="overlay" onclick="fermerModalSiDehors(event)">
-    <div class="modal">
-      <h2>Nouveau projet</h2>
-      <div class="field">
-        <label>Nom du projet *</label>
-        <input type="text" id="inp-titre" placeholder="ex : Bonnet rayé bleu" />
-      </div>
-      <div class="field">
-        <label>Pattern (nom ou lien)</label>
-        <input type="text" id="inp-pattern" placeholder="ex : Ravelry — Cozy Hat par XYZ" />
-      </div>      
-      <div class="field">
-        <label>Explication</label>
-        <input type="text" id="inp-explication" placeholder="toutes les informations nécessaire" />
-      </div>
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
-        <button class="btn-save" id="btn-save" onclick="ajouterProjet()">Ajouter</button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- ====== MODAL AJOUT ====== -->
+
+  <!-- ====== MODAL POP UP AJOUT ====== -->
   <div class="overlay" id="overlay" onclick="fermerModalSiDehors(event)">
     <div class="modal">
       <h2>Nouveau projet</h2>
