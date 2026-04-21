@@ -172,8 +172,8 @@
         return `
           <div class="crochet-card ${p.statut}">
             <div class="card-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-              <div class="plant-name clickable-title" onclick="ouvrirDetail('${p.id}')" style="cursor:pointer; flex:1; margin-right:10px;">
-                🧶 ${p.titre}
+              🧶<div class="plant-name clickable-title" onclick="ouvrirDetail('${p.id}')" style="cursor:pointer; flex:1; margin-right:10px;">
+                 ${p.titre}
               </div>
               <span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>
             </div>
