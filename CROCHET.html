@@ -118,7 +118,7 @@
  
     <div class="detail-section">
       <div class="detail-label">Notes &amp; explications</div>
-      <textarea class="edit-textarea" id="d-explication" placeholder="Laine utilisée, taille d'aiguilles, modifications, difficultés rencontrées…"></textarea>
+      <textarea class="edit-textarea" id="d-notes" placeholder="Laine utilisée, taille d'aiguilles, modifications, difficultés rencontrées…"></textarea>
     </div>
  
     <div class="detail-section">
@@ -190,7 +190,7 @@
             <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
           </div>
           ${p.pattern ? `<div class="card-pattern">📋 ${p.pattern}</div>` : ''}
-          ${p.explication ? `<div class="card-explication">📋 ${p.explication}</div>` : ''}
+          ${p.explication ? `<div class="card-notes">📋 ${p.explication}</div>` : ''}
           <div class="card-actions">
             ${btnSuivant}
             <button class="btn-delete" onclick="supprimerProjet('${p.id}')">✕</button>
