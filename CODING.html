@@ -33,7 +33,8 @@
     <button class="filter-btn" onclick="filterCat('css', this)">CSS</button>
     <button class="filter-btn" onclick="filterCat('js', this)">JavaScript</button>
     <button class="filter-btn" onclick="filterCat('github', this)">GitHub</button>
-
+    <button class="filter-btn" onclick="filterCat('bdd', this)">Base de données</button>
+    
     <span class="filter-label">Par type</span>
     <button class="filter-btn active-all active" onclick="filterType('all', this)">Tous types</button>
     <button class="filter-btn" onclick="filterType('base', this)">Base</button>
@@ -432,7 +433,105 @@ fonts/
         "⌘ + Shift + R — <strong>Vider le cache</strong> du navigateur"
       ],
       tip: null
-    }
+    },
+
+        /* ======== BASE DE DONNÉES ======== */
+ 
+    { cat:"bdd", type:"base", badge:"Base de données", badgeClass:"badge-imm",
+      title:"C'est quoi une base de données ?",
+      desc:"Une base de données stocke des informations de façon structurée, comme un tableau Excel en ligne, accessible depuis n'importe où. Contrairement à un tableau JS dans le code, les données sont sauvegardées même si on ferme la page.",
+      code:null,
+      liste:[
+        "🗄️ <strong>Table</strong> — Un tableau avec des lignes (entrées) et des colonnes (champs). Ex : la table <code>projets_crochet</code> a les colonnes id, titre, pattern, statut…",
+        "📋 <strong>Ligne / enregistrement</strong> — Une donnée complète. Ex : un projet crochet = une ligne.",
+        "🔑 <strong>id</strong> — Un identifiant unique généré automatiquement pour chaque ligne. Sert à retrouver ou modifier une entrée précise.",
+        "🔌 <strong>API REST</strong> — La façon dont JavaScript parle à la base de données : on envoie des requêtes HTTP (GET, POST, PATCH, DELETE) et on reçoit des données en JSON.",
+        "🟢 <strong>Supabase</strong> — Le service utilisé ici. Il fournit la base de données + une API REST prête à l'emploi sans avoir à coder un serveur."
+      ], tip:"Supabase = base de données PostgreSQL + API REST + interface web pour voir et modifier les tables directement." },
+ 
+    { cat:"bdd", type:"base", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Les 4 opérations CRUD",
+      desc:"Toute interaction avec une base de données se résume à 4 actions : Create, Read, Update, Delete. En REST, chacune correspond à une méthode HTTP.",
+      code:null,
+      liste:[
+        "🟢 <strong>CREATE → POST</strong> — Ajouter une nouvelle ligne. Ex : créer un projet crochet.",
+        "🔵 <strong>READ → GET</strong> — Lire / récupérer des données. Ex : charger la liste de tous les projets.",
+        "🟡 <strong>UPDATE → PATCH</strong> — Modifier une ligne existante. Ex : changer le statut de 'todo' à 'wip'.",
+        "🔴 <strong>DELETE → DELETE</strong> — Supprimer une ligne. Ex : supprimer un projet terminé."
+      ], tip:"Astuce mémo : CRUD = Create Read Update Delete. Ces 4 mots couvrent 100% de ce qu'on fait avec une BDD." },
+ 
+    { cat:"bdd", type:"base", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Les headers Supabase — à mettre partout",
+      desc:"Chaque requête vers Supabase doit inclure ces headers d'authentification. On les définit une seule fois en variable et on les réutilise.",
+      code:`const SUPABASE_URL = 'https://xxx.supabase.co';  // ton URL de projet\nconst SUPABASE_KEY = 'ta-clé-publique';            // clé anon/public\n\n// Définir les headers une seule fois\nconst headers = {\n  'Content-Type':  'application/json',\n  'apikey':        SUPABASE_KEY,\n  'Authorization': 'Bearer ' + SUPABASE_KEY,\n  'Prefer':        'return=representation' // pour recevoir la ligne créée/modifiée\n};\n\n// Puis utiliser { headers } dans chaque fetch`,
+      tip:"La clé 'anon/public' est faite pour être visible dans le code côté client — pas de secret à cacher." },
+ 
+    { cat:"bdd", type:"base", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Lire des données (GET)",
+      desc:"On utilise fetch() pour récupérer toutes les lignes d'une table. La réponse est un tableau d'objets JSON.",
+      code:`async function charger() {\n  const res = await fetch(\n    \`\${SUPABASE_URL}/rest/v1/projets_crochet?order=created_at.desc\`,\n    { headers }\n  );\n  if (!res.ok) throw new Error(await res.text());\n\n  const projets = await res.json();\n  // projets = [ { id: 1, titre: "Bonnet", statut: "wip" }, ... ]\n  render(projets);\n}`,
+      tip:"async/await met en pause le code le temps que la réponse arrive. Sans lui il faudrait écrire .then().then() en chaîne — bien plus difficile à lire." },
+ 
+    { cat:"bdd", type:"base", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Ajouter une ligne (POST)",
+      desc:"On envoie un objet JSON avec les données à insérer. Supabase crée la ligne et renvoie l'entrée créée avec son id généré automatiquement.",
+      code:`async function ajouter(titre, pattern) {\n  const res = await fetch(\n    \`\${SUPABASE_URL}/rest/v1/projets_crochet\`,\n    {\n      method: 'POST',\n      headers,\n      body: JSON.stringify({\n        titre:   titre,\n        pattern: pattern,\n        statut:  'todo'\n        // id et created_at sont remplis automatiquement\n      })\n    }\n  );\n  if (!res.ok) throw new Error(await res.text());\n  await charger(); // recharger la liste\n}`,
+      tip:"Toujours recharger les données après un ajout avec charger() — ça garantit que l'affichage est synchronisé avec la BDD." },
+ 
+    { cat:"bdd", type:"base", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Modifier une ligne (PATCH)",
+      desc:"On cible la ligne par son id dans l'URL (?id=eq.XXX) et on envoie uniquement les champs à modifier. Les autres colonnes restent intactes.",
+      code:`async function changerStatut(id, nouveauStatut) {\n  const res = await fetch(\n    \`\${SUPABASE_URL}/rest/v1/projets_crochet?id=eq.\${id}\`,\n    {\n      method: 'PATCH',\n      headers,\n      body: JSON.stringify({ statut: nouveauStatut })\n      // seul 'statut' est modifié — titre, pattern, etc. restent intacts\n    }\n  );\n  if (!res.ok) throw new Error(await res.text());\n  await charger();\n}`,
+      tip:"?id=eq.42 signifie 'où id est égal à 42'. C'est la syntaxe de filtre Supabase — eq = equals (égal)." },
+ 
+    { cat:"bdd", type:"base", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Supprimer une ligne (DELETE)",
+      desc:"Même principe que PATCH — on cible la ligne par son id dans l'URL. Attention : c'est irréversible !",
+      code:`async function supprimer(id) {\n  if (!confirm('Supprimer ce projet ?')) return; // toujours confirmer !\n\n  const res = await fetch(\n    \`\${SUPABASE_URL}/rest/v1/projets_crochet?id=eq.\${id}\`,\n    { method: 'DELETE', headers }\n  );\n  if (!res.ok) throw new Error(await res.text());\n  await charger();\n}`,
+      tip:"Toujours demander confirmation avant de supprimer — une fois supprimée, la ligne est perdue." },
+ 
+    { cat:"bdd", type:"astuce", badge:"Base de données", badgeClass:"badge-imm",
+      title:"async / await expliqué",
+      desc:"Les requêtes vers une base de données prennent du temps. async/await met en pause l'exécution le temps que la réponse arrive, sans bloquer le reste de la page.",
+      code:`// Sans async/await (difficile à lire)\nfetch(url).then(res => res.json()).then(data => {\n  render(data);\n});\n\n// Avec async/await (bien plus lisible)\nasync function charger() {\n  const res  = await fetch(url);   // attend la réponse HTTP\n  const data = await res.json();   // attend la conversion en JSON\n  render(data);                    // maintenant on a les données\n}`,
+      tip:"Une fonction async renvoie toujours une Promise. On met await devant chaque opération qui prend du temps (fetch, res.json, etc.)." },
+ 
+    { cat:"bdd", type:"astuce", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Gérer les erreurs proprement",
+      desc:"Les requêtes réseau peuvent échouer. On utilise try/catch + res.ok pour attraper les erreurs côté serveur ET côté réseau.",
+      code:`async function charger() {\n  try {\n    const res = await fetch(\`\${SUPABASE_URL}/rest/v1/ma_table\`, { headers });\n\n    if (!res.ok) {\n      // Erreur HTTP (ex : 401 non autorisé, 404 table introuvable)\n      throw new Error(await res.text());\n    }\n\n    const data = await res.json();\n    render(data);\n\n  } catch(e) {\n    // Erreur réseau OU erreur HTTP ci-dessus\n    document.getElementById('grid').innerHTML =\n      \`&lt;div class="empty"&gt;Erreur : \${e.message}&lt;/div&gt;\`;\n  }\n}`,
+      tip:"res.ok est true si le code HTTP est entre 200 et 299. En dehors, la requête a 'fonctionné' techniquement mais renvoyé une erreur — il faut le vérifier manuellement." },
+ 
+    { cat:"bdd", type:"astuce", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Filtrer et trier les résultats",
+      desc:"L'API Supabase accepte des paramètres dans l'URL pour filtrer, trier ou limiter les résultats — pas besoin de tout charger puis filtrer en JS.",
+      code:`// Trier par date décroissante (plus récent en premier)\nfetch(\`\${URL}/rest/v1/projets_crochet?order=created_at.desc\`)\n\n// Filtrer : seulement les projets avec statut = 'wip'\nfetch(\`\${URL}/rest/v1/projets_crochet?statut=eq.wip\`)\n\n// Combiner filtre + tri\nfetch(\`\${URL}/rest/v1/projets_crochet?statut=eq.done&order=created_at.desc\`)\n\n// Les opérateurs disponibles :\n// eq  = égal          ?statut=eq.done\n// neq = différent     ?statut=neq.todo\n// gt  = supérieur     ?nb=gt.5\n// lt  = inférieur     ?nb=lt.10\n// is  = est null      ?duree=is.null`,
+      tip:"Filtrer côté serveur = moins de données à télécharger = page plus rapide. À préférer quand la table devient grande." },
+ 
+    { cat:"bdd", type:"routine", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Ajouter une nouvelle colonne à une table",
+      desc:"Si on veut stocker un nouveau champ (ex : 'duree' sur les projets crochet), il faut d'abord l'ajouter dans Supabase, puis l'utiliser dans le code.",
+      code:null,
+      liste:[
+        "1. Aller sur <strong>supabase.com</strong> → ton projet → <strong>Table Editor</strong>.",
+        "2. Cliquer sur la table concernée → bouton <strong>+ Add column</strong>.",
+        "3. Donner un nom (ex : <code>duree</code>), choisir le type <strong>text</strong>, cocher <strong>nullable</strong> (= optionnel, peut être vide).",
+        "4. Sauvegarder. La colonne est immédiatement disponible via l'API.",
+        "5. Dans le JS : inclure le champ dans les <code>body</code> de POST/PATCH pour l'écrire. Il apparaît dans les GET automatiquement."
+      ], tip:"Choisir 'nullable' = le champ peut être vide (null). Si on ne le coche pas, toutes les insertions devront obligatoirement remplir ce champ." },
+ 
+    { cat:"bdd", type:"erreur", badge:"Base de données", badgeClass:"badge-imm",
+      title:"Erreurs fréquentes avec Supabase",
+      desc:"Les problèmes les plus courants quand on démarre avec une base de données.",
+      code:null,
+      liste:[
+        "❌ <strong>401 Unauthorized</strong> — La clé API est mauvaise ou absente des headers. Vérifier apikey et Authorization.",
+        "❌ <strong>404 Not Found</strong> — Le nom de la table dans l'URL est incorrect. Vérifier le nom exact dans Supabase → Table Editor.",
+        "❌ <strong>La colonne n'existe pas</strong> — On essaie d'écrire dans un champ pas encore créé. L'ajouter via Table Editor → Add column.",
+        "❌ <strong>Les données ne se sauvegardent pas</strong> — Vérifier que la méthode est POST (ajout) ou PATCH (modif) et non GET.",
+        "❌ <strong>res.json() plante</strong> — La réponse n'est pas du JSON valide. Utiliser <code>await res.text()</code> à la place pour voir le vrai message d'erreur.",
+        "❌ <strong>RLS bloque les requêtes</strong> — Row Level Security actif sur la table. Dans Supabase → Authentication → Policies : désactiver RLS ou créer une policy permissive."
+      ], tip:"Pour débugger : ouvrir la console du navigateur (⌘ + Option + J sur Mac) et lire les messages d'erreur — ils indiquent souvent exactement ce qui cloche." }
   ];
 
   let activeCat  = 'all';
