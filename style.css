@@ -86,7 +86,7 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 
 .tip, .note {
   font-size: 12px; margin-top: 10px; padding: 8px 10px;
-  background: var(--fond-bloc); border-left: 3px solid var(--vert);
+  background: var(--fond-bloc); border-left: 3px solid var(--bordure);
   border-radius: 0 8px 8px 0; color: var(--texte-doux);
 }
 
