@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Drainage</title>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <img src="Minljiva.png" alt="Minljiva">
+    <nav class="nav">
+      <a href="index.html">INDEX</a> /
+      <a href="HERBORISTE.html">HERBORISTE</a> /
+      <a href="TISANES.html" class="actif">TISANES</a> /
+      <a href="RECETTE.html">RECETTES</a> /
+      <a href="AVENIR.html">L'AVENIR</a> /
+      <a href="CODING.html">CODING</a> /
+    <a href="DRAINAGE.html">DRAINAGE</a>
+    </nav>
+  </header>
+
+
+<h1>Drainage lymphatique</h1>
+<p class="subtitle">Se faire du bien</p>
+
+  <div class="filter-bar">
+    <span class="filter-label">Par sujet</span>
+  <button class="filter-btn active" onclick="filter('all')">Tout</button>
+  <button class="filter-btn" onclick="filter('rapide')">Rapide quotidien</button>
+  <button class="filter-btn" onclick="filter('deep')">Hebdo profond</button>
+  <button class="filter-btn" onclick="filter('haut')">Haut du corps</button>
+  <button class="filter-btn" onclick="filter('bas')">Bas du corps</button>
+</div>
+
+<div id="app"></div>
+
+<script>
+const data = [
+
+{
+  title: "Routine rapide quotidienne", sub: "5 min · matin",
+  icon: "⚡", type: ["rapide","all"], iconStyle: "background:var(--fond-bloc);color:var(--fond-hover)",
+  blocks: [
+    { label: "Étapes", val: "Clavicules (pompage léger) · Cou (glisser vers bas) · Aisselles (pressions douces) · Ventre (cercles) · Aine (pompage)" },
+    { label: "Rythme", val: "Mouvements lents · pression très légère · toujours vers les ganglions" }
+  ],
+  note: "À faire le matin pour relancer la circulation et réduire les gonflements."
+},
+
+{
+  title: "Routine hebdomadaire profonde", sub: "20 min · récupération",
+  icon: "💧", type: ["deep","all"], iconStyle: "background:var(--fond-bloc);color:var(--fond-hover)",
+  blocks: [
+    { label: "Étapes", val: "Ouvrir clavicules · Cou complet · Bras entier · Ventre profond · Jambes complètes · Terminer par aine" },
+    { label: "Technique", val: "Pression lente + relâchement · répétitions x5 par zone" }
+  ],
+  note: "Prendre son temps. Respirer profondément pour amplifier l'effet."
+},
+
+{
+  title: "Drainage haut du corps", sub: "10 min",
+  icon: "🫁", type: ["haut","all"], iconStyle: "background:var(--fond-bloc);color:var(--fond-hover)",
+  blocks: [
+    { label: "Zones", val: "Clavicules · Cou · Aisselles · Bras · Poitrine" },
+    { label: "Préparation", val: "Toujours commencer par ouvrir les clavicules avant de drainer" }
+  ],
+  note: "Idéal en cas de tensions ou sensation de lourdeur en haut du corps."
+},
+
+{
+  title: "Drainage bas du corps", sub: "15 min",
+  icon: "🦵", type: ["bas","all"], iconStyle: "background:var(--fond-bloc);color:var(--fond-hover)",
+  blocks: [
+    { label: "Zones", val: "Ventre · Aine · Cuisses · Genoux · Mollets · Chevilles" },
+    { label: "Sens", val: "Toujours remonter vers l’aine" }
+  ],
+  note: "Parfait pour jambes lourdes ou rétention d’eau."
+}
+
+];
+
+function render(list){
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+
+  list.forEach(item => {
+    app.innerHTML += `
+      <div class="recipe">
+        <div class="recipe-header">
+          <div class="recipe-icon" style="${item.iconStyle || ''}">${item.icon}</div>
+          <div>
+            <p class="recipe-title">${item.title}</p>
+            <p class="recipe-sub">${item.sub}</p>
+          </div>
+        </div>
+
+        ${item.blocks ? `
+        <div class="row">
+          ${item.blocks.map(b => `
+            <div class="block">
+              <div class="block-label">${b.label}</div>
+              <div class="block-val">${b.val}</div>
+            </div>
+          `).join('')}
+        </div>` : ''}
+
+        ${item.note ? `<div class="note">${item.note}</div>` : ''}
+      </div>
+    `;
+  });
+}
+
+
+
+function filter(type){
+  if(type === "all") return render(data);
+  render(data.filter(d => d.type.includes(type)));
+}
+
+// affichage initial
+render(data);
+
+</script>
+
+</body>
+</html>

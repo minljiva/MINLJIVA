@@ -12,12 +12,13 @@
   <header class="site-header">
     <img src="Minljiva.png" alt="Minljiva">
     <nav class="nav">
-      <a href="index.html">INDEX</a> /
+      <a href="INDEX.html">INDEX</a> /
       <a href="HERBORISTE.html">HERBORISTE</a> /
       <a href="TISANES.html">TISANES</a> /
       <a href="RECETTE.html" class="actif">RECETTES</a> /
       <a href="AVENIR.html">L'AVENIR</a> /
-      <a href="CODING.html">CODING</a>
+      <a href="CODING.html">CODING</a> /
+    <a href="DRAINAGE.html">DRAINAGE</a>
     </nav>
   </header>
 
@@ -286,6 +287,17 @@
       ],
       note: "Une cuillerée de moutarde à l'ancienne en fin de cuisson change tout — ça lie le tout et apporte un peu de peps. Excellent avec des saucisses ou une viande rôtie."
     },
+            {
+      title: "Pâte pour petit pain", sub: "Classique maison · repos 1h minimum",
+      icon: "🍞", iconStyle: "background:#EAF3DE;color:#27500A",
+      type: "sale", time: ["long"],
+      blocks: [
+        { label: "Ingrédients", val: "250gr Farine · 100ml Eau chaude · 100ml Huile d'olive · Levure chimique · 1 c.à.c de sel<br><em>Option : pour une recette salé ajouter des épices ; pour une recette sucrée ajoute du sucre</em>" },
+        { label: "Montage", val: "mettre tous les ingrédients dans un saladier ou une boite hermétique et mélanger énergiquement. Laisser reposer 30mn à 1h. <br> Venir étaler la pate à la taille nécessaire pour faire cuire à la poele pour un effet wrap ou au air fryer." }
+      ],
+      note: "Lors de la cuisson au Air fryer il faut penser à faire pré-cuire la pate afin qu'elle soit cuite entièrement.",
+	  potInfo: "Epices à ajouter : Paprika, Herbes de Provence, Origan, Piment de Cayenne."
+   },
 
     // ====== SUCRÉ ======
     {
@@ -414,101 +426,8 @@
         { label: "Ingrédients (1 verre)", val: "2 c.à.s sirop de lavande (ou verveine) · jus ½ citron · eau gazeuse · glaçons · 1 tige lavande" },
         { label: "Méthode", val: "Sirop + citron dans un verre sur glace. Compléter d'eau gazeuse. Remuer doucement. Décorer d'une tige de lavande." }
       ]
-    },
-    // ====== POMMES DE TERRE ======
-    {
-      title: "Pommes de terre sautées", sub: "Croustillantes dehors, fondantes dedans · 25 min",
-      icon: "🥔", iconStyle: "background:#EAF3DE;color:#27500A",
-      type: "sale", time: ["rapide"],
-      blocks: [
-        { label: "Ingrédients", val: "Pommes de terre · huile ou beurre · sel, poivre<br><em>Option : ail, persil frais, thym, oignon</em>" },
-        { label: "La clé", val: "<strong>Crues directement à la poêle</strong> — résultat : croustillantes dehors, fondantes dedans. Différent des rôties." }
-      ],
-      steps: [
-        "Éplucher et couper en dés ou rondelles d'environ 1 cm. <strong>Ne pas rincer</strong> — l'amidon aide à la dorure.",
-        "Chauffer généreusement l'huile à feu vif. Ajouter les pommes de terre en une seule couche.",
-        "<strong>Ne pas toucher pendant 5 min</strong> — laisser dorer sans remuer. Retourner et laisser dorer l'autre face.",
-        "Baisser à feu moyen, couvrir 10 min pour cuire à cœur. Découvrir 5 min pour re-croustiller.",
-        "Saler en fin de cuisson. Ajouter ail et persil hachés hors du feu."
-      ],
-      note: "Saler uniquement en fin de cuisson — le sel en début rend les pommes de terre molles et fait sortir l'eau."
-    },
-    {
-      title: "Pommes de terre rôties — air fryer", sub: "Peau craquante, intérieur moelleux · 25 min · 200°C",
-      icon: "🥔", iconStyle: "background:var(--orange-clair);color:var(--orange-fonce)",
-      type: "sale", time: ["rapide"],
-      blocks: [
-        { label: "Ingrédients", val: "Pommes de terre · 1 c.à.s huile d'olive · sel, poivre<br><em>Option : paprika, ail en poudre, herbes de Provence, romarin</em>" },
-        { label: "La clé", val: "<strong>Précuites à l'eau puis rôties</strong> — résultat : peau craquante, intérieur moelleux comme au four traditionnel." }
-      ],
-      steps: [
-        "Couper en quartiers ou cubes. <strong>Précuire 8 min à l'eau bouillante salée</strong> — juste pour attendrir, pas cuire à fond.",
-        "Égoutter et laisser sécher 2 min. Dans un bol : mélanger avec l'huile, les épices, sel et poivre.",
-        "Disposer en une seule couche dans l'air fryer. <strong>Ne pas superposer</strong> — l'air doit circuler pour que ça croustille.",
-        "Cuire à <strong>200°C pendant 15–18 min</strong>, secouer à mi-cuisson. Prolonger 2–3 min si besoin."
-      ],
-      note: "L'étape de précuisson à l'eau est le secret — sans elle, l'extérieur brûle avant que l'intérieur soit cuit."
-    },
-    {
-      title: "Wedges épicées — air fryer", sub: "Style fast-food · 22 min · 190°C",
-      icon: "🥔", iconStyle: "background:var(--vert-clair);color:var(--vert-fonce)",
-      type: "sale", time: ["rapide"],
-      blocks: [
-        { label: "Ingrédients", val: "3–4 pommes de terre moyennes · 1 c.à.s huile · 1 c.à.c paprika · ½ c.à.c ail en poudre · sel, poivre" },
-        { label: "Préparation", val: "Couper en quartiers épais avec la peau. Mélanger avec huile et épices. Air fryer 190°C, 20–22 min en retournant à mi-cuisson." }
-      ],
-      note: "Pas besoin de précuire ici — les quartiers épais avec peau supportent la cuisson directe. Tremper dans du fromage à tartiner mélangé à une sauce épicée pour une version burger."
-    },
-    {
-      title: "Pommes de terre écrasées croustillantes", sub: "Air fryer · le meilleur des deux mondes · 30 min",
-      icon: "🥔", iconStyle: "background:var(--violet-clair);color:var(--violet-fonce)",
-      type: "sale", time: ["rapide"],
-      blocks: [
-        { label: "Ingrédients", val: "Petites pommes de terre grenaille · huile d'olive · sel, poivre<br><em>Option : ail, romarin, parmesan râpé</em>" },
-        { label: "Préparation", val: "Cuire à l'eau 15 min. Égoutter. Écraser légèrement avec le fond d'un verre. Huiler, assaisonner. Air fryer 200°C, 12–15 min jusqu'à ce que les bords soient craquelés et dorés." }
-      ],
-      note: "Plus la pomme de terre est écrasée à plat, plus la surface de contact est grande et plus c'est croustillant. Ajouter le parmesan les 3 dernières minutes seulement."
-    },
-    {
-      title: "Purée maison", sub: "Onctueuse · 30 min",
-      icon: "🥔", iconStyle: "background:#EAF3DE;color:#27500A",
-      type: "sale", time: ["rapide"],
-      blocks: [
-        { label: "Ingrédients", val: "500 g pommes de terre à chair farineuse · 50 g beurre · 100 ml lait chaud · sel, poivre, muscade" },
-        { label: "Préparation", val: "Cuire à l'eau salée 20 min. Égoutter, écraser au presse-purée ou à la fourchette. Incorporer le beurre puis le lait chaud. Assaisonner." }
-      ],
-      note: "Ne jamais mixer la purée — l'amidon libéré la transforme en colle. Lait chaud obligatoire — le lait froid alourdit et refroidit tout."
-    },
-    {
-      title: "Salade de pommes de terre", sub: "Froide ou tiède · 30 min",
-      icon: "🥔", iconStyle: "background:var(--orange-clair);color:var(--orange-fonce)",
-      type: "sale", time: ["rapide"],
-      blocks: [
-        { label: "Ingrédients", val: "500 g pommes de terre · 2 c.à.s moutarde · 3 c.à.s huile d'olive · 1 c.à.s vinaigre · sel, poivre<br><em>Option : cornichons, oignon rouge, œuf dur, lardons, persil</em>" },
-        { label: "Préparation", val: "Cuire les pommes de terre en rondelles à l'eau salée. Égoutter. Assaisonner encore chaudes avec moutarde + huile + vinaigre — elles absorbent bien mieux la sauce tièdes." }
-      ],
-      note: "Assaisonner les pommes de terre encore chaudes — c'est le secret pour qu'elles soient savoureuses jusqu'au cœur et pas fades une fois refroidies."
-    },
-    {
-      title: "Pommes de terre vapeur", sub: "La base de tout · 20 min",
-      icon: "🥔", iconStyle: "background:var(--vert-clair);color:var(--vert-fonce)",
-      type: "sale", time: ["rapide"],
-      blocks: [
-        { label: "Ingrédients", val: "Pommes de terre · sel<br><em>Option : beurre, persil, fleur de sel</em>" },
-        { label: "Préparation", val: "Laver sans éplucher. Cuire à la vapeur ou dans l'eau bouillante salée 20 min. Vérifier avec la pointe d'un couteau — elle doit s'enfoncer sans résistance." }
-      ],
-      note: "Cuire avec la peau préserve la saveur et les nutriments. Éplucher après cuisson si besoin — la peau s'enlève facilement une fois cuite."
-    },
-       {
-  title: "Galettes de pommes de terre", sub: "croustillantes · 20 min",
-  icon: "🥔", iconStyle: "background:var(--vert-clair);color:var(--vert-fonce)",
-  type: "sale", time: ["rapide"],
-  blocks: [
-    { label: "Ingrédients", val: "4 pommes de terre · 1 œuf · 2 càs de farine · sel · poivre<br><em>Option : oignon râpé, ail, persil</em>" },
-    { label: "Préparation", val: "Éplucher et râper. Presser pour enlever l’eau. Mélanger avec œuf, farine, sel, poivre. Former des galettes. Cuire à la poêle avec un peu d’huile 4–5 min de chaque côté." }
-  ],
-  note: "Bien essorer les pommes de terre = galettes plus croustillantes. Ne pas trop les retourner pour une belle croûte."
-},
+    }
+
   ];
 
   let activeType = 'all';
