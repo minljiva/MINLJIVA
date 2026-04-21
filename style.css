@@ -72,9 +72,8 @@ count-bar
 /* Style pour le compteur de résultats */
 .count-bar {
   font-size: 12px;
-  color: var(--texte-pale);
+  color: var(--violet);
   margin-bottom: 1rem;
-  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
