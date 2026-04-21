@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Crochet — Minljiva</title>
+  <style>
+    /* ---- Bouton ajout ---- */
+    .btn-add {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--vert);
+      color: #fff;
+      border: none;
+      border-radius: 99px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: opacity 0.15s;
+    }
+    .btn-add:hover { opacity: 0.85; }
+
+    /* ---- Overlay pop-up ---- */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: var(--blanc);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+    .modal h2 { font-size: 16px; font-weight: 500; margin-bottom: 1rem; }
+
+    .field { margin-bottom: 0.9rem; }
+    .field label { display: block; font-size: 11px; color: var(--texte-pale); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      border: 1px solid var(--bordure);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--texte);
+      background: var(--fond);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--vert); }
+
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.2rem; }
+    .btn-cancel {
+      border: 1px solid var(--bordure);
+      background: transparent;
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--texte-doux);
+    }
+    .btn-save {
+      background: var(--vert);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-save:hover { opacity: 0.85; }
+    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ---- Cartes crochet ---- */
+    .crochet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .crochet-card {
+      background: var(--blanc);
+      border: 1px solid var(--bordure);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+    }
+    .crochet-card.todo  { border-left: 3px solid var(--violet); }
+    .crochet-card.wip   { border-left: 3px solid var(--orange); }
+    .crochet-card.done  { border-left: 3px solid var(--vert); }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+    .card-title { font-size: 15px; font-weight: 500; color: var(--texte); }
+    .card-pattern { font-size: 12px; color: var(--texte-doux); margin-bottom: 10px; }
+
+    .statut-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .statut-todo { background: var(--violet-clair); color: var(--violet-fonce); }
+    .statut-wip  { background: var(--orange-clair); color: var(--orange-fonce); }
+    .statut-done { background: var(--vert-clair);   color: var(--vert-fonce); }
+
+    .card-actions { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+
+    .btn-next {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--bordure2);
+      background: transparent;
+      color: var(--texte-doux);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-next:hover { background: var(--fond-hover); color: var(--texte); border-color: #999; }
+
+    .btn-delete {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 99px;
+      border: 1px solid #f5c0c0;
+      background: transparent;
+      color: #c0392b;
+      cursor: pointer;
+      margin-left: auto;
+      transition: all 0.15s;
+    }
+    .btn-delete:hover { background: #fdf0f0; }
+
+    .loading { text-align: center; padding: 3rem 1rem; color: var(--texte-pale); font-size: 14px; }
+    .empty   { text-align: center; padding: 3rem 1rem; color: var(--texte-pale); font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <img src="Minljiva.png" alt="Minljiva">
+    <nav class="nav">
+      <a href="index.html">INDEX</a> /
+      <a href="HERBORISTE.html">HERBORISTE</a> /
+      <a href="TISANES.html">TISANES</a> /
+      <a href="RECETTE.html">RECETTES</a> /
+      <a href="AVENIR.html">L'AVENIR</a> /
+      <a href="CODING.html">CODING</a> /
+      <a href="CROCHET.html" class="actif">CROCHET</a>
+    </nav>
+  </header>
+
+  <h1>Crochet</h1>
+  <p class="subtitle">Tous mes projets</p>
+
+  <!-- Bouton ajout -->
+  <button class="btn-add" onclick="ouvrirModal()">+ Nouveau projet</button>
+
+  <!-- Filtres -->
+  <div class="filter-bar">
+    <span class="filter-label">Statut</span>
+    <button class="filter-btn active" onclick="setFiltre('all', this)">Tout</button>
+    <button class="filter-btn" onclick="setFiltre('todo', this)">TO DO</button>
+    <button class="filter-btn" onclick="setFiltre('wip', this)">WIP</button>
+    <button class="filter-btn" onclick="setFiltre('done', this)">DONE</button>
+  </div>
+
+  <div class="count-bar" id="count"></div>
+  <div class="crochet-grid" id="grid">
+    <div class="loading">Chargement des projets…</div>
+  </div>
+
+  <!-- ====== POP-UP AJOUT ====== -->
+  <div class="overlay" id="overlay" onclick="fermerModalSiDehors(event)">
+    <div class="modal">
+      <h2>Nouveau projet</h2>
+      <div class="field">
+        <label>Nom du projet *</label>
+        <input type="text" id="inp-titre" placeholder="ex : Bonnet rayé bleu" />
+      </div>
+      <div class="field">
+        <label>Pattern (nom ou lien)</label>
+        <input type="text" id="inp-pattern" placeholder="ex : Ravelry — Cozy Hat par XYZ" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
+        <button class="btn-save" id="btn-save" onclick="ajouterProjet()">Ajouter</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // ====== CONFIG SUPABASE ======
+  const SUPABASE_URL  = 'https://wenkojnlclbyuzgmtyyw.supabase.co';
+  const SUPABASE_KEY  = 'sb_publishable_Gs78kcFk41qbUpaIM3RhZw_ONgTzhuQ';
+  const TABLE         = 'projets_crochet';
+
+  const headers = {
+    'Content-Type':  'application/json',
+    'apikey':        SUPABASE_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_KEY,
+    'Prefer':        'return=representation'
+  };
+
+  // ====== ÉTAT ======
+  let projets  = [];
+  let filtre   = 'all';
+
+  // ====== CHARGEMENT ======
+  async function charger() {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?order=created_at.desc`, { headers });
+      if (!res.ok) throw new Error(await res.text());
+      projets = await res.json();
+      render();
+    } catch(e) {
+      document.getElementById('grid').innerHTML =
+        `<div class="empty">Erreur de connexion à la base de données.<br><small>${e.message}</small></div>`;
+    }
+  }
+
+  // ====== AFFICHAGE ======
+  function render() {
+    const grid = document.getElementById('grid');
+    const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
+
+    document.getElementById('count').textContent =
+      list.length + ' projet' + (list.length > 1 ? 's' : '') +
+      ' affiché' + (list.length > 1 ? 's' : '');
+
+    if (list.length === 0) {
+      grid.innerHTML = '<div class="empty">Aucun projet ici pour l\'instant. 🧶</div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(p => {
+      const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE' };
+      const btnSuivant  = p.statut === 'todo' ? `<button class="btn-next" onclick="changerStatut('${p.id}', 'wip')">▶ Démarrer</button>`
+                        : p.statut === 'wip'  ? `<button class="btn-next" onclick="changerStatut('${p.id}', 'done')">✓ Terminer</button>`
+                        : '';
+      return `
+        <div class="crochet-card ${p.statut}">
+          <div class="card-top">
+            <div class="card-title">🧶 ${p.titre}</div>
+            <span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>
+          </div>
+          ${p.pattern ? `<div class="card-pattern">📋 ${p.pattern}</div>` : ''}
+          <div class="card-actions">
+            ${btnSuivant}
+            <button class="btn-delete" onclick="supprimerProjet('${p.id}')">✕</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ====== FILTRES ======
+  function setFiltre(f, btn) {
+    filtre = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  }
+
+  // ====== AJOUTER ======
+  function ouvrirModal() {
+    document.getElementById('inp-titre').value   = '';
+    document.getElementById('inp-pattern').value = '';
+    document.getElementById('overlay').classList.add('open');
+    setTimeout(() => document.getElementById('inp-titre').focus(), 100);
+  }
+
+  function fermerModal() {
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  function fermerModalSiDehors(e) {
+    if (e.target === document.getElementById('overlay')) fermerModal();
+  }
+
+  async function ajouterProjet() {
+    const titre   = document.getElementById('inp-titre').value.trim();
+    const pattern = document.getElementById('inp-pattern').value.trim();
+    if (!titre) { document.getElementById('inp-titre').focus(); return; }
+
+    const btn = document.getElementById('btn-save');
+    btn.disabled    = true;
+    btn.textContent = 'Ajout…';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
+        method:  'POST',
+        headers,
+        body: JSON.stringify({ titre, pattern: pattern || null, statut: 'todo' })
+      });
+      if (!res.ok) throw new Error(await res.text());
+      fermerModal();
+      await charger();
+    } catch(e) {
+      alert('Erreur lors de l\'ajout : ' + e.message);
+    } finally {
+      btn.disabled    = false;
+      btn.textContent = 'Ajouter';
+    }
+  }
+
+  // ====== CHANGER STATUT ======
+  async function changerStatut(id, nouveauStatut) {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
+        method:  'PATCH',
+        headers,
+        body: JSON.stringify({ statut: nouveauStatut })
+      });
+      if (!res.ok) throw new Error(await res.text());
+      await charger();
+    } catch(e) {
+      alert('Erreur : ' + e.message);
+    }
+  }
+
+  // ====== SUPPRIMER ======
+  async function supprimerProjet(id) {
+    if (!confirm('Supprimer ce projet ?')) return;
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
+        method:  'DELETE',
+        headers
+      });
+      if (!res.ok) throw new Error(await res.text());
+      await charger();
+    } catch(e) {
+      alert('Erreur : ' + e.message);
+    }
+  }
+
+  // ====== INIT ======
+  charger();
+  </script>
+
+</body>
+</html>
