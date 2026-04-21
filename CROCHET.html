@@ -74,53 +74,54 @@
       </div>
     </div>
   </div>
+
+  
+<div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
 <div class="detail-panel" id="detail-panel">
   <div class="detail-header">
-    <div class="header-top-row">
-      <div class="header-meta">
+    <div class="header-top-row" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <div class="header-meta" style="display: flex; align-items: center; gap: 10px;">
         <div id="d-statut-badge"></div>
         <div id="d-date" class="date"></div>
       </div>
-      <button onclick="fermerDetail()" class="btn-close-detail">✕</button>
+      <button onclick="fermerDetail()" class="btn-close-detail" style="background:none; border:none; font-size:20px; cursor:pointer;">✕</button>
     </div>
 
-    <div class="plant-name" id="d-titre-affiche" style="font-size: 20px; margin-top: 10px;"></div>
+    <div class="plant-name" id="d-titre-affiche" style="font-size: 20px; margin-top: 10px; font-weight: 500;"></div>
   </div>
 
+  <div class="detail-section" style="margin-top:20px;">
+    <div class="detail-label">Statut du projet</div>
+    <select class="edit-input" id="d-statut">
+      <option value="todo">TO DO</option>
+      <option value="wip">WIP</option>
+      <option value="done">DONE</option>
+    </select>
   </div>
 
-    <div class="detail-section">
-      <div class="detail-label">Statut du projet</div>
-      <select class="edit-input" id="d-statut">
-        <option value="todo">TO DO</option>
-        <option value="wip">WIP</option>
-        <option value="done">DONE</option>
-      </select>
-    </div>
-
-    <div class="detail-section">
-      <div class="detail-label">Nom du projet</div>
-      <input class="edit-input" type="text" id="d-titre" />
-    </div>
-
-    <div class="detail-section">
-      <div class="detail-label">Pattern</div>
-      <input class="edit-input" type="text" id="d-pattern" />
-    </div>
-
-    <div class="detail-section">
-      <div class="detail-label">Notes & explications</div>
-      <textarea class="edit-textarea" id="d-explication-detail"></textarea>
-    </div>
-
-    <div class="detail-section">
-      <div class="detail-label">Temps total passé</div>
-      <input class="edit-input" type="text" id="d-duree" />
-    </div>
-
-    <button class="btn-edit-save" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer les modifications</button>
-    <div class="save-ok" id="save-ok">✓ Modifications enregistrées</div>
+  <div class="detail-section">
+    <div class="detail-label">Nom du projet</div>
+    <input class="edit-input" type="text" id="d-titre" />
   </div>
+
+  <div class="detail-section">
+    <div class="detail-label">Pattern</div>
+    <input class="edit-input" type="text" id="d-pattern" />
+  </div>
+
+  <div class="detail-section">
+    <div class="detail-label">Notes & explications</div>
+    <textarea class="edit-textarea" id="d-explication-detail" style="width:100%; min-height:100px;"></textarea>
+  </div>
+
+  <div class="detail-section">
+    <div class="detail-label">Temps total passé</div>
+    <input class="edit-input" type="text" id="d-duree" />
+  </div>
+
+  <button class="btn-edit-save" id="btn-detail-save" onclick="sauvegarderDetail()" style="width:100%; margin-top:15px;">Enregistrer les modifications</button>
+  <div class="save-ok" id="save-ok" style="display:none; color:var(--vert); text-align:center; margin-top:10px;">✓ Modifications enregistrées</div>
+</div>
 
   <script>
     const SUPABASE_URL = 'https://wenkojnlclbyuzgmtyyw.supabase.co';
@@ -255,26 +256,34 @@
       return `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
     }
     
-    function ouvrirDetail(id) {
-      const p = projets.find(x => x.id === id);
-      if (!p) return;
-      detailId = id;
-      
-      document.getElementById('d-date').textContent = formaterDate(p.created_at);
-      const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
-      
-      // On utilise la classe .badge et la classe couleur .statut-XXX
-      document.getElementById('d-statut-badge').innerHTML = `<span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
-      
-      document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
-      document.getElementById('d-titre').value = p.titre || '';
-      document.getElementById('d-pattern').value = p.pattern || '';
-      document.getElementById('d-explication-detail').value = p.explication || '';
-      document.getElementById('d-duree').value = p.duree || '';
-      document.getElementById('d-statut').value = p.statut;
-      
-      document.getElementById('detail-overlay').classList.add('open');
-      document.getElementById('detail-panel').classList.add('open');
+function ouvrirDetail(id) {
+  const p = projets.find(x => x.id === id);
+  if (!p) return;
+  detailId = id;
+  
+  // Remplissage de la date
+  const dateElem = document.getElementById('d-date');
+  if (dateElem) dateElem.textContent = formaterDate(p.created_at);
+
+  // Remplissage du badge
+  const badgeElem = document.getElementById('d-statut-badge');
+  const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
+  if (badgeElem) {
+    badgeElem.innerHTML = `<span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
+  }
+  
+  // Remplissage des champs
+  document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
+  document.getElementById('d-titre').value = p.titre || '';
+  document.getElementById('d-pattern').value = p.pattern || '';
+  document.getElementById('d-explication-detail').value = p.explication || '';
+  document.getElementById('d-duree').value = p.duree || '';
+  document.getElementById('d-statut').value = p.statut;
+  
+  // Affichage du panneau
+  document.getElementById('detail-overlay').classList.add('open');
+  document.getElementById('detail-panel').classList.add('open');
+}ent.getElementById('detail-panel').classList.add('open');
     }
 
     function fermerDetail() {
