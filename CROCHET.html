@@ -74,19 +74,20 @@
       </div>
     </div>
   </div>
-
-  <div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
-  <div class="detail-panel" id="detail-panel">
-    <div class="detail-header">
-      <div style="flex:1">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-          <div id="d-statut-badge"></div>
-          <div id="d-date" class="date"></div>
-        </div>
-        <div class="plant-name" id="d-titre-affiche"></div>
+<div class="detail-panel" id="detail-panel">
+  <div class="detail-header">
+    <div class="header-top-row">
+      <div class="header-meta">
+        <div id="d-statut-badge"></div>
+        <div id="d-date" class="date"></div>
       </div>
-      <button onclick="fermerDetail()" class="btn-delete">✕</button>
+      <button onclick="fermerDetail()" class="btn-close-detail">✕</button>
     </div>
+
+    <div class="plant-name" id="d-titre-affiche" style="font-size: 20px; margin-top: 10px;"></div>
+  </div>
+
+  </div>
 
     <div class="detail-section">
       <div class="detail-label">Statut du projet</div>
