@@ -196,6 +196,17 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 .crochet-card.wip  { border-left: 3px solid var(--orange); }
 .crochet-card.done { border-left: 3px solid var(--vert); }
 
+.statut-todo { 
+  background: var(--orange-clair);   color: var(--orange-fonce);   border: 1px solid #ccc; 
+}
+/* WIP (En cours) */
+.statut-wip { 
+  background: var(--orange-clair);   color: var(--orange-fonce); border: 1px solid #ccc; 
+}
+/* DONE (Terminé) */
+.statut-done { 
+  background: var(--vert-clair);   color:   var(--vert-fonce); border: 1px solid #ccc; 
+}
 
 .clickable-title {
   cursor: pointer;
