@@ -276,9 +276,7 @@ function ouvrirDetail(id) {
       document.getElementById('d-duree').value = p.duree || '';
       document.getElementById('d-statut').value = p.statut;
       
-      const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
-      document.getElementById('d-statut-badge').innerHTML = `<span class="statut-badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
-      
+    
       document.getElementById('detail-overlay').classList.add('open');
       document.getElementById('detail-panel').classList.add('open');
     }
