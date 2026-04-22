@@ -136,6 +136,7 @@ h1 {
   color: #1a1a18;
 }
 
+
 .card {           /* classe = point devant */
   background: white;
   border-radius: 12px;
@@ -214,7 +215,39 @@ h1 {
 }`,
       tip: "Tout dans style.css = un seul endroit à modifier pour changer l'apparence de tout le site."
     },
+{
+  cat: "css", type: "base",
+  badge: "CSS", badgeClass: "badge-cul",
+  title: "Classes multiples vs classe unique",
+  desc: "En HTML, un espace dans l’attribut class sépare plusieurs classes. Un tiret (-) permet de créer un seul nom de classe composé.",
+  code: `&lt;!-- ❌ Mauvais : 2 classes différentes --&gt;
+&lt;div class="vert clair"&gt;&lt;/div&gt;
 
+&lt;!-- CSS associé (ne marchera pas) --&gt;
+.vert-clair {
+  background: #E1F5EE;
+}
+
+&lt;!-- ✅ Bon : 1 seule classe avec un tiret --&gt;
+&lt;div class="vert-clair"&gt;&lt;/div&gt;
+
+&lt;!-- CSS associé (fonctionne) --&gt;
+.vert-clair {
+  background: #E1F5EE;
+}
+
+&lt;!-- ✅ Combinaison de classes (volontaire) --&gt;
+&lt;div class="blanc border"&gt;&lt;/div&gt;
+
+.blanc {
+  background: #ffffff;
+}
+
+.border {
+  border: 1px solid #ddd;
+}`,
+  tip: "Utilise des tirets pour nommer une seule classe (ex: vert-clair). Utilise des espaces uniquement si tu veux combiner plusieurs classes."
+},
     /* ======== JAVASCRIPT ======== */
     {
       cat: "js", type: "base",
