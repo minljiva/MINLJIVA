@@ -60,7 +60,7 @@
               </div>
             </div>
             <div class="tip" style="font-size: 0.8em; opacity: 0.8;">📁 ${p.categorie || 'AUTRE'}</div>
-            ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
+            ${p.inspiration ? `<div class="tip">📋 ${p.inspiration}</div>` : ''}
             ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
             <div class="card-actions">
               ${btnSuivant}
@@ -88,7 +88,7 @@
     // MODAL AJOUT
     function ouvrirModal() {
       document.getElementById('inp-titre').value = '';
-      document.getElementById('inp-pattern').value = '';
+      document.getElementById('inp-inspiration').value = '';
       document.getElementById('inp-explication').value = '';
       document.getElementById('overlay').classList.add('open');
     }
@@ -97,7 +97,7 @@
 
     async function ajouterProjet() {
       const titre = document.getElementById('inp-titre').value.trim();
-      const pattern = document.getElementById('inp-pattern').value.trim();
+      const inspiration = document.getElementById('inp-inspiration').value.trim();
       const explication = document.getElementById('inp-explication').value.trim();
       const categorie = document.getElementById('inp-categorie').value;
 
@@ -109,7 +109,7 @@
           headers,
           body: JSON.stringify({ 
             titre, 
-            pattern: pattern || null, 
+            inspiration: inspiration || null, 
             explication: explication || null, 
             statut: 'todo',
             categorie: categorie
@@ -163,7 +163,7 @@
       document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
       document.getElementById('d-titre').value = p.titre || '';
       document.getElementById('d-categorie').value = p.categorie || 'CROCHET';
-      document.getElementById('d-pattern').value = p.pattern || '';
+      document.getElementById('d-inspiration').value = p.inspiration || '';
       document.getElementById('d-explication-detail').value = p.explication || '';
       document.getElementById('d-duree').value = p.duree || '';
       document.getElementById('d-statut').value = p.statut;
@@ -184,7 +184,7 @@
       const body = {
         titre: document.getElementById('d-titre').value,
         categorie: document.getElementById('d-categorie').value,
-        pattern: document.getElementById('d-pattern').value || null,
+        inspiration: document.getElementById('d-inspiration').value || null,
         explication: document.getElementById('d-explication-detail').value || null,
         duree: document.getElementById('d-duree').value || null,
         statut: document.getElementById('d-statut').value
