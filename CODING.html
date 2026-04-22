@@ -96,6 +96,60 @@
       tip: "Le alt décrit l'image pour l'accessibilité — toujours le remplir."
     },
     {
+  cat: "css",
+  type: "base",
+  badge: "CSS",
+  badgeClass: "badge-css", // À adapter selon tes classes existantes
+  title: "Variables CSS (:root)",
+  desc: "Permet de stocker des valeurs (couleurs, tailles) pour les réutiliser partout. Idéal pour la maintenance.",
+  code: `:root {
+  --accent-main: #20576C;
+  --bg-body: #f8f9fa;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--accent-main);
+}`,
+  tip: "Utilise toujours des variables pour les couleurs, cela permet de changer de thème en une seule ligne."
+},
+
+{
+  cat: "css",
+  type: "layout",
+  badge: "CSS",
+  badgeClass: "badge-css",
+  title: "Le Layout (Structure)",
+  desc: "Séparez la structure globale (le squelette) du design visuel (la peau).",
+  code: `/* layout.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid-dashboard {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}`,
+  tip: "Le layout évite la répétition de code sur chaque page de ton site ICEOLIE."
+},
+
+{
+  cat: "css",
+  type: "pratique",
+  badge: "CSS",
+  badgeClass: "badge-css",
+  title: "Classes vs Inline Style",
+  desc: "Ne jamais utiliser l'attribut 'style' dans le HTML. Utilisez uniquement des classes pour une séparation propre.",
+  code: `/* À ÉVITER */
+<div style="color: blue;">...</div>
+
+/* À PRIVILÉGIER */
+<div class="text-primary">...</div>`,
+  tip: "Cela permet de modifier l'apparence de 100 pages d'un seul coup via le fichier CSS."
+},
+    {
       cat: "html", type: "base",
       badge: "HTML", badgeClass: "badge-cul",
       title: "Div et classes",
