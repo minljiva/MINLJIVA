@@ -19,6 +19,55 @@
   --fond-hover:    #efefec;
 }
 
+/* colors */
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+  font-family: sans-serif;
+}
+
+.color-card {
+  text-align: center;
+}
+
+.color-box {
+  height: 80px;
+  border-radius: 8px;
+}
+
+/* Couleurs */
+.vert { background: #1D9E75; }
+.vert-clair { background: #E1F5EE; }
+.vert-fonce { background: #085041; }
+
+.violet { background: #7F77DD; }
+.violet-clair { background: #EEEDFE; }
+.violet-fonce { background: #3C3489; }
+
+.orange { background: #EF9F27; }
+.orange-clair { background: #FAEEDA; }
+.orange-fonce { background: #633806; }
+
+.fond { background: #f9f8f5; }
+.blanc { background: #ffffff; }
+
+.bordure { background: #e8e7e3; }
+.bordure2 { background: #ccc; }
+
+.texte { background: #1a1a18; }
+.texte-doux { background: #5f5e5a; }
+.texte-pale { background: #888; }
+
+.fond-bloc { background: #f4f3ef; }
+.fond-hover { background: #efefec; }
+
+/* option pour voir le blanc */
+.border {
+  border: 1px solid #ddd;
+}
+
 /* 2. RESET & BASE */
 *, *::before, *::after {
   box-sizing: border-box;
