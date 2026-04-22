@@ -149,8 +149,8 @@
     };
 
     let projets = [];
-    let filtreStatut = 'all'; 
-    let filtreProjet = 'all'; 
+    let filtreStatut = 'all'; // Pour TO DO, WIP, DONE
+    let filtreProjet = 'all'; // Pour CROCHET, CODING, AUTRE
     let projetEnCours = null;
     let detailId = null;
 
@@ -163,13 +163,18 @@
     }
 
     function render() {
-      const grid = document.getElementById('grid');
+const grid = document.getElementById('grid');
       
-      // FILTRAGE CROISÉ (Statut ET Catégorie)
+      // On filtre la liste en vérifiant les DEUX conditions
       const list = projets.filter(p => {
+        // Condition 1 : Est-ce que le statut correspond ?
         const matchStatut = (filtreStatut === 'all' || p.statut === filtreStatut);
+        
+        // Condition 2 : Est-ce que la catégorie correspond ?
+        // (on met tout en minuscule pour éviter les erreurs de frappe)
         const matchProjet = (filtreProjet === 'all' || (p.categorie && p.categorie.toLowerCase() === filtreProjet.toLowerCase()));
-        return matchStatut && matchProjet;
+        
+        return matchStatut && matchProjet; // Le projet doit valider les deux
       });
 
       const countElem = document.getElementById('count');
@@ -208,19 +213,20 @@
       }).join('');
     }
 
-    // GESTION DES FILTRES
+// Gestion du filtre de Statut
     function setFiltre(s, btn) {
       filtreStatut = s;
       btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      render();
+      render(); // Relance le rendu avec les deux filtres
     }
 
+    // Gestion du filtre de Projet/Catégorie
     function filterProjet(p, btn) {
       filtreProjet = p;
       btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      render();
+      render(); // Relance le rendu avec les deux filtres
     }
 
     // MODAL AJOUT
