@@ -18,19 +18,22 @@
 
   <button class="btn-add" onclick="ouvrirModal()">+ Nouveau projet</button>
 
-      <div class="filter-bar">
-    <span class="filter-label">Projet</span>
-    <button class="filter-btn active" onclick="filterProjet('all', this)">Tout</button>
-    <button class="filter-btn" onclick="filterProjet('crochet', this)">CROCHET</button>
-          <button class="filter-btn" onclick="filterProjet('coding', this)">CODING</button>
-    <button class="filter-btn" onclick="filterProjet('autre', this)">AUTRE</button>
-      </div>
-    <div class="filter-bar">
-    <span class="filter-group">Statut</span>
-    <button class="filter-btn active" onclick="setFiltre('all', this)">Tout</button>
-    <button class="filter-btn" onclick="setFiltre('todo', this)">TO DO</button>
-    <button class="filter-btn" onclick="setFiltre('wip', this)">WIP</button>
-    <button class="filter-btn" onclick="setFiltre('done', this)">DONE</button>
+<div class="filter-bar">
+    <div class="filter-group-wrapper" style="width: 100%; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+      <span class="filter-label">Projet</span>
+      <button class="filter-btn active" onclick="filterProjet('all', this)">Tout</button>
+      <button class="filter-btn" onclick="filterProjet('crochet', this)">CROCHET</button>
+      <button class="filter-btn" onclick="filterProjet('coding', this)">CODING</button>
+      <button class="filter-btn" onclick="filterProjet('autre', this)">AUTRE</button>
+    </div>
+
+    <div class="filter-group-wrapper" style="width: 100%; display: flex; flex-wrap: wrap; gap: 8px;">
+      <span class="filter-label">Statut</span>
+      <button class="filter-btn active" onclick="setFiltre('all', this)">Tout</button>
+      <button class="filter-btn" onclick="setFiltre('todo', this)">TO DO</button>
+      <button class="filter-btn" onclick="setFiltre('wip', this)">WIP</button>
+      <button class="filter-btn" onclick="setFiltre('done', this)">DONE</button>
+    </div>
   </div>
 
   <div class="count-bar" id="count"></div>
