@@ -61,12 +61,18 @@ body { background: #f9f8f5; font-family: -apple-system, BlinkMacSystemFont, "Seg
 
 /* ===== LA CARTE INDIVIDUELLE ===== */
 .color-card {
+    background: var(--blanc);
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid var(--bordure);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   width: 130px; /* Un peu plus large pour respirer */
-  transition: all 0.3s ease;
+
 }
 
 .color-card:hover { 
@@ -233,7 +239,7 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px);}
 }
 
 /* 4. TITRES */
-h1 { font-family: 'Halimun', sans-serif; font-size: 33px; font-weight: 500; text-align: center; margin-bottom: 0rem; margin-top: -80px; }
+h1 { font-family: 'Halimun', sans-serif; font-size: 33px; font-weight: 500; text-align: center; margin-bottom: 0rem; margin-top: -60px; }
 h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--texte); }
 .subtitle { font-size: 11px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: -1rem; text-align: center;   text-transform: uppercase;
   letter-spacing: 0.05em;  width: 100%;}
