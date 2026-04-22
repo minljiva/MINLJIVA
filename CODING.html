@@ -596,7 +596,38 @@ fonts/
     "<strong>git commit -m \"message\"</strong> : Valide les modifs.",
     "<strong>git push</strong> : Envoie tout sur le web."
   ]
-}
+},
+    {
+      cat: "coding", type: "supabase",
+      badge: "BASE DE DONNÉES", badgeClass: "badge-imm",
+      title: "Menu déroulant et Contraintes",
+      desc: "Pour limiter les choix dans une colonne (ex: CROCHET ou AUTRE), on utilise une contrainte CHECK en SQL et un élément 'select' en HTML.",
+      code: `-- 1. SQL : Ajouter une contrainte à la table
+ALTER TABLE projets_crochet 
+ADD CONSTRAINT check_categorie 
+CHECK (categorie IN ('CROCHET', 'AUTRE'));
+
+-- 2. HTML : Créer le menu déroulant
+&lt;select id="inp-categorie"&gt;
+  &lt;option value="CROCHET"&gt;Crochet&lt;/option&gt;
+  &lt;option value="AUTRE"&gt;Autre&lt;/option&gt;
+&lt;/select&gt;
+
+-- 3. JS : Récupérer la valeur choisie
+const cat = document.getElementById('inp-categorie').value;`,
+      tip: "Vérifie bien que les 'value' de ton HTML sont identiques aux majuscules près à celles définies dans ton SQL."
+    },
+    {
+      cat: "coding", type: "html",
+      badge: "LOGIQUE", badgeClass: "badge-cul",
+      title: "Lien dynamique vers Patron",
+      desc: "Comment transformer un champ texte en lien cliquable s'il contient une URL ou un fichier .html dans la liste des projets.",
+      code: `// Dans la fonction render()
+const patternLink = p.pattern.endsWith('.html') 
+  ? \`&lt;a href="\${p.pattern}" class="tip"&gt;📋 Voir le patron&lt;/a&gt;\`
+  : \`&lt;div class="tip"&gt;📋 \${p.pattern}&lt;/div&gt;\`;`,
+      tip: "Pratique pour ouvrir directement ton patron TILDASHRUG.html depuis ta base de données."
+    }
  
   ];
 
