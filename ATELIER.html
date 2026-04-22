@@ -207,7 +207,14 @@ const grid = document.getElementById('grid');
               </div>
             </div>
             <div class="tip" style="font-size: 0.8em; opacity: 0.8;">📁 ${p.categorie || 'AUTRE'}</div>
-            ${p.inspiration ? `<div class="tip">📋 ${p.inspiration}</div>` : ''}
+            ${p.inspiration ? `
+  <div class="tip">📋 
+    ${p.inspiration.startsWith('http') 
+      ? `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline;">Voir l'inspiration</a>` 
+      : p.inspiration
+    }
+  </div>` 
+: ''}
             ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
             <div class="card-actions">
               ${btnSuivant}
