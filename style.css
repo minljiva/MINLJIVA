@@ -19,28 +19,10 @@
   --fond-hover:    #efefec;
 }
 
-/* ===== GLOBAL & RESET ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-@font-face {
-  font-family: 'Halimun';
-  src: url('fonts/Halimun.ttf') format('truetype');
-}
-
-body { 
-  background: var(--fond); 
-  font-family: system-ui, -apple-system, sans-serif; 
-  color: var(--texte); 
-  padding: 2rem 1rem; 
-  max-width: 780px; 
-  margin: 0 auto; 
-  line-height: 1.6;
-}
-
-a { color: var(--texte-doux); text-decoration: none; transition: color 0.15s; }
-a:hover { color: var(--texte-pale); transform: translateY(-2px); }
-
-/* ===== PALETTE & GRILLES ===== */
+/* ===== PAGE COLORS ===== */
+* {  box-sizing: border-box; margin: 0; padding: 0;}
+body { background: var(--fond); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1a1a18;  padding: 24px;}
+/* ===== CONTENEUR GLOBAL ===== */
 .palette {
   display: flex;
   flex-direction: column;
@@ -48,30 +30,30 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+    border-bottom: 2px solid va(--bordure);
 }
 
+/* ===== CHAQUE SECTION (Titre + ses 3 cartes) ===== */
 .palette-group {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 50px;
-  border-bottom: 2px solid var(--bordure); 
-    background: var(--fond-bloc);
+  margin-bottom: 50px; /* Espace entre les groupes (Verts / Violets...) */
 }
 
 .palette-title {
-  font-family: 'Halimun', sans-serif;
+  font-family: 'Halimun', sans-serif; /* Si tu l'utilises */
   font-size: 18px;
   margin-top: 24px;
   padding-bottom: 6px;
-  border-bottom: 2px solid var(--bordure); 
+  border-bottom: 2px solid #e8e7e3;
   text-align: center;
   margin-bottom: 5px;
   width: 100%;
-  color: var(--texte);
 }
 
+/* ===== LE CONTENEUR DES 3 CARTES ===== */
 .cards-container {
   display: flex;
   flex-direction: row;
@@ -81,9 +63,9 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   width: 100%;
 }
 
-/* ===== CARTES COULEURS ===== */
+/* ===== LA CARTE INDIVIDUELLE ===== */
 .color-card {
-  background: var(--blanc);
+    background: var(--blanc);
   border-radius: 12px;
   padding: 10px;
   border: 1px solid var(--bordure);
@@ -92,32 +74,36 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 130px;
+  width: 130px; /* Un peu plus large pour respirer */
+
 }
 
 .color-card:hover { 
   transform: translateY(-3px); 
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08); 
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
 
+/* ===== LA BOITE DE COULEUR (LE CARRÉ) ===== */
 .color-box { 
-  width: 100%; 
+  width: 100%;       /* IMPORTANT : Pour qu'on voie la couleur */
   height: 80px; 
   border-radius: 10px; 
   margin-bottom: 10px;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); 
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); /* Petite bordure interne discrète */
 }
 
+/* ===== TEXTE SOUS LA COULEUR ===== */
 .color-card p { 
   font-size: 13px; 
   line-height: 1.4; 
-  color: var(--texte-doux); /* Hexa remplacé */
+  color: #5f5e5a;
   margin: 0;
 }
 
-.border { border: 1px solid var(--bordure2); } /* Hexa remplacé par bordure2 */
+/* Cas spécial pour la box blanche (pour la voir sur fond blanc) */
+.border { border: 1px solid #ddd; }
 
-/* Classes background dynamiques */
+/* ===== TES COULEURS (Gardées telles quelles) ===== */
 .vert { background: var(--vert); }
 .vert-clair { background: var(--vert-clair); }
 .vert-fonce { background: var(--vert-fonce); }
@@ -137,7 +123,32 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
 .texte-doux { background: var(--texte-doux); }
 .texte-pale { background: var(--texte-pale); }
 
-/* ===== HEADER & NAV ===== */
+/* 2. RESET & BASE */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: 'Halimun';
+  src: url('fonts/Halimun.ttf') format('truetype');
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--fond);
+  color: var(--texte);
+  padding: 2rem 1rem;
+  max-width: 780px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+a { color: var(--texte-doux); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--texte-pale); transform: translateY(-2px);}
+
+/* 3. HEADER — logo + navigation */
 .site-header {
   display: flex;
   align-items: center;
@@ -146,10 +157,22 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   margin-bottom: 2rem;
 }
 
-.site-header img { display: block; max-width: 160px; }
+.site-header img {
+  display: block;
+  max-width: 160px;
+}
 
-.nav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
-.nav-group { position: relative; }
+.nav {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Groupe catégorie */
+.nav-group {
+  position: relative;
+}
 
 .nav-cat {
   font-size: 13px;
@@ -159,6 +182,7 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   cursor: default;
   transition: color 0.15s, background 0.15s;
   display: block;
+  user-select: none;
 }
 
 .nav-group:hover .nav-cat {
@@ -171,6 +195,12 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   background: var(--orange-clair);
 }
 
+.nav-cat-soon {
+  opacity: 0.45;
+  font-style: italic;
+}
+
+/* Dropdown */
 .nav-dropdown {
   display: none;
   position: absolute;
@@ -185,13 +215,16 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 
-.nav-group:hover .nav-dropdown { display: block; }
+.nav-group:hover .nav-dropdown {
+  display: block;
+}
 
 .nav-drop-item {
   display: block;
   padding: 6px 14px;
   font-size: 13px;
   color: var(--texte-doux);
+  text-decoration: none;
   transition: background 0.12s, color 0.12s;
 }
 
@@ -200,21 +233,22 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   color: var(--texte);
 }
 
-/* ===== TITRES & TEXTES ===== */
-h1 { font-family: 'Halimun', sans-serif; font-size: 33px; font-weight: 500; text-align: center; margin-top: -30px; }
-h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--texte); }
-
-.subtitle { 
-  font-size: 11px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: -1rem; 
-  text-align: center; text-transform: uppercase; letter-spacing: 0.05em; width: 100%;
-}
-
+/* Style pour le compteur de résultats */
 .count-bar {
-  font-size: 11px; color: var(--texte-doux); margin-bottom: -0.75rem; 
-  text-transform: uppercase; letter-spacing: 0.05em; width: 100%;
+  font-size: 11px;
+  color: var(--texte-doux);
+  margin-bottom: -0,75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;  width: 100%;
 }
 
-/* ===== COMPOSANTS ===== */
+/* 4. TITRES */
+h1 { font-family: 'Halimun', sans-serif; font-size: 33px; font-weight: 500; text-align: center; margin-bottom: 0rem; margin-top: -30px; }
+h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--texte); }
+.subtitle { font-size: 11px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: -1rem; text-align: center;   text-transform: uppercase;
+  letter-spacing: 0.05em;  width: 100%;}
+
+/* 5. COMPOSANTS COMMUNS (Box, Tip, Note...) */
 .box { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
 
 .tip, .note {
@@ -224,32 +258,497 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 }
 
 .tipV {
+  font-size: 12px; margin-top: 10px; padding: 8px 10px;
   background: var(--vert-clair); border-left: 3px solid var(--vert);
-  color: var(--texte-doux); font-size: 12px; margin-top: 10px; padding: 8px 10px;
-  border-radius: 0 8px 8px 0;
-}
+  border-radius: 0 8px 8px 0; color: var(--texte-doux);}
 
 .warn { font-size: 12px; background: var(--orange-clair); color: var(--orange-fonce); border-radius: 8px; padding: 8px 12px; margin-top: 1rem; }
 
-/* ===== BADGES & STATUTS ===== */
-.badge { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; }
-.statut-todo { background: var(--violet-clair); color: var(--violet-fonce); border: 1px solid var(--bordure2); }
-.statut-wip { background: var(--orange-clair); color: var(--orange-fonce); border: 1px solid var(--bordure2); }
-.statut-done { background: var(--vert-clair); color: var(--vert-fonce); border: 1px solid var(--bordure2); }
+.mariage {
+  font-size: 12px; margin-top: 6px; padding: 8px 10px;
+  background: #EEEDFE18; border-left: 3px solid var(--violet);
+  border-radius: 0 8px 8px 0; color: var(--texte-doux);
+}
 
-/* ===== BOUTONS ===== */
-.btn-add { background: var(--vert); color: var(--blanc); border: none; border-radius: 99px; padding: 8px 18px; font-size: 13px; cursor: pointer; }
-.btn-save { background: var(--vert); color: var(--blanc); border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
-.btn-next { background: var(--fond-bloc); border: 1px solid var(--bordure); padding: 5px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; }
-.btn-next:hover { background: var(--vert-clair); border-color: var(--vert); }
+.pot-info {
+  font-size: 12px; margin-top: 6px; padding: 8px 10px;
+  background: #FAEEDA44; border-left: 3px solid var(--orange);
+  border-radius: 0 8px 8px 0; color: var(--texte-doux);
+}
 
-/* ===== CODE BLOCKS ===== */
-.code-block { background: var(--texte); color: var(--bordure); border-radius: 8px; padding: 10px 14px; font-family: monospace; font-size: 12px; }
-.code-block .kw { color: var(--violet-clair); }
+/* 6. ONGLETS ET FILTRES */
+.tabs, .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.filter-label { font-size: 11px; color: var(--texte-doux); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; margin-top: 0.75rem; width: 100%; }
+.filter-group { font-size: 11px; color: var(--texte-doux); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; margin-top: 0.75rem; width: 100%; }
+
+.tab, .filter-btn {
+  font-size: 13px; padding: 5px 14px; border-radius: 99px;
+  border: 1px solid var(--bordure2); background: transparent;
+  color: var(--texte-doux); cursor: pointer; transition: all 0.15s;
+}
+
+.tab:hover, .filter-btn:hover { border-color: #999; color: var(--texte); }
+.tab.active, .filter-btn.active { background: var(--fond-hover); color: var(--texte); border-color: #999; font-weight: 500; }
+
+/* 7. GRILLES ET CARTES */
+.grid, .moment-grid, .crochet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+
+.card, .crochet-card { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1rem 1.25rem; }
+.card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.plant-name { font-size: 15px; font-weight: 500; color: var(--texte); }
+.plant-latin { font-size: 12px; color: var(--texte-doux); margin-bottom: 6px; }
+.desc { font-size: 13px; color: var(--texte-doux); line-height: 1.6; }
+
+/* 8. BADGES ET TAGS */
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; flex-shrink: 0; }
+.badge-med { background: var(--vert-clair); color: var(--vert-fonce); }
+.badge-cul, .badge-arom { background: var(--orange-clair); color: var(--orange-fonce); }
+.badge-orn, .badge-ete { background: #FBEAF0; color: #72243E; }
+.badge-fruit, .badge-adapt { background: #EAF3DE; color: #27500A; }
+.badge-imm { background: var(--violet-clair); color: var(--violet-fonce); }
+.badge-mel { background: var(--fond-hover); color: #444441; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+.tag { font-size: 11px; background: var(--fond-bloc); color: var(--texte-doux); padding: 2px 8px; border-radius: 99px; border: 1px solid var(--bordure); }
+
+/* 9. RECETTES ET ÉTAPES (Tisanes & Cuisine) */
+.recipe { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 12px; }
+.recipe-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.recipe-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; font-weight: 600; }
+.recipe-title { font-size: 15px; font-weight: 500; color: var(--texte); margin: 0; }
+.recipe-sub { font-size: 12px; color: var(--texte-doux); margin: 0; }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+.block { background: var(--fond-bloc); border-radius: 8px; padding: 10px 12px; }
+.block-label { font-size: 11px; color: var(--texte-pale); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+.block-val { font-size: 13px; color: var(--texte); line-height: 1.5; }
+
+.how-box { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; }
+.step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+.step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--vert-clair); color: var(--vert-fonce); font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-text { font-size: 13px; color: var(--texte-doux); line-height: 1.6; }
+
+/* 10. PAGE AVENIR — expositions */
+.expo-btn.active-est   { background: #E6F1FB; color: #0C447C; border-color: #378ADD; }
+.expo-btn.active-ouest { background: var(--orange-clair); color: var(--orange-fonce); border-color: var(--orange); }
+.expo-btn.active-ombre { background: #EAF3DE; color: #27500A; border-color: #639922; }
+.expo-btn.active-all   { background: var(--fond-hover); color: var(--texte); border-color: #999; }
+
+.expo-tag { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; }
+.expo-est   { background: #E6F1FB; color: #0C447C; }
+.expo-ouest { background: var(--orange-clair); color: var(--orange-fonce); }
+.expo-ombre { background: #EAF3DE; color: #27500A; }
+.expo-both  { background: var(--fond-hover); color: #444441; }
+
+.card.prio { border: 2px solid var(--vert); }
+.prio-label { font-size: 11px; background: var(--vert-clair); color: var(--vert-fonce); padding: 2px 8px; border-radius: 8px; font-weight: 500; display: inline-block; margin-bottom: 8px; }
+
+/* 11. PAGE CODING — blocks de code */
+.code-block { background: #1a1a18; color: #e8e7e3; border-radius: 8px; padding: 10px 14px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-top: 6px; }
+.code-block .kw  { color: var(--violet-clair); }
+.code-block .str { color: #a8e6cf; }
+.code-block .com { color: #666; font-style: italic; }
+.code-block .tag { color: #f8c291; border: none; background: none; }
 .code-block .atr { color: var(--vert-clair); }
 
-/* ===== INDEX CARDS ===== */
-.index-card { background: var(--blanc); border: 1px solid var(--bordure); border-radius: 12px; padding: 1rem 1.25rem; transition: all 0.15s; }
-.index-card-projet { border: 1px solid var(--violet); }
-.index-card-carnet { border: 1px solid var(--vert); }
-.index-card-learning { border: 1px solid var(--orange); }
+/* 12. CROCHET — modale et panneau slide */
+.btn-add { display: inline-flex; align-items: center; gap: 6px; background: var(--vert); color: #fff; border: none; border-radius: 99px; padding: 8px 18px; font-size: 13px; font-weight: 500; cursor: pointer; margin-bottom: 1.5rem; }
+/* BOUTONS D'ACTION (Démarrer / Terminer) */
+.btn-next {
+  background: var(--fond-bloc);
+  border: 1px solid var(--bordure);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--texte);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.save-ok { font-size: 11px; color: var(--texte-doux); margin-bottom: 1.5rem; margin-top: 1rem; text-align: center;   text-transform: uppercase;
+  letter-spacing: 0.05em;  width: 100%;}
+
+.btn-next:hover {
+  background: var(--vert-clair);
+  border-color: var(--vert);
+}
+
+/* BOUTON SUPPRIMER (La petite croix) */
+.btn-delete {
+  background: none;
+  border: none;
+  color: var(--texte-pale);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.btn-delete:hover {
+  color: #e74c3c; /* Rouge au survol */
+}
+
+.btn-edit-save{
+  background: var(--fond-bloc);
+  border: 1px solid var(--bordure);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--texte);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* BOUTONS DANS LES MODALES (Enregistrer / Annuler) */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background: var(--vert);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  background: var(--vert-clair);
+  border-color: var(--vert);
+}
+.overlay, .detail-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; align-items: center; justify-content: center; }
+.overlay.open, .detail-overlay.open { display: flex; }
+
+.modal { background: var(--blanc); border-radius: 16px; padding: 1.5rem; width: 90%; max-width: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+.field { margin-bottom: 0.9rem; }
+.field label, .detail-label { display: block; font-size: 11px; color: var(--texte-pale); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+.field input, .field textarea, .field select, .edit-input, .edit-textarea { width: 100%; border: 1px solid var(--bordure); border-radius: 8px; padding: 8px 10px; font-size: 13px; font-family: inherit; background: var(--fond); outline: none; }
+
+.detail-panel { position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px; height: 100%; background: var(--blanc); box-shadow: -4px 0 24px rgba(0,0,0,0.12); z-index: 201; overflow-y: auto; transition: right 0.25s ease; padding: 1.5rem; }
+.detail-panel.open { right: 0; }
+
+.crochet-card.todo { border-left: 3px solid var(--violet); }
+.crochet-card.wip  { border-left: 3px solid var(--orange); }
+.crochet-card.done { border-left: 3px solid var(--vert); }
+
+.statut-todo { 
+  background: var(--violet-clair);   color: var(--violet-fonce);   border: 1px solid #ccc; 
+}
+/* WIP (En cours) */
+.statut-wip { 
+  background: var(--orange-clair);   color: var(--orange-fonce); border: 1px solid #ccc; 
+}
+/* DONE (Terminé) */
+.statut-done { 
+  background: var(--vert-clair);   color:   var(--vert-fonce); border: 1px solid #ccc; 
+}
+
+.clickable-title {
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  display: inline-block; /* Pour que la zone de clic s'arrête à la fin du texte */
+}
+
+/* L'effet de survol uniquement sur le titre */
+.clickable-title:hover {
+  color: var(--vert);
+  text-decoration: underline; /* Optionnel : pour bien montrer que c'est un lien */
+}
+/* 13. RESPONSIVE ET UTILS */
+@media (max-width: 600px) {
+  body { padding: 1rem 0.75rem; }
+  .grid, .moment-grid, .crochet-grid { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 1fr; }
+  .detail-panel { max-width: 100%; }
+}
+
+.date { font-size: 12px; color: var(--texte-pale); font-weight: 500; letter-spacing: 0.05em; }
+
+/* La ligne qui contient Badge, Date et Bouton */
+.header-top-row {
+  display: flex;
+  justify-content: space-between; /* Pousse le bouton à droite et les infos à gauche */
+  align-items: center;            /* Aligne tout verticalement au centre */
+  width: 100%;
+}
+
+/* Le groupe Badge + Date */
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style spécifique pour le bouton fermer du panneau */
+.btn-close-detail {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--texte-pale);
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.btn-close-detail:hover {
+  color: var(--texte); /* Devient plus sombre au survol */
+}
+
+/* Optionnel : style pour la date si tu ne l'as pas déjà */
+.date {
+  font-size: 12px;
+  color: var(--texte-pale);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.empty, .loading { text-align: center; padding: 3rem 1rem; color: var(--texte-pale); font-size: 14px; }
+
+
+/* ============================================================
+   14. CLASSES AJOUTÉES (remplacement des styles inline)
+   ============================================================ */
+
+/* -- CROCHET : panneau détail -- */
+.detail-titre {
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.detail-section {
+  margin-top: 12px;
+}
+
+.detail-section-first {
+  margin-top: 20px;
+}
+
+.edit-textarea {
+  width: 100%;
+  min-height: 100px;
+}
+
+.btn-edit-save-full {
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* -- CROCHET : cartes -- */
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.card-top-title {
+  flex: 1;
+}
+
+.card-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+/* -- RECETTE & DRAINAGE : couleurs des icônes recettes -- */
+.recipe-icon-orange {
+  background: var(--orange-clair);
+  color: var(--orange-fonce);
+}
+
+.recipe-icon-vert {
+  background: var(--vert-clair);
+  color: var(--vert-fonce);
+}
+
+.recipe-icon-violet {
+  background: var(--violet-clair);
+  color: var(--violet-fonce);
+}
+
+.recipe-icon-fruit {
+  background: #EAF3DE;
+  color: #27500A;
+}
+
+.recipe-icon-orn {
+  background: #FBEAF0;
+  color: #72243E;
+}
+
+.recipe-icon-neutre {
+  background: var(--fond-bloc);
+  color: var(--texte-doux);
+}
+
+/* -- RECETTE : how-box étapes -- */
+.how-box-steps {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+/* -- CODING : desc avec marges -- */
+.desc-coding {
+  margin: 6px 0 8px;
+}
+
+/* -- CODING : how-box liste -- */
+.how-box-liste {
+  
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* -- TISANES : espacements dans les cartes -- */
+.row-tisane {
+  margin-top: 8px;
+}
+
+.desc-tisane {
+  margin-top: 8px;
+}
+
+/* -- INDEX : espacement des liens dans les blocs tip -- */
+.tip-links {
+  margin-top: 6px;
+}
+
+.lien1 {
+  margin-bottom: 2px;
+}
+
+
+/* ============================================================
+   15. PAGE INDEX — grille de cartes
+   ============================================================ */
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.index-card {
+  display: block;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: var(--texte);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.index-card-projet {
+  display: block;
+  background: var(--blanc);
+  border: 1px solid var(--violet);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: var(--texte);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.index-card-carnet {
+  display: block;
+  background: var(--blanc);
+  border: 1px solid var(--vert);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: var(--texte);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.index-card-learning {
+  display: block;
+  background: var(--blanc);
+  border: 1px solid var(--orange);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: var(--texte);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.index-card:hover {
+  border-color: var(--black);
+  box-shadow: 0 2px 10px rgba(127,119,221,0.1);
+  color: var(--texte);
+}
+
+.index-card-soon {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+.index-card-cat {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--texte-pale);
+  margin-bottom: 4px;
+}
+
+.index-card-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.index-card-desc {
+  font-size: 12px;
+  color: var(--texte-doux);
+  line-height: 1.5;
+}
+
+.badge-soon {
+  font-size: 10px;
+  background: var(--orange-clair);
+  color: var(--orange-fonce);
+  padding: 1px 7px;
+  border-radius: 99px;
+  font-weight: 500;
+}
+
+/* ===== AJOUTS POUR LE PATRON DE CROCHET ===== */
+
+/* Titre de section à l'intérieur d'une how-box */
+.section-pattern-title {
+    color: var(--vert-fonce);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+
+/* Ligne spécifique pour un rang du patron */
+.pattern-row {
+    font-size: 13px;
+    padding: 6px 10px;
+    background: var(--fond-bloc);
+    margin-bottom: 4px;
+    border-radius: 6px;
+    border-left: 2px solid var(--bordure2);
+}
+
+/* Accentuer les "Row X" dans le texte */
+.pattern-row strong, .step-text strong {
+    color: var(--texte);
+    font-weight: 600;
+}
