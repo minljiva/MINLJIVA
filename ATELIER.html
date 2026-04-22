@@ -166,19 +166,13 @@
       } catch(e) { console.error(e); }
     }
 
-    function render() {
-const grid = document.getElementById('grid');
+function render() {
+      const grid = document.getElementById('grid');
       
-      // On filtre la liste en vérifiant les DEUX conditions
       const list = projets.filter(p => {
-        // Condition 1 : Est-ce que le statut correspond ?
         const matchStatut = (filtreStatut === 'all' || p.statut === filtreStatut);
-        
-        // Condition 2 : Est-ce que la catégorie correspond ?
-        // (on met tout en minuscule pour éviter les erreurs de frappe)
         const matchProjet = (filtreProjet === 'all' || (p.categorie && p.categorie.toLowerCase() === filtreProjet.toLowerCase()));
-        
-        return matchStatut && matchProjet; // Le projet doit valider les deux
+        return matchStatut && matchProjet;
       });
 
       const countElem = document.getElementById('count');
@@ -198,6 +192,15 @@ const grid = document.getElementById('grid');
           ? `<button class="btn-next" onclick="event.stopPropagation(); demanderDuree('${p.id}')">✓ Terminer</button>`
           : '';
 
+        // Ici on prépare le texte de l'inspiration
+        let infoInspiration = '';
+        if (p.inspiration) {
+          const isLink = p.inspiration.startsWith('http');
+          infoInspiration = `<div class="tip">📋 ${isLink 
+            ? `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline;">Voir l'inspiration</a>` 
+            : p.inspiration}</div>`;
+        }
+
         return `
           <div class="crochet-card ${p.statut}">
             <div class="card-top">
@@ -207,13 +210,7 @@ const grid = document.getElementById('grid');
               </div>
             </div>
             <div class="tip" style="font-size: 0.8em; opacity: 0.8;">📁 ${p.categorie || 'AUTRE'}</div>
-            ${p.inspiration ? `
-  <div class="tip">📋 ${p.inspiration.startsWith('http') 
-      ? `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline;">Voir l'inspiration</a>` 
-      : p.inspiration
-    }
-  </div>` 
-: ''}
+            ${infoInspiration}
             ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
             <div class="card-actions">
               ${btnSuivant}
