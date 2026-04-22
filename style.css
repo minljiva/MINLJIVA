@@ -21,7 +21,7 @@
 
 /* ===== PAGE COLORS ===== */
 * {  box-sizing: border-box; margin: 0; padding: 0;}
-body { background: var(--fond); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1a1a18;  padding: 24px;}
+body { background: var(--fond); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--texte);  padding: 24px;}
 /* ===== CONTENEUR GLOBAL ===== */
 .palette {
   display: flex;
@@ -47,7 +47,7 @@ body { background: var(--fond); font-family: -apple-system, BlinkMacSystemFont, 
   font-size: 18px;
   margin-top: 24px;
   padding-bottom: 6px;
-  border-bottom: 2px solid #e8e7e3;
+  border-bottom: 2px solid var(--bordure);
   text-align: center;
   margin-bottom: 5px;
   width: 100%;
@@ -96,7 +96,7 @@ body { background: var(--fond); font-family: -apple-system, BlinkMacSystemFont, 
 .color-card p { 
   font-size: 13px; 
   line-height: 1.4; 
-  color: #5f5e5a;
+  color: var(--texte-doux);
   margin: 0;
 }
 
@@ -266,13 +266,13 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 
 .mariage {
   font-size: 12px; margin-top: 6px; padding: 8px 10px;
-  background: #EEEDFE18; border-left: 3px solid var(--violet);
+  background: var(--violet-clair); border-left: 3px solid var(--violet);
   border-radius: 0 8px 8px 0; color: var(--texte-doux);
 }
 
 .pot-info {
   font-size: 12px; margin-top: 6px; padding: 8px 10px;
-  background: #FAEEDA44; border-left: 3px solid var(--orange);
+  background: var(--orange-clair); border-left: 3px solid var(--orange);
   border-radius: 0 8px 8px 0; color: var(--texte-doux);
 }
 
@@ -344,7 +344,7 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 .prio-label { font-size: 11px; background: var(--vert-clair); color: var(--vert-fonce); padding: 2px 8px; border-radius: 8px; font-weight: 500; display: inline-block; margin-bottom: 8px; }
 
 /* 11. PAGE CODING — blocks de code */
-.code-block { background: #1a1a18; color: #e8e7e3; border-radius: 8px; padding: 10px 14px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-top: 6px; }
+.code-block { background: var(--texte); color: var(--bordure); border-radius: 8px; padding: 10px 14px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-top: 6px; }
 .code-block .kw  { color: var(--violet-clair); }
 .code-block .str { color: #a8e6cf; }
 .code-block .com { color: #666; font-style: italic; }
