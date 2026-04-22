@@ -1,142 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Crochet — Minljiva</title>
-</head>
-<body>
-
-    <header class="site-header" data-page="projets">
-    <a href="index.html"><img src="Minljiva.png" alt="Minljiva"></a>
-    <nav class="nav" id="main-nav"></nav>
-  </header>
-
-  <h1>L'atelier</h1>
-  <p class="subtitle">Tous mes projets</p>
-
-  <button class="btn-add" onclick="ouvrirModal()">+ Nouveau projet</button>
-
-      <div class="filter-bar">
-    <span class="filter-label">Projet</span>
-    <button class="filter-btn active" onclick="filterProjet('all', this)">Tout</button>
-    <button class="filter-btn" onclick="filterProjet('crochet', this)">CROCHET</button>
-          <button class="filter-btn" onclick="filterProjet('coding', this)">CODING</button>
-    <button class="filter-btn" onclick="filterProjet('autre', this)">AUTRE</button>
-
-    <span class="filter-label">Statut</span>
-    <button class="filter-btn active" onclick="setFiltre('all', this)">Tout</button>
-    <button class="filter-btn" onclick="setFiltre('todo', this)">TO DO</button>
-    <button class="filter-btn" onclick="setFiltre('wip', this)">WIP</button>
-    <button class="filter-btn" onclick="setFiltre('done', this)">DONE</button>
-  </div>
-
-  <div class="count-bar" id="count"></div>
-  <div class="crochet-grid" id="grid">
-    <div class="loading">Chargement des projets…</div>
-  </div>
-
-  <div class="overlay" id="overlay" onclick="fermerModalSiDehors(event)">
-    <div class="modal">
-      <h2>Nouveau projet</h2>
-      <div class="field">
-        <label>Nom du projet *</label>
-        <input type="text" id="inp-titre" placeholder="ex : Bonnet rayé bleu" />
-      </div>
-       <div class="field">
-  <label>Catégorie *</label>
-         <select id="inp-categorie">
-            <option value="CROCHET">Crochet 🧶</option>
-          <option value="CODING">Coding ⚙️</option>
-    <option value="AUTRE">Autre ✨</option>
-         </select>
-      </div>
-      <div class="field">
-        <label>Pattern (nom ou lien)</label>
-        <input type="text" id="inp-pattern" placeholder="ex : Ravelry — Cozy Hat" />
-      </div>
-      <div class="field">
-        <label>Notes / Explications</label>
-        <textarea id="inp-explication" placeholder="Laine, aiguilles..."></textarea>
-      </div>
-      <div class="modal-actions">
-        <button class="btn-next" onclick="fermerModal()">Annuler</button>
-        <button class="btn-save" id="btn-save" onclick="ajouterProjet()">Ajouter</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="overlay" id="overlay-duree" onclick="fermerDureeSiDehors(event)">
-    <div class="modal">
-      <h2>✓ Projet terminé !</h2>
-      <div class="field">
-        <label>Temps passé (optionnel)</label>
-        <input type="text" id="inp-duree" placeholder="ex : 12h, 3 séances…" />
-      </div>
-      <div class="modal-actions">
-        <button class="btn-next" onclick="validerDuree(false)">Passer</button>
-        <button class="btn-save" onclick="validerDuree(true)">Enregistrer</button>
-      </div>
-    </div>
-  </div>
-
-  
-<div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
-<div class="detail-panel" id="detail-panel">
-  <div class="detail-header">
-    <div class="header-top-row">
-      <div class="header-meta">
-        <div id="d-statut-badge"></div>
-        <div id="d-date" class="date"></div>
-      </div>
-      <button onclick="fermerDetail()" class="btn-close-detail">✕</button>
-    </div>
-
-    <div class="plant-name detail-titre" id="d-titre-affiche"></div>
-  </div>
-
-  <div class="detail-section detail-section-first">
-    <div class="detail-label">Statut du projet</div>
-    <select class="edit-input" id="d-statut">
-      <option value="todo">TO DO</option>
-      <option value="wip">WIP</option>
-      <option value="done">DONE</option>
-    </select>
-  </div>
-
-  <div class="detail-section">
-    <div class="detail-label">Nom du projet</div>
-    <input class="edit-input" type="text" id="d-titre" />
-  </div>
-  <div class="detail-section">
-  <label>Catégorie *</label>
-         <select id="inp-categorie">
-            <option value="CROCHET">Crochet 🧶</option>
-          <option value="CODING">Coding ⚙️</option>
-    <option value="AUTRE">Autre ✨</option>
-         </select>
-      </div>
-  <div class="detail-section">
-    <div class="detail-label">Pattern</div>
-    <input class="edit-input" type="text" id="d-pattern" />
-  </div>
-
-  <div class="detail-section">
-    <div class="detail-label">Notes & explications</div>
-    <textarea class="edit-textarea" id="d-explication-detail"></textarea>
-  </div>
-
-  <div class="detail-section">
-    <div class="detail-label">Temps total passé</div>
-    <input class="edit-input" type="text" id="d-duree" />
-  </div>
-
-  <button class="btn-edit-save btn-edit-save-full" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer les modifications</button>
-  <div class="save-ok" id="save-ok" style="display:none;">✓ Modifications enregistrées</div>
-</div>
-
-  <script>
+<script>
     const SUPABASE_URL = 'https://wenkojnlclbyuzgmtyyw.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_Gs78kcFk41qbUpaIM3RhZw_ONgTzhuQ';
     const TABLE = 'projets_crochet';
@@ -149,7 +11,8 @@
     };
 
     let projets = [];
-    let filtre = 'all';
+    let filtreStatut = 'all'; 
+    let filtreProjet = 'all'; 
     let projetEnCours = null;
     let detailId = null;
 
@@ -163,15 +26,19 @@
 
     function render() {
       const grid = document.getElementById('grid');
-      const list = filtre === 'all' ? projets : projets.filter(p => p.statut === filtre);
+      
+      // FILTRAGE CROISÉ (Statut ET Catégorie)
+      const list = projets.filter(p => {
+        const matchStatut = (filtreStatut === 'all' || p.statut === filtreStatut);
+        const matchProjet = (filtreProjet === 'all' || (p.categorie && p.categorie.toLowerCase() === filtreProjet.toLowerCase()));
+        return matchStatut && matchProjet;
+      });
 
       const countElem = document.getElementById('count');
-      if (countElem) {
-        countElem.textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
-      }
+      if (countElem) countElem.textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
 
       if (list.length === 0) {
-        grid.innerHTML = '<div class="empty">Aucun projet ici. 🧶</div>';
+        grid.innerHTML = '<div class="empty">Aucun projet ne correspond à ces critères. 🧶</div>';
         return;
       }
 
@@ -192,6 +59,7 @@
                  ${p.titre}
               </div>
             </div>
+            <div class="tip" style="font-size: 0.8em; opacity: 0.8;">📁 ${p.categorie || 'AUTRE'}</div>
             ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
             ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
             <div class="card-actions">
@@ -202,20 +70,22 @@
       }).join('');
     }
 
-    function setFiltre(f, btn) {
-      filtre = f;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    // GESTION DES FILTRES
+    function setFiltre(s, btn) {
+      filtreStatut = s;
+      btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       render();
     }
 
-        function filterProjet(f, btn) {
-      filtre = f;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    function filterProjet(p, btn) {
+      filtreProjet = p;
+      btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       render();
     }
 
+    // MODAL AJOUT
     function ouvrirModal() {
       document.getElementById('inp-titre').value = '';
       document.getElementById('inp-pattern').value = '';
@@ -228,46 +98,29 @@
     async function ajouterProjet() {
       const titre = document.getElementById('inp-titre').value.trim();
       const pattern = document.getElementById('inp-pattern').value.trim();
-      async function ajouterProjet() {
-  const titre = document.getElementById('inp-titre').value.trim();
-  const pattern = document.getElementById('inp-pattern').value.trim();
-  const explication = document.getElementById('inp-explication').value.trim();
-  
-  // On récupère la catégorie ici
-  const categorie = document.getElementById('inp-categorie').value; 
-
-  if (!titre) return;
-
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ 
-        titre, 
-        pattern: pattern || null, 
-        explication: explication || null, 
-        statut: 'todo',
-        categorie: categorie // On ajoute la colonne ici
-      })
-    });
-    fermerModal();
-    await charger();
-  } catch(e) { alert(e.message); }
-}
       const explication = document.getElementById('inp-explication').value.trim();
+      const categorie = document.getElementById('inp-categorie').value;
+
       if (!titre) return;
 
       try {
         await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
           method: 'POST',
           headers,
-          body: JSON.stringify({ titre, pattern: pattern||null, explication: explication||null, statut: 'todo' })
+          body: JSON.stringify({ 
+            titre, 
+            pattern: pattern || null, 
+            explication: explication || null, 
+            statut: 'todo',
+            categorie: categorie
+          })
         });
         fermerModal();
         await charger();
       } catch(e) { alert(e.message); }
     }
 
+    // CHANGEMENT DE STATUT ET DUREE
     function demanderDuree(id) {
       projetEnCours = id;
       document.getElementById('inp-duree').value = '';
@@ -296,40 +149,28 @@
       await charger();
     }
 
-    function formaterDate(isoString) {
-      if (!isoString) return "--";
-      const date = new Date(isoString);
-      return `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
-    }
-    
-function ouvrirDetail(id) {
-  const p = projets.find(x => x.id === id);
-  if (!p) return;
-  detailId = id;
-  
-  // Remplissage de la date
-  const dateElem = document.getElementById('d-date');
-  if (dateElem) dateElem.textContent = formaterDate(p.created_at);
+    // DETAILS
+    function ouvrirDetail(id) {
+      const p = projets.find(x => x.id === id);
+      if (!p) return;
+      detailId = id;
 
-  // Remplissage du badge
-  const badgeElem = document.getElementById('d-statut-badge');
-  const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
-  if (badgeElem) {
-    badgeElem.innerHTML = `<span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
-  }
-  
-  // Remplissage des champs
-  document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
-  document.getElementById('d-titre').value = p.titre || '';
-  document.getElementById('d-pattern').value = p.pattern || '';
-  document.getElementById('d-explication-detail').value = p.explication || '';
-  document.getElementById('d-duree').value = p.duree || '';
-  document.getElementById('d-statut').value = p.statut;
-  
-  // Affichage du panneau
-  document.getElementById('detail-overlay').classList.add('open');
-  document.getElementById('detail-panel').classList.add('open');
-}
+      document.getElementById('d-date').textContent = p.created_at ? new Date(p.created_at).toLocaleDateString() : '--';
+      const badgeElem = document.getElementById('d-statut-badge');
+      const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
+      badgeElem.innerHTML = `<span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
+
+      document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
+      document.getElementById('d-titre').value = p.titre || '';
+      document.getElementById('d-categorie').value = p.categorie || 'CROCHET';
+      document.getElementById('d-pattern').value = p.pattern || '';
+      document.getElementById('d-explication-detail').value = p.explication || '';
+      document.getElementById('d-duree').value = p.duree || '';
+      document.getElementById('d-statut').value = p.statut;
+
+      document.getElementById('detail-overlay').classList.add('open');
+      document.getElementById('detail-panel').classList.add('open');
+    }
 
     function fermerDetail() {
       document.getElementById('detail-overlay').classList.remove('open');
@@ -342,6 +183,7 @@ function ouvrirDetail(id) {
       
       const body = {
         titre: document.getElementById('d-titre').value,
+        categorie: document.getElementById('d-categorie').value,
         pattern: document.getElementById('d-pattern').value || null,
         explication: document.getElementById('d-explication-detail').value || null,
         duree: document.getElementById('d-duree').value || null,
@@ -361,48 +203,4 @@ function ouvrirDetail(id) {
     }
 
     charger();
-  </script>
-
-<script>
-  const NAV = [
-    { cat: "projets",  pages: [
-      { label: "Iceolie",       href: "ICEOLIE.html" },
-      { label: "Atelier",       href: "ATELIER.html" },
-      { label: "Convoitises",   href: "CONVOITISES.html" }
-    ]},
-    { cat: "carnet",   pages: [
-      { label: "Jardin",    href: "JARDIN.html" },
-      { label: "Recettes",      href: "RECETTES.html" },
-      { label: "Drainage",      href: "DRAINAGE.html" }
-    ]},
-    { cat: "learning", pages: [
-      { label: "Coding",        href: "CODING.html" }
-    ]}
-  ];
-  (function buildNav() {
-    const nav = document.getElementById('main-nav');
-    if (!nav) return;
-    const cat = nav.closest('[data-page]') ? nav.closest('[data-page]').dataset.page : '';
-    NAV.forEach(group => {
-      const wrap = document.createElement('div');
-      wrap.className = 'nav-group' + (group.cat === cat ? ' nav-group-active' : '');
-      const lbl = document.createElement('span');
-      lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '');
-      lbl.textContent = group.cat;
-      wrap.appendChild(lbl);
-      if (group.pages.length > 0) {
-        const dd = document.createElement('div');
-        dd.className = 'nav-dropdown';
-        group.pages.forEach(p => {
-          const a = document.createElement('a');
-          a.href = p.href; a.textContent = p.label; a.className = 'nav-drop-item';
-          dd.appendChild(a);
-        });
-        wrap.appendChild(dd);
-      }
-      nav.appendChild(wrap);
-    });
-  })();
 </script>
-</body>
-</html>
