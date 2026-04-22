@@ -153,6 +153,11 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
   border-radius: 0 8px 8px 0; color: var(--texte-doux);
 }
 
+.tipV {
+  font-size: 12px; margin-top: 10px; padding: 8px 10px;
+  background: var(--vert-clair); border-left: 3px solid var(--vert-fonce);
+  border-radius: 0 8px 8px 0; color: var(--texte-doux);}
+
 .warn { font-size: 12px; background: var(--orange-clair); color: var(--orange-fonce); border-radius: 8px; padding: 8px 12px; margin-top: 1rem; }
 
 .mariage {
@@ -493,6 +498,7 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 
 /* -- CODING : how-box liste -- */
 .how-box-liste {
+  
   margin-top: 8px;
   margin-bottom: 0;
 }
