@@ -272,32 +272,28 @@ async function validerDuree(sauver) {
       await changerStatut(projetEnCours, 'done', duree);
     }
 
-    async function changerStatut(id, statut, duree = null) {
-      const body = { statut: statut };
-      
-      // On n'ajoute la durée au body que si elle n'est pas nulle
-      if (duree !== null) {
-        body.duree = duree;
-      }
+   async function changerStatut(id, statut, duree = null) {
+  const body = { statut: statut };
+  if (duree !== null) body.duree = duree;
 
-      try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
-          method: 'PATCH', 
-          headers: headers, 
-          body: JSON.stringify(body)
-        });
+  try {
+    // Optionnel : On peut ajouter un indicateur visuel ici
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
+      method: 'PATCH', 
+      headers: headers, 
+      body: JSON.stringify(body)
+    });
 
-        if (!response.ok) {
-          throw new Error("Erreur lors de la mise à jour");
-        }
+    if (!response.ok) throw new Error("Erreur");
 
-        // On recharge les données pour mettre à jour l'affichage
-        await charger();
-      } catch (e) {
-        console.error("Erreur statut:", e);
-        alert("Erreur lors de l'enregistrement. Vérifiez votre connexion.");
-      }
-    }
+    console.log("Mise à jour réussie pour l'ID:", id); // Pour vérifier dans ta console
+    await charger(); 
+  } catch (e) {
+    console.error("Erreur détaillée:", e);
+    alert("Souci de connexion avec la base de données.");
+  }
+}
+
 
     async function supprimerProjet(id) {
       if (!confirm('Supprimer ?')) return;
