@@ -2,16 +2,15 @@ const NAV = [
   {
     cat: "balcon",
     pages: [
-      { label: "Herboriste", href: "HERBORISTE.html" },
-      { label: "Tisanes",    href: "TISANES.html" },
-      { label: "Recettes",   href: "RECETTE.html" },
-      { label: "L'avenir",  href: "AVENIR.html" }
+      { label: "Jardin", href: "JARDIN.html" },
+      { label: "Recettes",   href: "RECETTES.html" },
+      { label: "Convoitises",  href: "CONVOITISES.html" }
     ]
   },
   {
     cat: "projets",
     pages: [
-      { label: "Crochet",  href: "CROCHET.html" },
+      { label: "Atelier",  href: "ATELIER.html" },
       { label: "Drainage", href: "DRAINAGE.html" }
     ]
   },
