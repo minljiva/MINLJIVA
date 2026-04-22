@@ -39,7 +39,7 @@ body { background: var(--fond); font-family: -apple-system, BlinkMacSystemFont, 
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 50px; /* Espace entre les groupes (Verts / Violets...) */
+  margin-bottom: 5px; /* Espace entre les groupes (Verts / Violets...) */
 }
 
 .palette-title {
