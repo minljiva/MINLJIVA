@@ -48,7 +48,6 @@ a:hover { color: var(--texte-pale); transform: translateY(-2px); }
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  border-bottom: 2px solid var(--bordure); /* Corrigé : va -> var */
 }
 
 .palette-group {
