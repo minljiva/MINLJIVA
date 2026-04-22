@@ -48,7 +48,8 @@ body { background: var(--fond); font-family: -apple-system, BlinkMacSystemFont, 
   margin-top: 24px;
   padding-bottom: 6px;
   border-bottom: 2px solid var(--bordure);
-  text-align: center;
+  text-align: left;
+  margin-left: 20px;
   margin-bottom: 5px;
   width: 100%;
 }
