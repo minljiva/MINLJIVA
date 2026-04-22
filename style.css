@@ -217,6 +217,7 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 /* 6. ONGLETS ET FILTRES */
 .tabs, .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .filter-label { font-size: 11px; color: var(--texte-doux); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; margin-top: 0.75rem; width: 100%; }
+.filter-group { font-size: 11px; color: var(--texte-doux); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; margin-top: 0.75rem; width: 100%; }
 
 .tab, .filter-btn {
   font-size: 13px; padding: 5px 14px; border-radius: 99px;
