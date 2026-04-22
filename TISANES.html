@@ -331,7 +331,48 @@
   render();
   </script>
 
-  <script src="_nav.js"></script>
-  <script>buildNav('main-nav', 'balcon');</script>
+
+<script>
+  const NAV = [
+    { cat: "balcon",   pages: [
+      { label: "Herboriste", href: "HERBORISTE.html" },
+      { label: "Tisanes",    href: "TISANES.html" },
+      { label: "Recettes",   href: "RECETTE.html" },
+      { label: "L'avenir",  href: "AVENIR.html" }
+    ]},
+    { cat: "projets",  pages: [
+      { label: "Crochet",  href: "CROCHET.html" },
+      { label: "Drainage", href: "DRAINAGE.html" }
+    ]},
+    { cat: "learning", pages: [
+      { label: "Coding", href: "CODING.html" }
+    ]},
+    { cat: "iceolie",  pages: [], soon: true }
+  ];
+  (function buildNav() {
+    const nav = document.getElementById('main-nav');
+    if (!nav) return;
+    const cat = nav.closest('[data-page]') ? nav.closest('[data-page]').dataset.page : '';
+    NAV.forEach(group => {
+      const wrap = document.createElement('div');
+      wrap.className = 'nav-group' + (group.cat === cat ? ' nav-group-active' : '');
+      const lbl = document.createElement('span');
+      lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '') + (group.soon ? ' nav-cat-soon' : '');
+      lbl.textContent = group.cat;
+      wrap.appendChild(lbl);
+      if (group.pages.length > 0) {
+        const dd = document.createElement('div');
+        dd.className = 'nav-dropdown';
+        group.pages.forEach(p => {
+          const a = document.createElement('a');
+          a.href = p.href; a.textContent = p.label; a.className = 'nav-drop-item';
+          dd.appendChild(a);
+        });
+        wrap.appendChild(dd);
+      }
+      nav.appendChild(wrap);
+    });
+  })();
+</script>
 </body>
 </html>
