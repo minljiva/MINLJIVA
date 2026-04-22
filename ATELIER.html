@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <header class="site-header" data-page="projets">
+  <header class="site-header" data-page="projets">
     <a href="index.html"><img src="Minljiva.png" alt="Minljiva"></a>
     <nav class="nav" id="main-nav"></nav>
   </header>
@@ -18,7 +18,7 @@
 
   <button class="btn-add" onclick="ouvrirModal()">+ Nouveau projet</button>
 
-<div class="filter-bar">
+  <div class="filter-bar">
     <div class="filter-group-wrapper" style="width: 100%; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
       <span class="filter-label">Projet</span>
       <button class="filter-btn active" onclick="filterProjet('all', this)">Tout</button>
@@ -48,17 +48,17 @@
         <label>Nom du projet *</label>
         <input type="text" id="inp-titre" placeholder="ex : Bonnet rayé bleu" />
       </div>
-       <div class="field">
-  <label>Catégorie *</label>
-         <select id="inp-categorie">
-            <option value="CROCHET">Crochet 🧶</option>
+      <div class="field">
+        <label>Catégorie *</label>
+        <select id="inp-categorie">
+          <option value="CROCHET">Crochet 🧶</option>
           <option value="CODING">Coding ⚙️</option>
-    <option value="AUTRE">Autre ✨</option>
-         </select>
+          <option value="AUTRE">Autre ✨</option>
+        </select>
       </div>
       <div class="field">
         <label>inspiration (nom ou lien)</label>
-        <input type="text" id="inp-inspiration" placeholder="ex : Ravelry — Cozy Hat" />
+        <input type="text" id="inp-inspiration" placeholder="ex : https://ravelry.com/..." />
       </div>
       <div class="field">
         <label>Notes / Explications</label>
@@ -85,62 +85,62 @@
     </div>
   </div>
 
-  
-<div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
-<div class="detail-panel" id="detail-panel">
-  <div class="detail-header">
-    <div class="header-top-row">
-      <div class="header-meta">
-        <div id="d-statut-badge"></div>
-        <div id="d-date" class="date"></div>
+  <div class="detail-overlay" id="detail-overlay" onclick="fermerDetail()"></div>
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-header">
+      <div class="header-top-row">
+        <div class="header-meta">
+          <div id="d-statut-badge"></div>
+          <div id="d-date" class="date"></div>
+        </div>
+        <button onclick="fermerDetail()" class="btn-close-detail">✕</button>
       </div>
-      <button onclick="fermerDetail()" class="btn-close-detail">✕</button>
+      <div class="plant-name detail-titre" id="d-titre-affiche"></div>
     </div>
 
-    <div class="plant-name detail-titre" id="d-titre-affiche"></div>
+    <div class="detail-section detail-section-first">
+      <div class="detail-label">Statut du projet</div>
+      <select class="edit-input" id="d-statut">
+        <option value="todo">TO DO</option>
+        <option value="wip">WIP</option>
+        <option value="done">DONE</option>
+      </select>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-label">Nom du projet</div>
+      <input class="edit-input" type="text" id="d-titre" />
+    </div>
+
+    <div class="detail-section">
+      <label>Catégorie *</label>
+      <select id="d-categorie" class="edit-input">
+        <option value="CROCHET">Crochet 🧶</option>
+        <option value="CODING">Coding ⚙️</option>
+        <option value="AUTRE">Autre ✨</option>
+      </select>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-label">inspiration</div>
+      <input class="edit-input" type="text" id="d-inspiration" />
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-label">Notes & explications</div>
+      <textarea class="edit-textarea" id="d-explication-detail"></textarea>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-label">Temps total passé</div>
+      <input class="edit-input" type="text" id="d-duree" />
+    </div>
+
+    <button class="btn-edit-save btn-edit-save-full" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer les modifications</button>
+    <div class="save-ok" id="save-ok" style="display:none;">✓ Modifications enregistrées</div>
   </div>
 
-  <div class="detail-section detail-section-first">
-    <div class="detail-label">Statut du projet</div>
-    <select class="edit-input" id="d-statut">
-      <option value="todo">TO DO</option>
-      <option value="wip">WIP</option>
-      <option value="done">DONE</option>
-    </select>
-  </div>
-
-  <div class="detail-section">
-    <div class="detail-label">Nom du projet</div>
-    <input class="edit-input" type="text" id="d-titre" />
-  </div>
-  <div class="detail-section">
-  <label>Catégorie *</label>
-         <select id="d-categorie">
-            <option value="CROCHET">Crochet 🧶</option>
-          <option value="CODING">Coding ⚙️</option>
-    <option value="AUTRE">Autre ✨</option>
-         </select>
-      </div>
-  <div class="detail-section">
-    <div class="detail-label">inspiration</div>
-    <input class="edit-input" type="text" id="d-inspiration" />
-  </div>
-
-  <div class="detail-section">
-    <div class="detail-label">Notes & explications</div>
-    <textarea class="edit-textarea" id="d-explication-detail"></textarea>
-  </div>
-
-  <div class="detail-section">
-    <div class="detail-label">Temps total passé</div>
-    <input class="edit-input" type="text" id="d-duree" />
-  </div>
-
-  <button class="btn-edit-save btn-edit-save-full" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer les modifications</button>
-  <div class="save-ok" id="save-ok" style="display:none;">✓ Modifications enregistrées</div>
-</div>
-
-<script>
+  <script>
     const SUPABASE_URL = 'https://wenkojnlclbyuzgmtyyw.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_Gs78kcFk41qbUpaIM3RhZw_ONgTzhuQ';
     const TABLE = 'projets_crochet';
@@ -153,8 +153,8 @@
     };
 
     let projets = [];
-    let filtreStatut = 'all'; // Pour TO DO, WIP, DONE
-    let filtreProjet = 'all'; // Pour CROCHET, CODING, AUTRE
+    let filtreStatut = 'all';
+    let filtreCat = 'all';
     let projetEnCours = null;
     let detailId = null;
 
@@ -166,13 +166,12 @@
       } catch(e) { console.error(e); }
     }
 
-function render() {
+    function render() {
       const grid = document.getElementById('grid');
-      
       const list = projets.filter(p => {
         const matchStatut = (filtreStatut === 'all' || p.statut === filtreStatut);
-        const matchProjet = (filtreProjet === 'all' || (p.categorie && p.categorie.toLowerCase() === filtreProjet.toLowerCase()));
-        return matchStatut && matchProjet;
+        const matchCat = (filtreCat === 'all' || (p.categorie && p.categorie.toLowerCase() === filtreCat.toLowerCase()));
+        return matchStatut && matchCat;
       });
 
       const countElem = document.getElementById('count');
@@ -192,13 +191,10 @@ function render() {
           ? `<button class="btn-next" onclick="event.stopPropagation(); demanderDuree('${p.id}')">✓ Terminer</button>`
           : '';
 
-        // Ici on prépare le texte de l'inspiration
-        let infoInspiration = '';
-        if (p.inspiration) {
-          const isLink = p.inspiration.startsWith('http');
-          infoInspiration = `<div class="tip">📋 ${isLink 
-            ? `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline;">Voir l'inspiration</a>` 
-            : p.inspiration}</div>`;
+        // Détection de lien cliquable
+        let inspirationHtml = p.inspiration || '';
+        if (p.inspiration && p.inspiration.startsWith('http')) {
+          inspirationHtml = `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline;">Voir l'inspiration</a>`;
         }
 
         return `
@@ -210,7 +206,7 @@ function render() {
               </div>
             </div>
             <div class="tip" style="font-size: 0.8em; opacity: 0.8;">📁 ${p.categorie || 'AUTRE'}</div>
-            ${infoInspiration}
+            ${p.inspiration ? `<div class="tip">📋 ${inspirationHtml}</div>` : ''}
             ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
             <div class="card-actions">
               ${btnSuivant}
@@ -220,29 +216,27 @@ function render() {
       }).join('');
     }
 
-// Gestion du filtre de Statut
     function setFiltre(s, btn) {
       filtreStatut = s;
       btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      render(); // Relance le rendu avec les deux filtres
+      render();
     }
 
-    // Gestion du filtre de Projet/Catégorie
-    function filterProjet(p, btn) {
-      filtreProjet = p;
+    function filterProjet(c, btn) {
+      filtreCat = c;
       btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      render(); // Relance le rendu avec les deux filtres
+      render();
     }
 
-    // MODAL AJOUT
     function ouvrirModal() {
       document.getElementById('inp-titre').value = '';
       document.getElementById('inp-inspiration').value = '';
       document.getElementById('inp-explication').value = '';
       document.getElementById('overlay').classList.add('open');
     }
+
     function fermerModal() { document.getElementById('overlay').classList.remove('open'); }
     function fermerModalSiDehors(e) { if (e.target.id === 'overlay') fermerModal(); }
 
@@ -251,32 +245,24 @@ function render() {
       const inspiration = document.getElementById('inp-inspiration').value.trim();
       const explication = document.getElementById('inp-explication').value.trim();
       const categorie = document.getElementById('inp-categorie').value;
-
       if (!titre) return;
-
       try {
         await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
           method: 'POST',
           headers,
-          body: JSON.stringify({ 
-            titre, 
-            inspiration: inspiration || null, 
-            explication: explication || null, 
-            statut: 'todo',
-            categorie: categorie
-          })
+          body: JSON.stringify({ titre, inspiration: inspiration || null, explication: explication || null, statut: 'todo', categorie: categorie })
         });
         fermerModal();
         await charger();
       } catch(e) { alert(e.message); }
     }
 
-    // CHANGEMENT DE STATUT ET DUREE
     function demanderDuree(id) {
       projetEnCours = id;
       document.getElementById('inp-duree').value = '';
       document.getElementById('overlay-duree').classList.add('open');
     }
+
     function fermerDureeSiDehors(e) { if (e.target.id === 'overlay-duree') validerDuree(false); }
 
     async function validerDuree(sauver) {
@@ -300,17 +286,14 @@ function render() {
       await charger();
     }
 
-    // DETAILS
     function ouvrirDetail(id) {
       const p = projets.find(x => x.id === id);
       if (!p) return;
       detailId = id;
-
       document.getElementById('d-date').textContent = p.created_at ? new Date(p.created_at).toLocaleDateString() : '--';
       const badgeElem = document.getElementById('d-statut-badge');
       const statutLabel = { todo:'TO DO', wip:'WIP', done:'DONE' };
       badgeElem.innerHTML = `<span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>`;
-
       document.getElementById('d-titre-affiche').textContent = '🧶 ' + p.titre;
       document.getElementById('d-titre').value = p.titre || '';
       document.getElementById('d-categorie').value = p.categorie || 'CROCHET';
@@ -318,7 +301,6 @@ function render() {
       document.getElementById('d-explication-detail').value = p.explication || '';
       document.getElementById('d-duree').value = p.duree || '';
       document.getElementById('d-statut').value = p.statut;
-
       document.getElementById('detail-overlay').classList.add('open');
       document.getElementById('detail-panel').classList.add('open');
     }
@@ -331,7 +313,6 @@ function render() {
     async function sauvegarderDetail() {
       const btn = document.getElementById('btn-detail-save');
       btn.disabled = true;
-      
       const body = {
         titre: document.getElementById('d-titre').value,
         categorie: document.getElementById('d-categorie').value,
@@ -340,7 +321,6 @@ function render() {
         duree: document.getElementById('d-duree').value || null,
         statut: document.getElementById('d-statut').value
       };
-
       try {
         await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${detailId}`, {
           method: 'PATCH', headers, body: JSON.stringify(body)
@@ -354,48 +334,48 @@ function render() {
     }
 
     charger();
-</script>
+  </script>
 
-<script>
-  const NAV = [
-    { cat: "projets",  pages: [
-      { label: "Iceolie",       href: "ICEOLIE.html" },
-      { label: "Atelier",       href: "ATELIER.html" },
-      { label: "Convoitises",   href: "CONVOITISES.html" }
-    ]},
-    { cat: "carnet",   pages: [
-      { label: "Jardin",    href: "JARDIN.html" },
-      { label: "Recettes",      href: "RECETTES.html" },
-      { label: "Drainage",      href: "DRAINAGE.html" }
-    ]},
-    { cat: "learning", pages: [
-      { label: "Coding",        href: "CODING.html" }
-    ]}
-  ];
-  (function buildNav() {
-    const nav = document.getElementById('main-nav');
-    if (!nav) return;
-    const cat = nav.closest('[data-page]') ? nav.closest('[data-page]').dataset.page : '';
-    NAV.forEach(group => {
-      const wrap = document.createElement('div');
-      wrap.className = 'nav-group' + (group.cat === cat ? ' nav-group-active' : '');
-      const lbl = document.createElement('span');
-      lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '');
-      lbl.textContent = group.cat;
-      wrap.appendChild(lbl);
-      if (group.pages.length > 0) {
-        const dd = document.createElement('div');
-        dd.className = 'nav-dropdown';
-        group.pages.forEach(p => {
-          const a = document.createElement('a');
-          a.href = p.href; a.textContent = p.label; a.className = 'nav-drop-item';
-          dd.appendChild(a);
-        });
-        wrap.appendChild(dd);
-      }
-      nav.appendChild(wrap);
-    });
-  })();
-</script>
+  <script>
+    const NAV = [
+      { cat: "projets", pages: [
+        { label: "Iceolie", href: "ICEOLIE.html" },
+        { label: "Atelier", href: "ATELIER.html" },
+        { label: "Convoitises", href: "CONVOITISES.html" }
+      ]},
+      { cat: "carnet", pages: [
+        { label: "Jardin", href: "JARDIN.html" },
+        { label: "Recettes", href: "RECETTES.html" },
+        { label: "Drainage", href: "DRAINAGE.html" }
+      ]},
+      { cat: "learning", pages: [
+        { label: "Coding", href: "CODING.html" }
+      ]}
+    ];
+    (function buildNav() {
+      const nav = document.getElementById('main-nav');
+      if (!nav) return;
+      const cat = nav.closest('[data-page]') ? nav.closest('[data-page]').dataset.page : '';
+      NAV.forEach(group => {
+        const wrap = document.createElement('div');
+        wrap.className = 'nav-group' + (group.cat === cat ? ' nav-group-active' : '');
+        const lbl = document.createElement('span');
+        lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '');
+        lbl.textContent = group.cat;
+        wrap.appendChild(lbl);
+        if (group.pages.length > 0) {
+          const dd = document.createElement('div');
+          dd.className = 'nav-dropdown';
+          group.pages.forEach(p => {
+            const a = document.createElement('a');
+            a.href = p.href; a.textContent = p.label; a.className = 'nav-drop-item';
+            dd.appendChild(a);
+          });
+          wrap.appendChild(dd);
+        }
+        nav.appendChild(wrap);
+      });
+    })();
+  </script>
 </body>
 </html>
