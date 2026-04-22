@@ -18,15 +18,13 @@
 
   <button class="btn-add" onclick="ouvrirModal()">+ Nouveau projet</button>
 
-    <div class="filter-bar">
+      <div class="filter-bar">
     <span class="filter-label">Projet</span>
-    <button class="filter-btn active" onclick="setFiltre('all', this)">Tout</button>
-    <button class="filter-btn" onclick="setFiltre('crochet', this)">CROCHET</button>
-          <button class="filter-btn" onclick="setFiltre('autre', this)">CODING</button>
-    <button class="filter-btn" onclick="setFiltre('autre', this)">AUTRE</button>
-  </div>
+    <button class="filter-btn active" onclick="filterProjet('all', this)">Tout</button>
+    <button class="filter-btn" onclick="filterProjet('crochet', this)">CROCHET</button>
+          <button class="filter-btn" onclick="filterProjet('coding', this)">CODING</button>
+    <button class="filter-btn" onclick="filterProjet('autre', this)">AUTRE</button>
 
-  <div class="filter-bar">
     <span class="filter-label">Statut</span>
     <button class="filter-btn active" onclick="setFiltre('all', this)">Tout</button>
     <button class="filter-btn" onclick="setFiltre('todo', this)">TO DO</button>
@@ -205,6 +203,13 @@
     }
 
     function setFiltre(f, btn) {
+      filtre = f;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    }
+
+        function filterProjet(f, btn) {
       filtre = f;
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
