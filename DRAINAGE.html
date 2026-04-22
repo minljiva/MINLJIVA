@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Drainage</title>
-    <link rel="icon" href="favicon-mini.png">
 </head>
 <body>
 
   <!-- HEADER -->
-    <header class="site-header" data-page="projets">
+    <header class="site-header" data-page="carnet">
     <a href="index.html"><img src="Minljiva.png" alt="Minljiva"></a>
     <nav class="nav" id="main-nav"></nav>
   </header>
@@ -137,20 +136,19 @@ render(data);
 
 <script>
   const NAV = [
-    { cat: "balcon",   pages: [
-      { label: "Herboriste", href: "HERBORISTE.html" },
-      { label: "Tisanes",    href: "TISANES.html" },
-      { label: "Recettes",   href: "RECETTE.html" },
-      { label: "L'avenir",  href: "AVENIR.html" }
-    ]},
     { cat: "projets",  pages: [
-      { label: "Crochet",  href: "CROCHET.html" },
-      { label: "Drainage", href: "DRAINAGE.html" }
+      { label: "Iceolie",       href: "ICEOLIE.html" },
+      { label: "Crochet",       href: "CROCHET.html" },
+      { label: "Convoitises",   href: "CONVOITISES.html" }
+    ]},
+    { cat: "carnet",   pages: [
+      { label: "Herboriste",    href: "HERBORISTE.html" },
+      { label: "Recettes",      href: "RECETTES.html" },
+      { label: "Drainage",      href: "DRAINAGE.html" }
     ]},
     { cat: "learning", pages: [
-      { label: "Coding", href: "CODING.html" }
-    ]},
-    { cat: "iceolie",  pages: [], soon: true }
+      { label: "Coding",        href: "CODING.html" }
+    ]}
   ];
   (function buildNav() {
     const nav = document.getElementById('main-nav');
@@ -160,7 +158,7 @@ render(data);
       const wrap = document.createElement('div');
       wrap.className = 'nav-group' + (group.cat === cat ? ' nav-group-active' : '');
       const lbl = document.createElement('span');
-      lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '') + (group.soon ? ' nav-cat-soon' : '');
+      lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '');
       lbl.textContent = group.cat;
       wrap.appendChild(lbl);
       if (group.pages.length > 0) {

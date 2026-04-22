@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Minljiva</title>
-  <link rel="icon" href="favicon-mini.png">
 </head>
 <body>
 
@@ -17,31 +16,7 @@
   <h1>Minljiva</h1>
   <p class="subtitle">Bienvenue — choisissez une section</p>
 
-  <div class="index-grid">
-
-    <a href="HERBORISTE.html" class="index-card">
-      <div class="index-card-cat">balcon</div>
-      <div class="index-card-title">Herboriste</div>
-      <div class="index-card-desc">Les plantes du balcon vues par un herboriste</div>
-    </a>
-
-    <a href="TISANES.html" class="index-card">
-      <div class="index-card-cat">balcon</div>
-      <div class="index-card-title">Tisanes</div>
-      <div class="index-card-desc">Préparations, recettes et mélanges</div>
-    </a>
-
-    <a href="RECETTE.html" class="index-card">
-      <div class="index-card-cat">balcon</div>
-      <div class="index-card-title">Recettes</div>
-      <div class="index-card-desc">Le livre de recettes maison</div>
-    </a>
-
-    <a href="AVENIR.html" class="index-card">
-      <div class="index-card-cat">balcon</div>
-      <div class="index-card-title">L'avenir</div>
-      <div class="index-card-desc">Plantes à acheter, projets à venir</div>
-    </a>
+    <div class="index-grid">
 
     <a href="CROCHET.html" class="index-card">
       <div class="index-card-cat">projets</div>
@@ -49,8 +24,32 @@
       <div class="index-card-desc">Suivi de tous mes projets crochet</div>
     </a>
 
-    <a href="DRAINAGE.html" class="index-card">
+    <a href="CONVOITISES.html" class="index-card">
       <div class="index-card-cat">projets</div>
+      <div class="index-card-title">Convoitises</div>
+      <div class="index-card-desc">Plantes, laine et tout ce qui fait envie</div>
+    </a>
+
+    <div class="index-card index-card-soon">
+      <div class="index-card-cat">projets</div>
+      <div class="index-card-title">Iceolie <span class="badge-soon">bientôt</span></div>
+      <div class="index-card-desc">En construction</div>
+    </div>
+
+    <a href="HERBORISTE.html" class="index-card">
+      <div class="index-card-cat">carnet</div>
+      <div class="index-card-title">Herboriste</div>
+      <div class="index-card-desc">Les plantes du balcon vues par un herboriste</div>
+    </a>
+
+    <a href="RECETTES.html" class="index-card">
+      <div class="index-card-cat">carnet</div>
+      <div class="index-card-title">Recettes</div>
+      <div class="index-card-desc">Cuisine & tisanes — le carnet maison</div>
+    </a>
+
+    <a href="DRAINAGE.html" class="index-card">
+      <div class="index-card-cat">carnet</div>
       <div class="index-card-title">Drainage</div>
       <div class="index-card-desc">Routines de drainage lymphatique</div>
     </a>
@@ -61,11 +60,7 @@
       <div class="index-card-desc">Notes et ressources d'apprentissage</div>
     </a>
 
-    <div class="index-card index-card-soon">
-      <div class="index-card-cat">iceolie</div>
-      <div class="index-card-title">Iceolie <span class="badge-soon">bientôt</span></div>
-      <div class="index-card-desc">En construction</div>
-    </div>
+  </div>
 
   </div>
 
@@ -73,20 +68,19 @@
 
 <script>
   const NAV = [
-    { cat: "balcon",   pages: [
-      { label: "Herboriste", href: "HERBORISTE.html" },
-      { label: "Tisanes",    href: "TISANES.html" },
-      { label: "Recettes",   href: "RECETTE.html" },
-      { label: "L'avenir",  href: "AVENIR.html" }
-    ]},
     { cat: "projets",  pages: [
-      { label: "Crochet",  href: "CROCHET.html" },
-      { label: "Drainage", href: "DRAINAGE.html" }
+      { label: "Iceolie",       href: "ICEOLIE.html" },
+      { label: "Crochet",       href: "CROCHET.html" },
+      { label: "Convoitises",   href: "CONVOITISES.html" }
+    ]},
+    { cat: "carnet",   pages: [
+      { label: "Herboriste",    href: "HERBORISTE.html" },
+      { label: "Recettes",      href: "RECETTES.html" },
+      { label: "Drainage",      href: "DRAINAGE.html" }
     ]},
     { cat: "learning", pages: [
-      { label: "Coding", href: "CODING.html" }
-    ]},
-    { cat: "iceolie",  pages: [], soon: true }
+      { label: "Coding",        href: "CODING.html" }
+    ]}
   ];
   (function buildNav() {
     const nav = document.getElementById('main-nav');
@@ -96,7 +90,7 @@
       const wrap = document.createElement('div');
       wrap.className = 'nav-group' + (group.cat === cat ? ' nav-group-active' : '');
       const lbl = document.createElement('span');
-      lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '') + (group.soon ? ' nav-cat-soon' : '');
+      lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '');
       lbl.textContent = group.cat;
       wrap.appendChild(lbl);
       if (group.pages.length > 0) {
