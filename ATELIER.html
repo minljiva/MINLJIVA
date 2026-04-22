@@ -22,6 +22,7 @@
     <span class="filter-label">Projett</span>
     <button class="filter-btn active" onclick="setFiltre('all', this)">Tout</button>
     <button class="filter-btn" onclick="setFiltre('crochet', this)">CROCHET</button>
+          <button class="filter-btn" onclick="setFiltre('autre', this)">CODING</button>
     <button class="filter-btn" onclick="setFiltre('autre', this)">AUTRE</button>
   </div>
 
@@ -44,6 +45,14 @@
       <div class="field">
         <label>Nom du projet *</label>
         <input type="text" id="inp-titre" placeholder="ex : Bonnet rayé bleu" />
+      </div>
+       <div class="field">
+  <label>Catégorie *</label>
+         <select id="inp-categorie">
+            <option value="CROCHET">Crochet 🧶</option>
+          <option value="CODING">Coding ⚙️</option>
+    <option value="AUTRE">Autre ✨</option>
+         </select>
       </div>
       <div class="field">
         <label>Pattern (nom ou lien)</label>
@@ -102,7 +111,13 @@
     <div class="detail-label">Nom du projet</div>
     <input class="edit-input" type="text" id="d-titre" />
   </div>
-
+  <label>Catégorie *</label>
+         <select id="inp-categorie">
+            <option value="CROCHET">Crochet 🧶</option>
+          <option value="CODING">Coding ⚙️</option>
+    <option value="AUTRE">Autre ✨</option>
+         </select>
+      </div>
   <div class="detail-section">
     <div class="detail-label">Pattern</div>
     <input class="edit-input" type="text" id="d-pattern" />
@@ -207,6 +222,32 @@
     async function ajouterProjet() {
       const titre = document.getElementById('inp-titre').value.trim();
       const pattern = document.getElementById('inp-pattern').value.trim();
+      async function ajouterProjet() {
+  const titre = document.getElementById('inp-titre').value.trim();
+  const pattern = document.getElementById('inp-pattern').value.trim();
+  const explication = document.getElementById('inp-explication').value.trim();
+  
+  // On récupère la catégorie ici
+  const categorie = document.getElementById('inp-categorie').value; 
+
+  if (!titre) return;
+
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ 
+        titre, 
+        pattern: pattern || null, 
+        explication: explication || null, 
+        statut: 'todo',
+        categorie: categorie // On ajoute la colonne ici
+      })
+    });
+    fermerModal();
+    await charger();
+  } catch(e) { alert(e.message); }
+}
       const explication = document.getElementById('inp-explication').value.trim();
       if (!titre) return;
 
