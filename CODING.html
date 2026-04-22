@@ -84,6 +84,33 @@
       tip: null
     },
     {
+  cat: "css", type: "base",
+  badge: "CSS", badgeClass: "badge-css",
+  title: "Flexbox : Centrage Parfait",
+  desc: "La méthode la plus simple pour aligner des éléments horizontalement ou verticalement.",
+  code: `.container {
+  display: flex;
+  justify-content: center; /* Aligne horizontalement */
+  align-items: center;     /* Aligne verticalement */
+  gap: 10px;               /* Espace entre les éléments */
+}`,
+  tip: "Idéal pour ta barre de navigation ou tes 'Quick Stats'."
+},
+{
+  cat: "css", type: "astuce",
+  badge: "CSS", badgeClass: "badge-css",
+  title: "Utiliser les Variables (Root)",
+  desc: "Centraliser les couleurs du projet pour les modifier en un clic.",
+  code: `:root {
+  --c-main: #20576C;
+}
+
+.mon-titre {
+  color: var(--c-main);
+}`,
+  tip: "Toujours utiliser 'var()' pour garder une cohérence visuelle sur ICEOLIE."
+},
+    {
       cat: "html", type: "base",
       badge: "HTML", badgeClass: "badge-cul",
       title: "Liens et images",
