@@ -260,19 +260,43 @@
     }
     function fermerDureeSiDehors(e) { if (e.target.id === 'overlay-duree') validerDuree(false); }
 
-    async function validerDuree(sauver) {
-      const duree = sauver ? document.getElementById('inp-duree').value.trim() : null;
+async function validerDuree(sauver) {
+      // On récupère la valeur seulement si on a cliqué sur Enregistrer
+      const dureeSaisie = document.getElementById('inp-duree').value.trim();
+      const duree = (sauver && dureeSaisie !== "") ? dureeSaisie : null;
+      
+      // On ferme la modal tout de suite pour le feedback visuel
       document.getElementById('overlay-duree').classList.remove('open');
+      
+      // On lance la mise à jour
       await changerStatut(projetEnCours, 'done', duree);
     }
 
     async function changerStatut(id, statut, duree = null) {
-      const body = { statut };
-      if (duree) body.duree = duree;
-      await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
-        method: 'PATCH', headers, body: JSON.stringify(body)
-      });
-      charger();
+      const body = { statut: statut };
+      
+      // On n'ajoute la durée au body que si elle n'est pas nulle
+      if (duree !== null) {
+        body.duree = duree;
+      }
+
+      try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
+          method: 'PATCH', 
+          headers: headers, 
+          body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+          throw new Error("Erreur lors de la mise à jour");
+        }
+
+        // On recharge les données pour mettre à jour l'affichage
+        await charger();
+      } catch (e) {
+        console.error("Erreur statut:", e);
+        alert("Erreur lors de l'enregistrement. Vérifiez votre connexion.");
+      }
     }
 
     async function supprimerProjet(id) {
