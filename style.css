@@ -663,3 +663,30 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
   border-radius: 99px;
   font-weight: 500;
 }
+
+/* ===== AJOUTS POUR LE PATRON DE CROCHET ===== */
+
+/* Titre de section à l'intérieur d'une how-box */
+.section-pattern-title {
+    color: var(--vert-fonce);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+
+/* Ligne spécifique pour un rang du patron */
+.pattern-row {
+    font-size: 13px;
+    padding: 6px 10px;
+    background: var(--fond-bloc);
+    margin-bottom: 4px;
+    border-radius: 6px;
+    border-left: 2px solid var(--bordure2);
+}
+
+/* Accentuer les "Row X" dans le texte */
+.pattern-row strong, .step-text strong {
+    color: var(--texte);
+    font-weight: 600;
+}
