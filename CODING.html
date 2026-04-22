@@ -59,7 +59,18 @@
 &lt;/body&gt;
 &lt;/html&gt;`,
       tip: "Ne jamais mettre style.css deux fois dans le head — une seule ligne suffit !"
-    },
+    },{
+  cat: "css", type: "erreur",
+  badge: "CSS", badgeClass: "badge-css",
+  title: "Chemin des Assets (Fonts/Images)",
+  desc: "L'erreur classique du chemin relatif. Le point de départ est toujours le fichier CSS, pas le fichier HTML.",
+  code: `/* Si le CSS est dans un dossier /css/ */
+src: url('../fonts/mafont.otf'); 
+
+/* Si le CSS est à la racine */
+src: url('./fonts/mafont.otf');`,
+  tip: "Utilise l'inspecteur du navigateur (F12) > Onglet 'Console'. Si tu vois une erreur '404 Not Found' pour ta police, c'est que le chemin est faux."
+},
     {
   cat: "css", type: "erreur",
   badge: "CSS", badgeClass: "badge-css",
