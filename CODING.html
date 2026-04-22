@@ -61,6 +61,21 @@
       tip: "Ne jamais mettre style.css deux fois dans le head — une seule ligne suffit !"
     },
     {
+  cat: "css", type: "erreur",
+  badge: "CSS", badgeClass: "badge-css",
+  title: "Police personnalisée (@font-face)",
+  desc: "Pour utiliser une police téléchargée, il faut obligatoirement la déclarer avant de l'appeler dans font-family.",
+  code: `@font-face {
+  font-family: 'MonNomDePolice';
+  src: url('chemin/vers/police.otf') format('opentype');
+}
+
+.ma-classe {
+  font-family: 'MonNomDePolice', sans-serif;
+}`,
+  tip: "Vérifie toujours que le chemin (URL) vers le fichier est correct par rapport à l'emplacement de ton fichier CSS."
+},
+    {
       cat: "html", type: "base",
       badge: "HTML", badgeClass: "badge-cul",
       title: "Commentaires HTML",
