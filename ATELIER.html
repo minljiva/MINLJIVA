@@ -58,7 +58,7 @@
       </div>
       <div class="field">
         <label>inspiration (nom ou lien)</label>
-        <input type="text" id="inp-inspiration" placeholder="ex : https://ravelry.com/..." />
+        <input type="text" id="inp-inspiration" placeholder="Lien ou page.html" />
       </div>
       <div class="field">
         <label>Notes / Explications</label>
@@ -97,7 +97,6 @@
       </div>
       <div class="plant-name detail-titre" id="d-titre-affiche"></div>
     </div>
-
     <div class="detail-section detail-section-first">
       <div class="detail-label">Statut du projet</div>
       <select class="edit-input" id="d-statut">
@@ -106,12 +105,10 @@
         <option value="done">DONE</option>
       </select>
     </div>
-
     <div class="detail-section">
       <div class="detail-label">Nom du projet</div>
       <input class="edit-input" type="text" id="d-titre" />
     </div>
-
     <div class="detail-section">
       <label>Catégorie *</label>
       <select id="d-categorie" class="edit-input">
@@ -120,27 +117,24 @@
         <option value="AUTRE">Autre ✨</option>
       </select>
     </div>
-
     <div class="detail-section">
       <div class="detail-label">inspiration</div>
       <input class="edit-input" type="text" id="d-inspiration" />
     </div>
-
     <div class="detail-section">
       <div class="detail-label">Notes & explications</div>
       <textarea class="edit-textarea" id="d-explication-detail"></textarea>
     </div>
-
     <div class="detail-section">
       <div class="detail-label">Temps total passé</div>
       <input class="edit-input" type="text" id="d-duree" />
     </div>
-
-    <button class="btn-edit-save btn-edit-save-full" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer les modifications</button>
-    <div class="save-ok" id="save-ok" style="display:none;">✓ Modifications enregistrées</div>
+    <button class="btn-edit-save btn-edit-save-full" id="btn-detail-save" onclick="sauvegarderDetail()">Enregistrer</button>
+    <div class="save-ok" id="save-ok" style="display:none;">✓ Enregistré</div>
   </div>
 
   <script>
+    // CONFIGURATION
     const SUPABASE_URL = 'https://wenkojnlclbyuzgmtyyw.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_Gs78kcFk41qbUpaIM3RhZw_ONgTzhuQ';
     const TABLE = 'projets_crochet';
@@ -158,19 +152,21 @@
     let projetEnCours = null;
     let detailId = null;
 
+    // FONCTIONS CORE
     async function charger() {
       try {
         const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?order=created_at.desc`, { headers });
         projets = await res.json();
         render();
-      } catch(e) { console.error(e); }
+      } catch(e) { console.error("Erreur chargement:", e); }
     }
 
     function render() {
       const grid = document.getElementById('grid');
       const list = projets.filter(p => {
         const matchStatut = (filtreStatut === 'all' || p.statut === filtreStatut);
-        const matchCat = (filtreCat === 'all' || (p.categorie && p.categorie.toLowerCase() === filtreCat.toLowerCase()));
+        const catP = (p.categorie || '').toLowerCase();
+        const matchCat = (filtreCat === 'all' || catP === filtreCat.toLowerCase());
         return matchStatut && matchCat;
       });
 
@@ -178,7 +174,7 @@
       if (countElem) countElem.textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
 
       if (list.length === 0) {
-        grid.innerHTML = '<div class="empty">Aucun projet ne correspond à ces critères. 🧶</div>';
+        grid.innerHTML = '<div class="empty">Aucun projet trouvé. 🧶</div>';
         return;
       }
 
@@ -191,10 +187,13 @@
           ? `<button class="btn-next" onclick="event.stopPropagation(); demanderDuree('${p.id}')">✓ Terminer</button>`
           : '';
 
-        // Détection de lien cliquable
-        let inspirationHtml = p.inspiration || '';
-        if (p.inspiration && p.inspiration.startsWith('http')) {
-          inspirationHtml = `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline;">Voir l'inspiration</a>`;
+        // LOGIQUE DU LIEN CLIQUABLE
+        let inspirationAffiche = p.inspiration || '';
+        if (p.inspiration) {
+            const estLien = p.inspiration.includes('http') || p.inspiration.endsWith('.html');
+            if (estLien) {
+                inspirationAffiche = `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline; font-weight: bold;">Voir l'inspiration</a>`;
+            }
         }
 
         return `
@@ -206,7 +205,7 @@
               </div>
             </div>
             <div class="tip" style="font-size: 0.8em; opacity: 0.8;">📁 ${p.categorie || 'AUTRE'}</div>
-            ${p.inspiration ? `<div class="tip">📋 ${inspirationHtml}</div>` : ''}
+            ${p.inspiration ? `<div class="tip">📋 ${inspirationAffiche}</div>` : ''}
             ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
             <div class="card-actions">
               ${btnSuivant}
@@ -216,13 +215,13 @@
       }).join('');
     }
 
+    // FILTRES
     function setFiltre(s, btn) {
       filtreStatut = s;
       btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       render();
     }
-
     function filterProjet(c, btn) {
       filtreCat = c;
       btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -230,13 +229,13 @@
       render();
     }
 
+    // MODALS
     function ouvrirModal() {
       document.getElementById('inp-titre').value = '';
       document.getElementById('inp-inspiration').value = '';
       document.getElementById('inp-explication').value = '';
       document.getElementById('overlay').classList.add('open');
     }
-
     function fermerModal() { document.getElementById('overlay').classList.remove('open'); }
     function fermerModalSiDehors(e) { if (e.target.id === 'overlay') fermerModal(); }
 
@@ -246,15 +245,12 @@
       const explication = document.getElementById('inp-explication').value.trim();
       const categorie = document.getElementById('inp-categorie').value;
       if (!titre) return;
-      try {
-        await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({ titre, inspiration: inspiration || null, explication: explication || null, statut: 'todo', categorie: categorie })
-        });
-        fermerModal();
-        await charger();
-      } catch(e) { alert(e.message); }
+      await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
+        method: 'POST', headers,
+        body: JSON.stringify({ titre, inspiration: inspiration || null, explication: explication || null, statut: 'todo', categorie })
+      });
+      fermerModal();
+      charger();
     }
 
     function demanderDuree(id) {
@@ -262,7 +258,6 @@
       document.getElementById('inp-duree').value = '';
       document.getElementById('overlay-duree').classList.add('open');
     }
-
     function fermerDureeSiDehors(e) { if (e.target.id === 'overlay-duree') validerDuree(false); }
 
     async function validerDuree(sauver) {
@@ -277,15 +272,16 @@
       await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
         method: 'PATCH', headers, body: JSON.stringify(body)
       });
-      await charger();
+      charger();
     }
 
     async function supprimerProjet(id) {
       if (!confirm('Supprimer ?')) return;
       await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, { method: 'DELETE', headers });
-      await charger();
+      charger();
     }
 
+    // DETAILS
     function ouvrirDetail(id) {
       const p = projets.find(x => x.id === id);
       if (!p) return;
@@ -304,12 +300,10 @@
       document.getElementById('detail-overlay').classList.add('open');
       document.getElementById('detail-panel').classList.add('open');
     }
-
     function fermerDetail() {
       document.getElementById('detail-overlay').classList.remove('open');
       document.getElementById('detail-panel').classList.remove('open');
     }
-
     async function sauvegarderDetail() {
       const btn = document.getElementById('btn-detail-save');
       btn.disabled = true;
@@ -321,22 +315,21 @@
         duree: document.getElementById('d-duree').value || null,
         statut: document.getElementById('d-statut').value
       };
-      try {
-        await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${detailId}`, {
-          method: 'PATCH', headers, body: JSON.stringify(body)
-        });
-        await charger();
-        ouvrirDetail(detailId);
-        document.getElementById('save-ok').style.display = 'block';
-        setTimeout(() => document.getElementById('save-ok').style.display = 'none', 2000);
-      } catch(e) { alert(e.message); }
-      finally { btn.disabled = false; }
+      await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${detailId}`, {
+        method: 'PATCH', headers, body: JSON.stringify(body)
+      });
+      await charger();
+      ouvrirDetail(detailId);
+      document.getElementById('save-ok').style.display = 'block';
+      setTimeout(() => document.getElementById('save-ok').style.display = 'none', 2000);
+      btn.disabled = false;
     }
 
     charger();
   </script>
 
   <script>
+    // NAVIGATION
     const NAV = [
       { cat: "projets", pages: [
         { label: "Iceolie", href: "ICEOLIE.html" },
