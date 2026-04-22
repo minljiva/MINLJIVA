@@ -9,18 +9,9 @@
 <body>
 
   <!-- HEADER -->
-  <header class="site-header">
-    <img src="Minljiva.png" alt="Minljiva">
-    <nav class="nav">
-      <a href="index.html">INDEX</a> /
-      <a href="HERBORISTE.html">HERBORISTE</a> /
-      <a href="TISANES.html">TISANES</a> /
-      <a href="RECETTE.html">RECETTES</a> /
-      <a href="AVENIR.html">L'AVENIR</a> /
-      <a href="CODING.html">CODING</a> /
-    <a href="DRAINAGE.html" class="actif">DRAINAGE</a> /
-    <a href="CROCHET.html">CROCHET</a>
-    </nav>
+    <header class="site-header" data-page="projets">
+    <a href="index.html"><img src="Minljiva.png" alt="Minljiva"></a>
+    <nav class="nav" id="main-nav"></nav>
   </header>
 
 
@@ -142,5 +133,7 @@ render(data);
 
 </script>
 
+  <script src="_nav.js"></script>
+  <script>buildNav('main-nav', 'projets');</script>
 </body>
 </html>

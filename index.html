@@ -4,46 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Index — Minljiva</title>
+  <title>Minljiva</title>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <img src="Minljiva.png" alt="Minljiva">
-    <nav class="nav">
-      <a href="index.html" class="actif">INDEX</a> /
-      <a href="HERBORISTE.html">HERBORISTE</a> /
-      <a href="TISANES.html">TISANES</a> /
-      <a href="RECETTE.html">RECETTES</a> /
-      <a href="AVENIR.html">L'AVENIR</a> /
-      <a href="CODING.html">CODING</a> /
-    <a href="DRAINAGE.html">DRAINAGE</a> /
-    <a href="CROCHET.html">CROCHET</a>
-    </nav>
+  <header class="site-header" data-page="">
+    <a href="index.html"><img src="Minljiva.png" alt="Minljiva"></a>
+    <nav class="nav" id="main-nav"></nav>
   </header>
 
-  <h1>Menu</h1>
-  <p class="subtitle">Tout ce qu'il y a à voir.</p>
+  <h1>Minljiva</h1>
+  <p class="subtitle">Bienvenue — choisissez une section</p>
 
-  <div class="tip">
-    <strong>LES PLANTES DU BALCON</strong>
-    <div class="tip-links">
-      <div class="lien1"><a href="HERBORISTE.html">HERBORISTE</a></div>
-      <div class="lien1"><a href="TISANES.html">TISANES</a></div>
-      <div class="lien1"><a href="RECETTE.html">RECETTES</a></div>
-      <div class="lien1"><a href="AVENIR.html">L'AVENIR</a></div>
+  <div class="index-grid">
+
+    <a href="HERBORISTE.html" class="index-card">
+      <div class="index-card-cat">balcon</div>
+      <div class="index-card-title">Herboriste</div>
+      <div class="index-card-desc">Les plantes du balcon vues par un herboriste</div>
+    </a>
+
+    <a href="TISANES.html" class="index-card">
+      <div class="index-card-cat">balcon</div>
+      <div class="index-card-title">Tisanes</div>
+      <div class="index-card-desc">Préparations, recettes et mélanges</div>
+    </a>
+
+    <a href="RECETTE.html" class="index-card">
+      <div class="index-card-cat">balcon</div>
+      <div class="index-card-title">Recettes</div>
+      <div class="index-card-desc">Le livre de recettes maison</div>
+    </a>
+
+    <a href="AVENIR.html" class="index-card">
+      <div class="index-card-cat">balcon</div>
+      <div class="index-card-title">L'avenir</div>
+      <div class="index-card-desc">Plantes à acheter, projets à venir</div>
+    </a>
+
+    <a href="CROCHET.html" class="index-card">
+      <div class="index-card-cat">projets</div>
+      <div class="index-card-title">Crochet</div>
+      <div class="index-card-desc">Suivi de tous mes projets crochet</div>
+    </a>
+
+    <a href="DRAINAGE.html" class="index-card">
+      <div class="index-card-cat">projets</div>
+      <div class="index-card-title">Drainage</div>
+      <div class="index-card-desc">Routines de drainage lymphatique</div>
+    </a>
+
+    <a href="CODING.html" class="index-card">
+      <div class="index-card-cat">learning</div>
+      <div class="index-card-title">Coding</div>
+      <div class="index-card-desc">Notes et ressources d'apprentissage</div>
+    </a>
+
+    <div class="index-card index-card-soon">
+      <div class="index-card-cat">iceolie</div>
+      <div class="index-card-title">Iceolie <span class="badge-soon">bientôt</span></div>
+      <div class="index-card-desc">En construction</div>
     </div>
+
   </div>
 
-  <div class="tip"><strong>ICEOLIE</strong></div>
-
-  <div class="tip">
-    <strong>LEARNING</strong>
-    <div class="tip-links">
-      <div class="lien1"><a href="CODING.html">CODING</a></div>
-    </div>
-  </div>
+  <script src="_nav.js"></script>
+  <script>buildNav('main-nav', '');</script>
 
 </body>
 </html>

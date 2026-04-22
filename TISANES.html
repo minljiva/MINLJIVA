@@ -9,18 +9,9 @@
 <body>
 
   <!-- HEADER -->
-  <header class="site-header">
-    <img src="Minljiva.png" alt="Minljiva">
-    <nav class="nav">
-      <a href="index.html">INDEX</a> /
-      <a href="HERBORISTE.html">HERBORISTE</a> /
-      <a href="TISANES.html" class="actif">TISANES</a> /
-      <a href="RECETTE.html">RECETTES</a> /
-      <a href="AVENIR.html">L'AVENIR</a> /
-      <a href="CODING.html">CODING</a> /
-    <a href="DRAINAGE.html">DRAINAGE</a> /
-    <a href="CROCHET.html">CROCHET</a>
-    </nav>
+    <header class="site-header" data-page="balcon">
+    <a href="index.html"><img src="Minljiva.png" alt="Minljiva"></a>
+    <nav class="nav" id="main-nav"></nav>
   </header>
 
   <h1>Tisanes du balcon</h1>
@@ -320,7 +311,7 @@
         <div class="plant-name">${t.title}</div>
         <div class="plant-latin">${t.sub}</div>
         ${t.dosage ? `
-        <div class="row" style="margin-top:8px;">
+        <div class="row row-tisane">
           <div class="block">
             <div class="block-label">${t.cat === 'melange' ? 'Recette' : 'Dosage frais'}</div>
             <div class="block-val">${t.dosage}</div>
@@ -330,7 +321,7 @@
             <div class="block-val">${t.infusion}</div>
           </div>
         </div>` : ''}
-        ${t.desc ? `<div class="desc" style="margin-top:8px;">${t.desc}</div>` : ''}
+        ${t.desc ? `<div class="desc desc-tisane">${t.desc}</div>` : ''}
         ${t.note ? `<div class="note">${t.note}</div>` : ''}
         ${t.warn ? `<div class="warn">${t.warn}</div>` : ''}
       </div>
@@ -340,5 +331,7 @@
   render();
   </script>
 
+  <script src="_nav.js"></script>
+  <script>buildNav('main-nav', 'balcon');</script>
 </body>
 </html>

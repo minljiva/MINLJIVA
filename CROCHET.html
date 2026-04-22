@@ -8,18 +8,9 @@
 </head>
 <body>
 
-  <header class="site-header">
-    <img src="Minljiva.png" alt="Minljiva">
-    <nav class="nav">
-      <a href="index.html">INDEX</a> /
-      <a href="HERBORISTE.html">HERBORISTE</a> /
-      <a href="TISANES.html">TISANES</a> /
-      <a href="RECETTE.html">RECETTES</a> /
-      <a href="AVENIR.html">L'AVENIR</a> /
-      <a href="CODING.html">CODING</a> /    
-      <a href="DRAINAGE.html">DRAINAGE</a> /
-      <a href="CROCHET.html" class="actif">CROCHET</a>
-    </nav>
+    <header class="site-header" data-page="projets">
+    <a href="index.html"><img src="Minljiva.png" alt="Minljiva"></a>
+    <nav class="nav" id="main-nav"></nav>
   </header>
 
   <h1>Crochet</h1>
@@ -174,10 +165,10 @@
         return `
           <div class="crochet-card ${p.statut}">
             <div class="card-top">
-              🧶<div class="plant-name clickable-title card-top-title" onclick="ouvrirDetail('${p.id}')">
+              <span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>
+              <div class="plant-name clickable-title card-top-title" onclick="ouvrirDetail('${p.id}')">
                  ${p.titre}
               </div>
-              <span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>
             </div>
             ${p.pattern ? `<div class="tip">📋 ${p.pattern}</div>` : ''}
             ${p.duree ? `<div class="pot-info">⏱ ${p.duree}</div>` : ''}
@@ -316,5 +307,7 @@ function ouvrirDetail(id) {
 
     charger();
   </script>
+  <script src="_nav.js"></script>
+  <script>buildNav('main-nav', 'projets');</script>
 </body>
 </html>

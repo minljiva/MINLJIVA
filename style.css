@@ -45,26 +45,89 @@ a { color: var(--texte-doux); text-decoration: none; transition: color 0.15s; }
 a:hover { color: var(--violet); transform: translateY(-2px);}
 
 /* 3. HEADER — logo + navigation */
-.site-header { margin-bottom: 2rem; }
-.site-header img { display: block; max-width: 260px; margin: 0 auto 0.75rem; }
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.site-header img {
+  display: block;
+  max-width: 160px;
+}
 
 .nav {
-  background: var(--blanc);
-  border: 1px solid var(--bordure);
-  border-radius: 12px;
-  padding: 0.5rem 1rem;
-  text-align: center;
-  font-size: 13px;
-  color: var(--texte-doux);
-  line-height: 2;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.nav a:hover, {
-  color: var(--violet);
-  transform: translateY(-2px);
+/* Groupe catégorie */
+.nav-group {
+  position: relative;
 }
-.nav a.actif  {
-  color: var(--orange);}
+
+.nav-cat {
+  font-size: 13px;
+  color: var(--texte-doux);
+  padding: 5px 12px;
+  border-radius: 99px;
+  cursor: default;
+  transition: color 0.15s, background 0.15s;
+  display: block;
+  user-select: none;
+}
+
+.nav-group:hover .nav-cat {
+  background: var(--fond-hover);
+  color: var(--texte);
+}
+
+.nav-cat.actif {
+  color: var(--orange);
+  background: var(--orange-clair);
+}
+
+.nav-cat-soon {
+  opacity: 0.45;
+  font-style: italic;
+}
+
+/* Dropdown */
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  padding: 5px 0;
+  min-width: 140px;
+  z-index: 200;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.nav-group:hover .nav-dropdown {
+  display: block;
+}
+
+.nav-drop-item {
+  display: block;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--texte-doux);
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+}
+
+.nav-drop-item:hover {
+  background: var(--fond-hover);
+  color: var(--texte);
+}
 
 /* Style pour le compteur de résultats */
 .count-bar {
@@ -450,4 +513,71 @@ h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; color: var(--text
 
 .lien1 {
   margin-bottom: 2px;
+}
+
+
+/* ============================================================
+   15. PAGE INDEX — grille de cartes
+   ============================================================ */
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.index-card {
+  display: block;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: var(--texte);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.index-card:hover {
+  border-color: var(--violet);
+  box-shadow: 0 2px 10px rgba(127,119,221,0.1);
+  color: var(--texte);
+}
+
+.index-card-soon {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+.index-card-cat {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--texte-pale);
+  margin-bottom: 4px;
+}
+
+.index-card-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.index-card-desc {
+  font-size: 12px;
+  color: var(--texte-doux);
+  line-height: 1.5;
+}
+
+.badge-soon {
+  font-size: 10px;
+  background: var(--orange-clair);
+  color: var(--orange-fonce);
+  padding: 1px 7px;
+  border-radius: 99px;
+  font-weight: 500;
 }
