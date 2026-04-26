@@ -33,6 +33,7 @@
       <button class="filter-btn" onclick="setFiltre('todo', this)">TO DO</button>
       <button class="filter-btn" onclick="setFiltre('wip', this)">WIP</button>
       <button class="filter-btn" onclick="setFiltre('done', this)">DONE</button>
+      <button class="filter-btn" onclick="setFiltre('archive', this)">📦 Archives</button>
     </div>
   </div>
 
@@ -103,6 +104,7 @@
         <option value="todo">TO DO</option>
         <option value="wip">WIP</option>
         <option value="done">DONE</option>
+        <option value="archive">📦 Archivé</option>
       </select>
     </div>
     <div class="detail-section">
@@ -164,42 +166,49 @@
     function render() {
       const grid = document.getElementById('grid');
       const list = projets.filter(p => {
-        const matchStatut = (filtreStatut === 'all' || p.statut === filtreStatut);
+        const matchStatut = (filtreStatut === 'all')
+          ? p.statut !== 'archive'          // "Tout" = jamais les archivés
+          : p.statut === filtreStatut;
         const catP = (p.categorie || '').toLowerCase();
         const matchCat = (filtreCat === 'all' || catP === filtreCat.toLowerCase());
         return matchStatut && matchCat;
       });
 
+      // compteur : exclut toujours les archivés
       const countElem = document.getElementById('count');
-      if (countElem) countElem.textContent = `${list.length} projet${list.length > 1 ? 's' : ''}`;
+      const actifs = projets.filter(p => p.statut !== 'archive');
+      if (countElem) countElem.textContent = filtreStatut === 'archive'
+        ? `${list.length} projet${list.length > 1 ? 's' : ''} archivé${list.length > 1 ? 's' : ''}`
+        : `${list.length} / ${actifs.length} projet${actifs.length > 1 ? 's' : ''}`;
 
       if (list.length === 0) {
         grid.innerHTML = '<div class="empty">Aucun projet trouvé. 🧶</div>';
         return;
       }
 
-      const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE' };
+      const statutLabel = { todo: 'TO DO', wip: 'WIP', done: 'DONE', archive: '📦 Archivé' };
 
       grid.innerHTML = list.map(p => {
         const btnSuivant = p.statut === 'todo'
           ? `<button class="btn-next" onclick="event.stopPropagation(); changerStatut('${p.id}','wip')">▶ Démarrer</button>`
           : p.statut === 'wip'
           ? `<button class="btn-next" onclick="event.stopPropagation(); demanderDuree('${p.id}')">✓ Terminer</button>`
+          : p.statut === 'done'
+          ? `<button class="btn-next" onclick="event.stopPropagation(); changerStatut('${p.id}','archive')">📦 Archiver</button>`
           : '';
 
-        // LOGIQUE DU LIEN CLIQUABLE
         let inspirationAffiche = p.inspiration || '';
         if (p.inspiration) {
-            const estLien = p.inspiration.includes('http') || p.inspiration.endsWith('.html');
-            if (estLien) {
-                inspirationAffiche = `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline; font-weight: bold;">Voir l'inspiration</a>`;
-            }
+          const estLien = p.inspiration.includes('http') || p.inspiration.endsWith('.html');
+          if (estLien) {
+            inspirationAffiche = `<a href="${p.inspiration}" target="_blank" style="color: inherit; text-decoration: underline; font-weight: bold;">Voir l'inspiration</a>`;
+          }
         }
 
         return `
           <div class="crochet-card ${p.statut}">
             <div class="card-top">
-              <span class="badge statut-${p.statut}">${statutLabel[p.statut]}</span>
+              <span class="badge statut-${p.statut}">${statutLabel[p.statut] || p.statut}</span>
               <div class="plant-name clickable-title card-top-title" onclick="ouvrirDetail('${p.id}')">
                  ${p.titre}
               </div>
@@ -375,6 +384,12 @@ async function validerDuree(sauver) {
         const lbl = document.createElement('span');
         lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '');
         lbl.textContent = group.cat;
+        lbl.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isOpen = wrap.classList.contains('nav-open');
+          document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('nav-open'));
+          if (!isOpen) wrap.classList.add('nav-open');
+        });
         wrap.appendChild(lbl);
         if (group.pages.length > 0) {
           const dd = document.createElement('div');
@@ -387,6 +402,9 @@ async function validerDuree(sauver) {
           wrap.appendChild(dd);
         }
         nav.appendChild(wrap);
+      });
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('nav-open'));
       });
     })();
   </script>

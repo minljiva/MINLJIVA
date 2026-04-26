@@ -86,6 +86,14 @@
       const lbl = document.createElement('span');
       lbl.className = 'nav-cat' + (group.cat === cat ? ' actif' : '');
       lbl.textContent = group.cat;
+      // toggle au click/tap
+      lbl.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = wrap.classList.contains('nav-open');
+        // ferme tous les autres
+        document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('nav-open'));
+        if (!isOpen) wrap.classList.add('nav-open');
+      });
       wrap.appendChild(lbl);
       if (group.pages.length > 0) {
         const dd = document.createElement('div');
@@ -98,6 +106,10 @@
         wrap.appendChild(dd);
       }
       nav.appendChild(wrap);
+    });
+    // clic ailleurs = ferme tout
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('nav-open'));
     });
   })();
 </script>
